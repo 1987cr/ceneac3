@@ -151,6 +151,17 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 			'start_hour',
 			'end_hour',
 			'classroom',
+			[
+			    'attribute' => 'Name',
+			    'format' => 'raw',
+			    'value' => function ($model) {     
+			    	$course = $model->getCourse()->one();   
+			    	list($fecha,$fakeHora) = split('[ ]', $model->start_date); 
+			    	list($year,$month,$day) = split('[-]', $fecha); 
+
+			      return '<div>'. Html::a($course->name, ['course/view', 'id' => $course->id, ], ['data-pjax' => 0]).' '.$day.'/'.$month.'/'.$year.' '.$model->start_hour.'</div>';
+			    },
+			],
 			/*'monday',*/
 			/*'tuesday',*/
 			/*'wednesday',*/
