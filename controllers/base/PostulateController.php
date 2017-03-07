@@ -11,9 +11,8 @@
 
 namespace app\controllers\base;
 
-use app\models\Schedule;
-use app\models\ScheduleSearch;
 use app\models\Postulate;
+use app\models\PostulateSearch;
 use yii\web\Controller;
 use yii\web\HttpException;
 use yii\helpers\Url;
@@ -21,9 +20,9 @@ use yii\filters\AccessControl;
 use dmstr\bootstrap\Tabs;
 
 /**
- * ScheduleController implements the CRUD actions for Schedule model.
+ * PostulateController implements the CRUD actions for Postulate model.
  */
-class ScheduleController extends Controller
+class PostulateController extends Controller
 {
 
 
@@ -36,12 +35,12 @@ class ScheduleController extends Controller
 
 
 	/**
-	 * Lists all Schedule models.
+	 * Lists all Postulate models.
 	 *
 	 * @return mixed
 	 */
 	public function actionIndex() {
-		$searchModel  = new ScheduleSearch;
+		$searchModel  = new PostulateSearch;
 		$dataProvider = $searchModel->search($_GET);
 
 		Tabs::clearLocalStorage();
@@ -57,7 +56,7 @@ class ScheduleController extends Controller
 
 
 	/**
-	 * Displays a single Schedule model.
+	 * Displays a single Postulate model.
 	 *
 	 * @param integer $id
 	 * @return mixed
@@ -74,13 +73,13 @@ class ScheduleController extends Controller
 
 
 	/**
-	 * Creates a new Schedule model.
+	 * Creates a new Postulate model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 *
 	 * @return mixed
 	 */
 	public function actionCreate() {
-		$model = new Schedule;
+		$model = new Postulate;
 
 		try {
 			if ($model->load($_POST) && $model->save()) {
@@ -97,7 +96,7 @@ class ScheduleController extends Controller
 
 
 	/**
-	 * Updates an existing Schedule model.
+	 * Updates an existing Postulate model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 *
 	 * @param integer $id
@@ -117,7 +116,7 @@ class ScheduleController extends Controller
 
 
 	/**
-	 * Deletes an existing Schedule model.
+	 * Deletes an existing Postulate model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
 	 *
 	 * @param integer $id
@@ -150,65 +149,20 @@ class ScheduleController extends Controller
 
 
 	/**
-	 * Finds the Schedule model based on its primary key value.
+	 * Finds the Postulate model based on its primary key value.
 	 * If the model is not found, a 404 HTTP exception will be thrown.
 	 *
 	 * @throws HttpException if the model cannot be found
 	 * @param integer $id
-	 * @return Schedule the loaded model
+	 * @return Postulate the loaded model
 	 */
 	protected function findModel($id) {
-		if (($model = Schedule::findOne($id)) !== null) {
+		if (($model = Postulate::findOne($id)) !== null) {
 			return $model;
 		} else {
 			throw new HttpException(404, 'The requested page does not exist.');
 		}
 	}
 
-	public function actionMultipleDelete()
-  {
-      $pk = \Yii::$app->request->post('row_id');
-
-      if (!$pk) {
-				return;
-			}
-
-      foreach ($pk as $key => $value) 
-      {
-          $sql = "DELETE FROM schedules WHERE id = $value";
-          $query = \Yii::$app->db->createCommand($sql)->execute();
-      }
-
-      return;
-
-  }
-
-  public function actionPostularse()
-  {
-      $pk = \Yii::$app->request->post('row_id');
-      $user_id = \Yii::$app->user->identity->id;
-
-			if (!$pk) {
-				return;
-			}
-
-      foreach ($pk as $key => $value) 
-      {		
-      		$postulado = Postulate::find()
-					    ->where(['user_id' => $user_id])
-					    ->where(['schedule_id' => (int)$value])
-					    ->one();
-
-					if($postulado == null) {
-	          $has = new Postulate();
-						$has->user_id = $user_id;
-						$has->schedule_id = (int)$value;
-						$has->save();
-					}
-      }
-
-      return;
-
-  }
 
 }

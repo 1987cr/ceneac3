@@ -83,7 +83,7 @@ abstract class Schedule extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'course_id' => 'Course ID',
+            'course_id' => 'Name',
             'start_date' => 'Start Date',
             'end_date' => 'End Date',
             'duration' => 'Duration',
@@ -98,7 +98,7 @@ abstract class Schedule extends \yii\db\ActiveRecord
             'saturday' => 'Saturday',
             'comments' => 'Comments',
             'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'updated_at' => 'Updated At'
         ];
     }
 

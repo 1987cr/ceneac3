@@ -11,12 +11,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Schedule;
+use app\models\Postulate;
 
 /**
- * ScheduleSearch represents the model behind the search form about `app\models\Schedule`.
+ * PostulateSearch represents the model behind the search form about `app\models\Postulate`.
  */
-class ScheduleSearch extends Schedule
+class PostulateSearch extends Postulate
 {
 
 	/**
@@ -26,8 +26,8 @@ class ScheduleSearch extends Schedule
 	 */
 	public function rules() {
 		return [
-			[['id', 'course_id', 'duration', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'], 'integer'],
-			[['start_date', 'end_date', 'start_hour', 'end_hour', 'classroom', 'comments', 'created_at', 'updated_at',' name'], 'safe'],
+			[['id', 'user_id', 'schedule_id'], 'integer'],
+			[['created_at', 'updated_at'], 'safe'],
 		];
 	}
 
@@ -51,7 +51,7 @@ class ScheduleSearch extends Schedule
 	 * @return ActiveDataProvider
 	 */
 	public function search($params) {
-		$query = Schedule::find();
+		$query = Postulate::find();
 
 		$dataProvider = new ActiveDataProvider([
 				'query' => $query,
@@ -67,24 +67,12 @@ class ScheduleSearch extends Schedule
 
 		$query->andFilterWhere([
 				'id' => $this->id,
-				'course_id' => $this->course_id,
-				'start_date' => $this->start_date,
-				'end_date' => $this->end_date,
-				'duration' => $this->duration,
-				'monday' => $this->monday,
-				'tuesday' => $this->tuesday,
-				'wednesday' => $this->wednesday,
-				'thursday' => $this->thursday,
-				'friday' => $this->friday,
-				'saturday' => $this->saturday,
+				'user_id' => $this->user_id,
+				'schedule_id' => $this->schedule_id,
 				'created_at' => $this->created_at,
-				'updated_at' => $this->updated_at
+				'updated_at' => $this->updated_at,
 			]);
 
-		$query->andFilterWhere(['like', 'start_hour', $this->start_hour])
-		->andFilterWhere(['like', 'end_hour', $this->end_hour])
-		->andFilterWhere(['like', 'classroom', $this->classroom])
-		->andFilterWhere(['like', 'comments', $this->comments]);
 		return $dataProvider;
 	}
 
