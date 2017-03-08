@@ -12,6 +12,7 @@
 namespace app\controllers\base;
 
 use app\models\Postulate;
+use app\models\Instructor;
 use app\models\PostulateSearch;
 use yii\web\Controller;
 use yii\web\HttpException;
@@ -164,5 +165,34 @@ class PostulateController extends Controller
 		}
 	}
 
+		public function actionAprobarPostulados()
+	  {
+	      $pk = \Yii::$app->request->post('row_id');
 
+	      if (!$pk) {
+					return;
+				}
+
+	      foreach ($pk as $key => $value) 
+	      {	
+	      		$postulado = Postulate::findOne((int)$value);
+	      		$user_id = $postulado->user_id;
+	      		$schedule_id = $postulado->schedule_id;
+	      		$postulado->delete();
+
+	          $instructor = Instructor::find()
+					    ->where(['user_id' => $user_id])
+					    ->where(['schedule_id' => $schedule_id])
+					    ->one();
+
+						if($instructor == null) {
+		          $has = new Instructor();
+							$has->user_id = $user_id;
+							$has->schedule_id = $schedule_id;
+							$has->save();
+						}
+	      }
+
+	      return;
+	  }
 }

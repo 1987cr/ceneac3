@@ -142,8 +142,8 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 				'attribute' => 'course_id',
 				'value' => function ($model) {
 					if ($course = $model->getCourse()->one()) {
-						list($fecha,$fakeHora) = split('[ ]', $model->start_date); 
-			    	list($year,$month,$day) = split('[-]', $fecha); 
+						list($fecha,$fakeHora) = explode(' ', $model->start_date); 
+			    	list($year,$month,$day) = explode('-', $fecha); 
 
 			      return '<div>'. Html::a($course->name, ['course/view', 'id' => $course->id, ], ['data-pjax' => 0]).' '.$day.'-'.$month.'-'.$year.' '.$model->start_hour.'</div>';
 					} else {
@@ -157,8 +157,8 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 					'format' => 'raw',
 			    'attribute' => 'start_date',			   
 			    'value' => function ($model) {     
-			      list($fecha,$fakeHora) = split('[ ]', $model->start_date); 
-			    	list($year,$month,$day) = split('[-]', $fecha); 
+			      list($fecha,$fakeHora) = explode(' ', $model->start_date); 
+			    	list($year,$month,$day) = explode('-', $fecha); 
 			      return $day.'-'.$month.'-'.$year;
 			    },
 			],
@@ -167,8 +167,8 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 					'format' => 'raw',
 			    'attribute' => 'end_date',			   
 			    'value' => function ($model) {     
-			      list($fecha,$fakeHora) = split('[ ]', $model->end_date); 
-			      list($year,$month,$day) = split('[-]', $fecha); 
+			      list($fecha,$fakeHora) = explode(' ', $model->end_date); 
+			      list($year,$month,$day) = explode('-', $fecha); 
 			      return $day.'-'.$month.'-'.$year;
 			    },
 			],
@@ -199,10 +199,10 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 					var SchedId = $(\'#schedule-pjax\').yiiGridView(\'getSelectedRows\');
 	        $.ajax({
 	            type: \'POST\',
-	            url : \'schedule/multiple-delete\',
+	            url : \'/web/schedule/multiple-delete\',
 	            data : {row_id: SchedId},
 	            success : function() {
-	              $(this).closest(\'tr\').remove(); //or whatever html you use for displaying rows
+	              $.pjax.reload({container:\'#schedule-pjax\'});
 	            }
 	        });
 	    });
@@ -211,7 +211,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 					var SchedId = $(\'#schedule-pjax\').yiiGridView(\'getSelectedRows\');
 	        $.ajax({
 	            type: \'POST\',
-	            url : \'schedule/postularse\',
+	            url : \'/web/schedule/postularse\',
 	            data : {row_id: SchedId},
 	            success : function() {
 	              alert("POSTULADO!")

@@ -180,7 +180,6 @@ class ScheduleController extends Controller
       }
 
       return;
-
   }
 
   public function actionPostularse()

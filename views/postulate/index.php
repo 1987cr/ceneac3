@@ -46,6 +46,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     <div class="clearfix crud-navigation">
         <div class="pull-left">
             <?php echo Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'New', ['create'], ['class' => 'btn btn-success']) ?>
+            <input type="button" class="btn btn-info" value="Aprobar" id="MyButton" >
         </div>
 
         <div class="pull-right">
@@ -93,10 +94,12 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 			'firstPageLabel' => 'First',
 			'lastPageLabel' => 'Last',
 		],
+		'options' => ['id' => 'postulate-pjax'],
 		'filterModel' => $searchModel,
 		'tableOptions' => ['class' => 'table table-striped table-bordered table-hover'],
 		'headerRowOptions' => ['class'=>'x'],
 		'columns' => [
+			['class' => 'yii\grid\CheckboxColumn'],
 			[
 				'class' => 'yii\grid\ActionColumn',
 				'template' => $actionColumnTemplateString,
@@ -126,7 +129,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 				'attribute' => 'user_id',
 				'value' => function ($model) {
 					if ($rel = $model->getUser()->one()) {
-						return Html::a($rel->name, ['user/view', 'id' => $rel->id, ], ['data-pjax' => 0]);
+						return Html::a($rel->name.' '.$rel->lastname, ['user/view', 'id' => $rel->id, ], ['data-pjax' => 0]);
 					} else {
 						return '';
 					}
@@ -138,19 +141,44 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 				'class' => yii\grid\DataColumn::className(),
 				'attribute' => 'schedule_id',
 				'value' => function ($model) {
-					if ($rel = $model->getSchedule()->one()) {
-						return Html::a($rel->id, ['schedule/view', 'id' => $rel->id, ], ['data-pjax' => 0]);
-					} else {
-						return '';
-					}
+					$course = $model->getScheduleName();
+					$schedule = $model->getSchedule()->one();
+
+					list($fecha,$fakeHora) = explode(' ', $schedule->start_date); 
+			    list($year,$month,$day) = explode('-', $fecha); 
+
+					return Html::a($course->name, ['schedule/view', 'id' => $schedule->id, ], ['data-pjax' => 0]).' '.$day.'-'.$month.'-'.$year.' '.$schedule->start_hour;
 				},
 				'format' => 'raw',
 			],
+
 		],
 	]); ?>
     </div>
 
 </div>
 
+<?php 
+
+    $this->registerJs(' 
+
+    $(document).ready(function(){
+
+	    $(\'#MyButton\').click(function(){
+					var Spost_id = $(\'#postulate-pjax\').yiiGridView(\'getSelectedRows\');
+	        $.ajax({
+	            type: \'POST\',
+	            url : \'/web/postulate/aprobar-postulados\',
+	            data : {row_id: Spost_id},
+	            success : function() {
+	            	$.pjax.reload({container:\'#postulate-pjax\'});
+	              alert("APROBADO Y TAL");
+	            }
+	        });
+	    });
+
+    });', \yii\web\View::POS_READY);
+
+?>
 
 <?php \yii\widgets\Pjax::end() ?>

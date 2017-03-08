@@ -7,6 +7,7 @@ namespace app\models\base;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 
+
 /**
  * This is the base-model class for table "postulates".
  *
@@ -89,7 +90,16 @@ abstract class Postulate extends \yii\db\ActiveRecord
         return $this->hasOne(\app\models\User::className(), ['id' => 'user_id']);
     }
 
+    public function getScheduleName()
+    {
+        $schedule = $this->hasOne(\app\models\Schedule::className(), ['id' => 'schedule_id'])->one();
 
+        $course = \app\models\Course::find()
+                        ->where(['id' => $schedule->course_id])
+                        ->one();
+
+        return $course;
+    }
 
 
 }
