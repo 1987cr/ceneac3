@@ -44,6 +44,7 @@
                             ['label' => 'Courses', 'icon' => 'fa fa-file-code-o', 'url' => ['/course'],],
                             ['label' => 'Categories', 'icon' => 'fa fa-file-code-o', 'url' => ['/category'],],
                             ['label' => 'Schedule', 'icon' => 'fa fa-file-code-o', 'url' => ['/schedule'],],
+                            ['label' => 'Instructores', 'icon' => 'fa fa-file-code-o', 'url' => ['/instructor'],],
                             ['label' => 'Postulados', 'icon' => 'fa fa-file-code-o', 'url' => ['/postulate'],],
                         ],
                     ],
