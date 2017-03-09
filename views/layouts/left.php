@@ -2,18 +2,6 @@
 
     <section class="sidebar">
 
-        <!-- Sidebar user panel -->
-        <div class="user-panel">
-            <div class="pull-left image">
-                <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
-            </div>
-            <div class="pull-left info">
-                <p><?= Yii::$app->user->isGuest ? 'Guest' : Yii::$app->user->identity->username ?></p>
-
-                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-            </div>
-        </div>
-
         <?= dmstr\widgets\Menu::widget(
             [
                 'options' => ['class' => 'sidebar-menu'],
@@ -23,29 +11,53 @@
                     
                     // Usuarios
                     [
-                        'label' => 'User Management',
-                        'icon' => 'fa fa-share',
+                        'label' => 'Usuarios',
+                        'icon' => 'fa fa-users',
                         'url' => '#',
                         'visible' => !Yii::$app->user->isGuest,
                         'items' => [
-                            ['label' => 'Users', 'icon' => 'fa fa-file-code-o', 'url' => ['/user'],],
-                            ['label' => 'Roles', 'icon' => 'fa fa-dashboard', 'url' => ['/role'],],
-                            ['label' => 'Permissions', 'icon' => 'fa fa-dashboard', 'url' => ['/permission'],],
+                            ['label' => 'Users', 'icon' => 'fa fa-user', 'url' => ['/user'],],
+                            ['label' => 'Roles', 'icon' => 'fa fa-user-plus', 'url' => ['/role'],],
+                            ['label' => 'Permissions', 'icon' => 'fa fa-key', 'url' => ['/permission'],],
+                        ],
+                    ],
+
+                    // Instructores
+                    [
+                        'label' => 'Instructores',
+                        'icon' => 'fa fa-users',
+                        'url' => '#',
+                        'visible' => !Yii::$app->user->isGuest,
+                        'items' => [
+                            ['label' => 'Instructores', 'icon' => 'fa fa-id-card-o', 'url' => ['/instructor'],],
+                            ['label' => 'Postulados', 'icon' => 'fa fa-hand-stop-o', 'url' => ['/postulate'],],
                         ],
                     ],
 
                     // Cursos
                     [
-                        'label' => 'Course Management',
-                        'icon' => 'fa fa-share',
+                        'label' => 'Cursos',
+                        'icon' => 'fa fa-graduation-cap',
                         'url' => '#',
                         'visible' => !Yii::$app->user->isGuest,
                         'items' => [
-                            ['label' => 'Courses', 'icon' => 'fa fa-file-code-o', 'url' => ['/course'],],
-                            ['label' => 'Categories', 'icon' => 'fa fa-file-code-o', 'url' => ['/category'],],
-                            ['label' => 'Schedule', 'icon' => 'fa fa-file-code-o', 'url' => ['/schedule'],],
-                            ['label' => 'Instructores', 'icon' => 'fa fa-file-code-o', 'url' => ['/instructor'],],
-                            ['label' => 'Postulados', 'icon' => 'fa fa-file-code-o', 'url' => ['/postulate'],],
+                            ['label' => 'Cursos', 'icon' => 'fa fa-list', 'url' => ['/course'],],
+                            ['label' => 'Categorías', 'icon' => 'fa fa-tags', 'url' => ['/category'],],
+                            ['label' => 'Cronograma', 'icon' => 'fa fa-calendar', 'url' => ['/schedule'],],
+                        ],
+                    ],
+
+                    // Cursos
+                    [
+                        'label' => 'Listas',
+                        'icon' => 'fa fa-list',
+                        'url' => '#',
+                        'visible' => !Yii::$app->user->isGuest,
+                        'items' => [
+                            ['label' => 'Inscritos', 'icon' => 'fa fa-list-ul', 'url' => ['/registered'],],
+                            ['label' => 'Preinscritos', 'icon' => 'fa fa-list-ul', 'url' => ['/preregistered'],],
+                            ['label' => 'Pagos', 'icon' => 'fa fa-money', 'url' => ['/payment'],],
+                            ['label' => 'Interesados', 'icon' => 'fa fa-list-ul', 'url' => ['/interest-list'],],
                         ],
                     ],
 
