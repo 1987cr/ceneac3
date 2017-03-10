@@ -68,6 +68,7 @@
                         'items' => [
                             ['label' => 'Gii', 'icon' => 'fa fa-file-code-o', 'url' => ['/gii'],],
                             ['label' => 'Debug', 'icon' => 'fa fa-dashboard', 'url' => ['/debug'],],
+                            ['label' => 'Backups', 'icon' => 'fa fa-dashboard', 'url' => ['/backup'],],
                         ],
                     ],
                 ],

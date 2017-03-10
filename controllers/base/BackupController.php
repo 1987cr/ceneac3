@@ -11,19 +11,19 @@
 
 namespace app\controllers\base;
 
-use app\models\Schedule;
-use app\models\ScheduleSearch;
-use app\models\Postulate;
+use app\models\Backup;
+use app\models\BackupSearch;
 use yii\web\Controller;
 use yii\web\HttpException;
 use yii\helpers\Url;
 use yii\filters\AccessControl;
 use dmstr\bootstrap\Tabs;
+use Ifsnop\Mysqldump as IMysqldump;
 
 /**
- * ScheduleController implements the CRUD actions for Schedule model.
+ * BackupController implements the CRUD actions for Backup model.
  */
-class ScheduleController extends Controller
+class BackupController extends Controller
 {
 
 
@@ -36,12 +36,12 @@ class ScheduleController extends Controller
 
 
 	/**
-	 * Lists all Schedule models.
+	 * Lists all Backup models.
 	 *
 	 * @return mixed
 	 */
 	public function actionIndex() {
-		$searchModel  = new ScheduleSearch;
+		$searchModel  = new BackupSearch;
 		$dataProvider = $searchModel->search($_GET);
 
 		Tabs::clearLocalStorage();
@@ -57,7 +57,7 @@ class ScheduleController extends Controller
 
 
 	/**
-	 * Displays a single Schedule model.
+	 * Displays a single Backup model.
 	 *
 	 * @param integer $id
 	 * @return mixed
@@ -74,13 +74,13 @@ class ScheduleController extends Controller
 
 
 	/**
-	 * Creates a new Schedule model.
+	 * Creates a new Backup model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 *
 	 * @return mixed
 	 */
 	public function actionCreate() {
-		$model = new Schedule;
+		$model = new Backup;
 
 		try {
 			if ($model->load($_POST) && $model->save()) {
@@ -97,7 +97,7 @@ class ScheduleController extends Controller
 
 
 	/**
-	 * Updates an existing Schedule model.
+	 * Updates an existing Backup model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 *
 	 * @param integer $id
@@ -117,7 +117,7 @@ class ScheduleController extends Controller
 
 
 	/**
-	 * Deletes an existing Schedule model.
+	 * Deletes an existing Backup model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
 	 *
 	 * @param integer $id
@@ -125,7 +125,9 @@ class ScheduleController extends Controller
 	 */
 	public function actionDelete($id) {
 		try {
-			$this->findModel($id)->delete();
+			$model = $this->findModel($id);
+			unlink($model->filename);
+			$model->delete();
 		} catch (\Exception $e) {
 			$msg = (isset($e->errorInfo[2]))?$e->errorInfo[2]:$e->getMessage();
 			\Yii::$app->getSession()->addFlash('error', $msg);
@@ -150,62 +152,47 @@ class ScheduleController extends Controller
 
 
 	/**
-	 * Finds the Schedule model based on its primary key value.
+	 * Finds the Backup model based on its primary key value.
 	 * If the model is not found, a 404 HTTP exception will be thrown.
 	 *
 	 * @throws HttpException if the model cannot be found
 	 * @param integer $id
-	 * @return Schedule the loaded model
+	 * @return Backup the loaded model
 	 */
 	protected function findModel($id) {
-		if (($model = Schedule::findOne($id)) !== null) {
+		if (($model = Backup::findOne($id)) !== null) {
 			return $model;
 		} else {
 			throw new HttpException(404, 'The requested page does not exist.');
 		}
 	}
 
-	public function actionMultipleDelete()
+	public function actionBackup() 
   {
-      $pk = \Yii::$app->request->post('row_id');
+		try {
+				$filename = \Yii::getAlias('@app').'/backups/dump'.date("Y-m-d-H:i:s").'.sql';
+				$dump = new IMysqldump\Mysqldump('mysql:host=localhost:3306;dbname=ceneac5', 'root', 'root');
+				$dump->start($filename);
 
-      if (!$pk) {
-				return;
-			}
+		    $model = new Backup();
+				$model->filename = $filename;
 
-      foreach ($pk as $key => $value) 
-      {
-          $sql = "DELETE FROM schedules WHERE id = $value";
-          $query = \Yii::$app->db->createCommand($sql)->execute();
-      }
-  	return;
+				if($model->validate()){
+					$model->save(false); 
+				}else{
+					return $model->errors;
+				}
+
+		} catch (\Exception $e) {
+		    echo 'mysqldump-php error: ' . $e->getMessage();
+		}
+    return;
   }
 
-  public function actionPostularse()
-  {
-      $pk = \Yii::$app->request->post('row_id');
-      $user_id = \Yii::$app->user->identity->id;
-
-			if (!$pk) {
-				return;
-			}
-
-      foreach ($pk as $key => $value) 
-      {		
-      		$postulado = Postulate::find()
-					    ->where(['user_id' => $user_id])
-					    ->where(['schedule_id' => (int)$value])
-					    ->one();
-
-					if($postulado == null) {
-	          $has = new Postulate();
-						$has->user_id = $user_id;
-						$has->schedule_id = (int)$value;
-						$has->save();
-					}
-      }
-
-      return;
-
+  //TO-DO
+  public function actionDownloadDump() {
+  	if(file_exists('/home/criera/Projects/ceneac_yii/backups/dump2017-03-10-03:35:13.sql')) {
+  		\Yii::$app->response->sendFile('/home/criera/Projects/ceneac_yii/backups/dump2017-03-10-03:35:13.sql');
+  	}
   }
 }
