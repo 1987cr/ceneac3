@@ -47,7 +47,10 @@ $form->field($model, 'preregister_id')->dropDownList(
 ); ?>
 
 <!-- attribute amount -->
-			<?php echo $form->field($model, 'amount')->textInput() ?>
+			<?php echo $form->field($model, 'amount')->textInput([
+                                 'type' => 'number',
+                                 'min' => 0
+                            ]) ?>
 
 <!-- attribute payment_type -->
 			<?php echo                         $form->field($model, 'payment_type')->dropDownList(
@@ -55,13 +58,19 @@ $form->field($model, 'preregister_id')->dropDownList(
 ); ?>
 
 <!-- attribute movements -->
-			<?php echo $form->field($model, 'movements')->textInput() ?>
+			<?php echo $form->field($model, 'movements')->textInput([
+                                 'type' => 'number',
+                                 'min' => 1
+                            ]) ?>
 
 <!-- attribute payment_date -->
 			<?php echo $form->field($model, 'payment_date')->textInput() ?>
 
 <!-- attribute remaining_amount -->
-			<?php echo $form->field($model, 'remaining_amount')->textInput() ?>
+			<?php echo $form->field($model, 'remaining_amount')->textInput([
+                                 'type' => 'number',
+                                 'min' => 0
+                            ]) ?>
 
 <!-- attribute comments -->
 			<?php echo $form->field($model, 'comments')->textarea(['rows' => 6]) ?>

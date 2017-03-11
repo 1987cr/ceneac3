@@ -60,7 +60,10 @@ $form->field($model, 'schedule_id')->dropDownList(
 			<?php echo $form->field($model, 'asistence')->textInput() ?>
 
 <!-- attribute asistence_number -->
-			<?php echo $form->field($model, 'asistence_number')->textInput() ?>
+			<?php echo $form->field($model, 'asistence_number')->textInput([
+                                 'type' => 'number',
+                                 'min' => 0
+                            ]) ?>
 
 <!-- attribute personal_bill -->
 			<?php echo $form->field($model, 'personal_bill')->textarea(['rows' => 6]) ?>

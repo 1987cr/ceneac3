@@ -49,7 +49,10 @@ use yii\helpers\StringHelper;
 			<?php echo $form->field($model, 'lastname')->textInput(['maxlength' => true]) ?>
 
 <!-- attribute email -->
-			<?php echo $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+			<?php echo $form->field($model, 'email')->textInput([
+        'maxlength' => true,
+        'type' => 'email'
+        ]) ?>
 
 <!-- attribute ci -->
 			<?php echo $form->field($model, 'ci')->textInput() ?>
