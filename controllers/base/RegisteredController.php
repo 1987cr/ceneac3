@@ -164,5 +164,23 @@ class RegisteredController extends Controller
 		}
 	}
 
+	public function actionMultipleDelete()
+	{
+			$pk = \Yii::$app->request->post('row_id');
 
+			if (!$pk) {
+				return;
+			}
+			try {
+				foreach ($pk as $key => $value)
+				{
+						$this->findModel($value)->delete();
+				}
+			} catch (\Exception $e) {
+				return (isset($e->errorInfo[2]))?$e->errorInfo[2]:$e->getMessage();
+			}
+
+		return;
+	}
+	
 }
