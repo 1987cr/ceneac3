@@ -38,14 +38,12 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     <?php \yii\widgets\Pjax::begin(['id'=>'pjax-main', 'enableReplaceState'=> false, 'linkSelector'=>'#pjax-main ul.pagination a, th a', 'clientOptions' => ['pjax:success'=>'function(){alert("yo")}']]) ?>
 
     <h1>
-        <?php echo 'Interest Lists' ?>
-        <small>
-            List
-        </small>
+        <?php echo 'Interesados' ?>
     </h1>
     <div class="clearfix crud-navigation">
         <div class="pull-left">
             <?php echo Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'New', ['create'], ['class' => 'btn btn-success']) ?>
+						<input type="button" class="btn btn-danger" value="Borrar" id="delete-btn" >
         </div>
 
         <div class="pull-right">
@@ -93,10 +91,12 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 			'firstPageLabel' => 'First',
 			'lastPageLabel' => 'Last',
 		],
+		'options' => ['id' => 'interest-list-pjax'],
 		'filterModel' => $searchModel,
 		'tableOptions' => ['class' => 'table table-striped table-bordered table-hover'],
 		'headerRowOptions' => ['class'=>'x'],
 		'columns' => [
+			['class' => 'yii\grid\CheckboxColumn'],
 			[
 				'class' => 'yii\grid\ActionColumn',
 				'template' => $actionColumnTemplateString,
@@ -151,6 +151,31 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     </div>
 
 </div>
+<?php
 
+    $this->registerJs('
+
+    $(document).ready(function(){
+
+	    $(\'#delete-btn\').click(function(){
+					var idIteresteds = $(\'#interest-list-pjax\').yiiGridView(\'getSelectedRows\');
+					$.ajax({
+							type: \'POST\',
+							url : \'/web/interest-list/multiple-delete\',
+							data : {row_id: idIteresteds},
+							success : function(res) {
+								if(res) {
+									alert("No se puede eliminar");
+								} else {
+									$.pjax.reload({container:\'#interest-list-pjax\'});
+								}
+							}
+					});
+	    });
+
+
+    });', \yii\web\View::POS_READY);
+
+?>
 
 <?php \yii\widgets\Pjax::end() ?>
