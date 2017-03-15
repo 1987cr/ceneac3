@@ -38,10 +38,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     <?php \yii\widgets\Pjax::begin(['id'=>'pjax-main', 'enableReplaceState'=> false, 'linkSelector'=>'#pjax-main ul.pagination a, th a', 'clientOptions' => ['pjax:success'=>'function(){alert("yo")}']]) ?>
 
     <h1>
-        <?php echo 'Courses' ?>
-        <small>
-            List
-        </small>
+        <?php echo 'Cursos' ?>
     </h1>
     <div class="clearfix crud-navigation">
         <div class="pull-left">

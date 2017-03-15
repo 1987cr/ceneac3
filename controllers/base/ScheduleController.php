@@ -166,20 +166,23 @@ class ScheduleController extends Controller
 	}
 
 	public function actionMultipleDelete()
-  {
-      $pk = \Yii::$app->request->post('row_id');
+	{
+			$pk = \Yii::$app->request->post('row_id');
 
-      if (!$pk) {
+			if (!$pk) {
 				return;
 			}
+			try {
+				foreach ($pk as $key => $value)
+				{
+						$this->findModel($value)->delete();
+				}
+			} catch (\Exception $e) {
+				return (isset($e->errorInfo[2]))?$e->errorInfo[2]:$e->getMessage();
+			}
 
-      foreach ($pk as $key => $value) 
-      {
-          $sql = "DELETE FROM schedules WHERE id = $value";
-          $query = \Yii::$app->db->createCommand($sql)->execute();
-      }
-  	return;
-  }
+		return;
+	}
 
   public function actionPostularse()
   {
@@ -190,8 +193,8 @@ class ScheduleController extends Controller
 				return;
 			}
 
-      foreach ($pk as $key => $value) 
-      {		
+      foreach ($pk as $key => $value)
+      {
       		$postulado = Postulate::find()
 					    ->where(['user_id' => $user_id])
 					    ->where(['schedule_id' => (int)$value])
