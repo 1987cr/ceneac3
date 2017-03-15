@@ -16,7 +16,7 @@ use yii\grid\GridView;
  * @var yii\data\ActiveDataProvider $dataProvider
  * @var app\models\PreregisteredSearch $searchModel
  */
-$this->title = 'Preregistereds';
+$this->title = 'Preinscritos';
 $this->params['breadcrumbs'][] = $this->title;
 
 if (isset($actionColumnTemplates)) {
@@ -46,6 +46,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     <div class="clearfix crud-navigation">
         <div class="pull-left">
             <?php echo Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'New', ['create'], ['class' => 'btn btn-success']) ?>
+						<input type="button" class="btn btn-danger" value="Borrar" id="delete-btn" >
         </div>
 
         <div class="pull-right">
@@ -97,10 +98,12 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 			'firstPageLabel' => 'First',
 			'lastPageLabel' => 'Last',
 		],
+		'options' => ['id' => 'preregistered-pjax'],
 		'filterModel' => $searchModel,
 		'tableOptions' => ['class' => 'table table-striped table-bordered table-hover'],
 		'headerRowOptions' => ['class'=>'x'],
 		'columns' => [
+			['class' => 'yii\grid\CheckboxColumn'],
 			[
 				'class' => 'yii\grid\ActionColumn',
 				'template' => $actionColumnTemplateString,
@@ -158,6 +161,32 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     </div>
 
 </div>
+<?php
 
+    $this->registerJs('
+
+    $(document).ready(function(){
+
+	    $(\'#delete-btn\').click(function(){
+					var idPreregisters = $(\'#preregistered-pjax\').yiiGridView(\'getSelectedRows\');
+					$.ajax({
+							type: \'POST\',
+							url : \'/web/preregistered/multiple-delete\',
+							data : {row_id: idPreregisters},
+							success : function(res) {
+								if(res) {
+									alert("No se puede eliminar, pago asociado debe ser eliminado");
+									console.log(res);
+								} else {
+									$.pjax.reload({container:\'#preregistered-pjax\'});
+								}
+							}
+					});
+	    });
+
+
+    });', \yii\web\View::POS_READY);
+
+?>
 
 <?php \yii\widgets\Pjax::end() ?>
