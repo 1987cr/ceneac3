@@ -163,8 +163,11 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 							url : \'/web/course/multiple-delete\',
 							data : {row_id: idCourses},
 							success : function(res) {
-								$.pjax.reload({container:\'#course-pjax\'});
-								console.log("success",res);
+								if(res) {
+									alert("No se puede eliminar, el cronograma depende de este curso");
+								} else {
+									$.pjax.reload({container:\'#course-pjax\'});
+								}
 							}
 					});
 	    });
