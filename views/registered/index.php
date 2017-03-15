@@ -143,9 +143,8 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 							list($fecha,$fakeHora) = explode(' ', $rel->start_date);
 							list($year,$month,$day) = explode('-', $fecha);
 							// $course = Course::find(['id' => $rel->id])->one();
-							// $course = $rel->getCourse();
-							// return '<p>'.var_dump($course).'</p>';
-							return '<div>' .Html::a($rel->id.' '.$day.'-'.$month.'-'.$year.' '.$rel->start_hour, ['schedule/view', 'id' => $rel->id, ], ['data-pjax' => 0]).'</div>';
+							$course = $model->getScheduleName();
+							return '<div>' .Html::a($course->name, ['schedule/view', 'id' => $rel->id, ], ['data-pjax' => 0]).' '.$day.'-'.$month.'-'.$year.' '.$rel->start_hour.'</div>';
 					} else {
 						return '';
 					}
