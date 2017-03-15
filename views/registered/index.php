@@ -9,6 +9,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\GridView;
+use \app\models\Course;
 
 /**
  *
@@ -38,10 +39,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     <?php \yii\widgets\Pjax::begin(['id'=>'pjax-main', 'enableReplaceState'=> false, 'linkSelector'=>'#pjax-main ul.pagination a, th a', 'clientOptions' => ['pjax:success'=>'function(){alert("yo")}']]) ?>
 
     <h1>
-        <?php echo 'Registereds' ?>
-        <small>
-            List
-        </small>
+        <?php echo 'Inscritos' ?>
     </h1>
     <div class="clearfix crud-navigation">
         <div class="pull-left">
@@ -142,7 +140,12 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 				'attribute' => 'schedule_id',
 				'value' => function ($model) {
 					if ($rel = $model->getSchedule()->one()) {
-						return Html::a($rel->id, ['schedule/view', 'id' => $rel->id, ], ['data-pjax' => 0]);
+							list($fecha,$fakeHora) = explode(' ', $rel->start_date);
+							list($year,$month,$day) = explode('-', $fecha);
+							// $course = Course::find(['id' => $rel->id])->one();
+							// $course = $rel->getCourse();
+							// return '<p>'.var_dump($course).'</p>';
+							return '<div>' .Html::a($rel->id.' '.$day.'-'.$month.'-'.$year.' '.$rel->start_hour, ['schedule/view', 'id' => $rel->id, ], ['data-pjax' => 0]).'</div>';
 					} else {
 						return '';
 					}
