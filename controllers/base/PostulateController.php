@@ -173,8 +173,8 @@ class PostulateController extends Controller
 					return;
 				}
 
-	      foreach ($pk as $key => $value) 
-	      {	
+	      foreach ($pk as $key => $value)
+	      {
 	      		$postulado = Postulate::findOne((int)$value);
 	      		$user_id = $postulado->user_id;
 	      		$schedule_id = $postulado->schedule_id;
@@ -195,4 +195,23 @@ class PostulateController extends Controller
 
 	      return;
 	  }
+
+		public function actionMultipleDelete()
+		{
+				$pk = \Yii::$app->request->post('row_id');
+
+				if (!$pk) {
+					return;
+				}
+				try {
+					foreach ($pk as $key => $value)
+					{
+							$this->findModel($value)->delete();
+					}
+				} catch (\Exception $e) {
+					return (isset($e->errorInfo[2]))?$e->errorInfo[2]:$e->getMessage();
+				}
+
+			return;
+		}
 }
