@@ -47,6 +47,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
         <div class="pull-left">
             <?php echo Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'New', ['create'], ['class' => 'btn btn-success']) ?>
             <input type="button" class="btn btn-info" value="Aprobar" id="MyButton" >
+						<input type="button" class="btn btn-danger" value="Borrar" id="delete-btn" >
         </div>
 
         <div class="pull-right">
@@ -144,8 +145,8 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 					$course = $model->getScheduleName();
 					$schedule = $model->getSchedule()->one();
 
-					list($fecha,$fakeHora) = explode(' ', $schedule->start_date); 
-			    list($year,$month,$day) = explode('-', $fecha); 
+					list($fecha,$fakeHora) = explode(' ', $schedule->start_date);
+			    list($year,$month,$day) = explode('-', $fecha);
 
 					return Html::a($course->name, ['schedule/view', 'id' => $schedule->id, ], ['data-pjax' => 0]).' '.$day.'-'.$month.'-'.$year.' '.$schedule->start_hour;
 				},
@@ -158,9 +159,9 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 
 </div>
 
-<?php 
+<?php
 
-    $this->registerJs(' 
+    $this->registerJs('
 
     $(document).ready(function(){
 
@@ -172,10 +173,26 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 	            data : {row_id: Spost_id},
 	            success : function() {
 	            	$.pjax.reload({container:\'#postulate-pjax\'});
-	              alert("APROBADO Y TAL");
+	              alert("APROBADO");
 	            }
 	        });
 	    });
+
+			$(\'#delete-btn\').click(function(){
+					var postulatesId = $(\'#postulate-pjax\').yiiGridView(\'getSelectedRows\');
+					$.ajax({
+							type: \'POST\',
+							url : \'/web/postulate/multiple-delete\',
+							data : {row_id: postulatesId},
+							success : function(res) {
+								if(res) {
+									alert("No se puede eliminar");
+								} else {
+									$.pjax.reload({container:\'#postulate-pjax\'});
+								}
+							}
+					});
+			});
 
     });', \yii\web\View::POS_READY);
 

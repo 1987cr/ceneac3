@@ -9,6 +9,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\GridView;
+use \app\models\Course;
 
 /**
  *
@@ -38,14 +39,12 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     <?php \yii\widgets\Pjax::begin(['id'=>'pjax-main', 'enableReplaceState'=> false, 'linkSelector'=>'#pjax-main ul.pagination a, th a', 'clientOptions' => ['pjax:success'=>'function(){alert("yo")}']]) ?>
 
     <h1>
-        <?php echo 'Registereds' ?>
-        <small>
-            List
-        </small>
+        <?php echo 'Inscritos' ?>
     </h1>
     <div class="clearfix crud-navigation">
         <div class="pull-left">
             <?php echo Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'New', ['create'], ['class' => 'btn btn-success']) ?>
+						<input type="button" class="btn btn-danger" value="Borrar" id="delete-btn" >
         </div>
 
         <div class="pull-right">
@@ -93,10 +92,12 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 			'firstPageLabel' => 'First',
 			'lastPageLabel' => 'Last',
 		],
+		'options' => ['id' => 'registered-pjax'],
 		'filterModel' => $searchModel,
 		'tableOptions' => ['class' => 'table table-striped table-bordered table-hover'],
 		'headerRowOptions' => ['class'=>'x'],
 		'columns' => [
+			['class' => 'yii\grid\CheckboxColumn'],
 			[
 				'class' => 'yii\grid\ActionColumn',
 				'template' => $actionColumnTemplateString,
@@ -139,7 +140,11 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 				'attribute' => 'schedule_id',
 				'value' => function ($model) {
 					if ($rel = $model->getSchedule()->one()) {
-						return Html::a($rel->id, ['schedule/view', 'id' => $rel->id, ], ['data-pjax' => 0]);
+							list($fecha,$fakeHora) = explode(' ', $rel->start_date);
+							list($year,$month,$day) = explode('-', $fecha);
+							// $course = Course::find(['id' => $rel->id])->one();
+							$course = $model->getScheduleName();
+							return '<div>' .Html::a($course->name, ['schedule/view', 'id' => $rel->id, ], ['data-pjax' => 0]).' '.$day.'-'.$month.'-'.$year.' '.$rel->start_hour.'</div>';
 					} else {
 						return '';
 					}
@@ -155,6 +160,32 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     </div>
 
 </div>
+<?php
 
+    $this->registerJs('
+
+    $(document).ready(function(){
+
+	    $(\'#delete-btn\').click(function(){
+					var idRegisters = $(\'#registered-pjax\').yiiGridView(\'getSelectedRows\');
+					console.log(idRegisters);
+					$.ajax({
+							type: \'POST\',
+							url : \'/web/registered/multiple-delete\',
+							data : {row_id: idRegisters},
+							success : function(res) {
+								if(res) {
+									alert("No se puede eliminar");
+								} else {
+									$.pjax.reload({container:\'#registered-pjax\'});
+								}
+							}
+					});
+	    });
+
+
+    });', \yii\web\View::POS_READY);
+
+?>
 
 <?php \yii\widgets\Pjax::end() ?>

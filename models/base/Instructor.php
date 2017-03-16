@@ -89,7 +89,15 @@ abstract class Instructor extends \yii\db\ActiveRecord
         return $this->hasOne(\app\models\User::className(), ['id' => 'user_id']);
     }
 
+    public function getScheduleName()
+    {
+        $schedule = $this->hasOne(\app\models\Schedule::className(), ['id' => 'schedule_id'])->one();
 
+        $course = \app\models\Course::find()
+                        ->where(['id' => $schedule->course_id])
+                        ->one();
 
+        return $course;
+    }
 
 }

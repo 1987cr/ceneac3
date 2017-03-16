@@ -38,10 +38,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     <?php \yii\widgets\Pjax::begin(['id'=>'pjax-main', 'enableReplaceState'=> false, 'linkSelector'=>'#pjax-main ul.pagination a, th a', 'clientOptions' => ['pjax:success'=>'function(){alert("yo")}']]) ?>
 
     <h1>
-        <?php echo 'Courses' ?>
-        <small>
-            List
-        </small>
+        <?php echo 'Cursos' ?>
     </h1>
     <div class="clearfix crud-navigation">
         <div class="pull-left">
@@ -163,8 +160,11 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 							url : \'/web/course/multiple-delete\',
 							data : {row_id: idCourses},
 							success : function(res) {
-								$.pjax.reload({container:\'#course-pjax\'});
-								console.log("success",res);
+								if(res) {
+									alert("No se puede eliminar, el cronograma depende de este curso");
+								} else {
+									$.pjax.reload({container:\'#course-pjax\'});
+								}
 							}
 					});
 	    });

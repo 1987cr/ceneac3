@@ -38,15 +38,12 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     <?php \yii\widgets\Pjax::begin(['id'=>'pjax-main', 'enableReplaceState'=> false, 'linkSelector'=>'#pjax-main ul.pagination a, th a', 'clientOptions' => ['pjax:success'=>'function(){alert("yo")}']]) ?>
 
     <h1>
-        <?php echo 'Schedules' ?>
-        <small>
-            List
-        </small>
+        <?php echo 'Cronograma' ?>
     </h1>
     <div class="clearfix crud-navigation">
         <div class="pull-left">
             <?php echo Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'New', ['create'], ['class' => 'btn btn-success']) ?>
-            <input type="button" class="btn btn-danger" value="Multiple Delete" id="MyButton" >
+            <input type="button" class="btn btn-danger" value="Borrar" id="MyButton" >
             <input type="button" class="btn btn-info" value="Postularse" id="MyButton2" >
         </div>
 
@@ -142,8 +139,8 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 				'attribute' => 'course_id',
 				'value' => function ($model) {
 					if ($course = $model->getCourse()->one()) {
-						list($fecha,$fakeHora) = explode(' ', $model->start_date); 
-			    	list($year,$month,$day) = explode('-', $fecha); 
+						list($fecha,$fakeHora) = explode(' ', $model->start_date);
+			    	list($year,$month,$day) = explode('-', $fecha);
 
 			      return '<div>'. Html::a($course->name, ['course/view', 'id' => $course->id, ], ['data-pjax' => 0]).' '.$day.'-'.$month.'-'.$year.' '.$model->start_hour.'</div>';
 					} else {
@@ -155,20 +152,20 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 			[
 					'class' => yii\grid\DataColumn::className(),
 					'format' => 'raw',
-			    'attribute' => 'start_date',			   
-			    'value' => function ($model) {     
-			      list($fecha,$fakeHora) = explode(' ', $model->start_date); 
-			    	list($year,$month,$day) = explode('-', $fecha); 
+			    'attribute' => 'start_date',
+			    'value' => function ($model) {
+			      list($fecha,$fakeHora) = explode(' ', $model->start_date);
+			    	list($year,$month,$day) = explode('-', $fecha);
 			      return $day.'-'.$month.'-'.$year;
 			    },
 			],
 			[
 					'class' => yii\grid\DataColumn::className(),
 					'format' => 'raw',
-			    'attribute' => 'end_date',			   
-			    'value' => function ($model) {     
-			      list($fecha,$fakeHora) = explode(' ', $model->end_date); 
-			      list($year,$month,$day) = explode('-', $fecha); 
+			    'attribute' => 'end_date',
+			    'value' => function ($model) {
+			      list($fecha,$fakeHora) = explode(' ', $model->end_date);
+			      list($year,$month,$day) = explode('-', $fecha);
 			      return $day.'-'.$month.'-'.$year;
 			    },
 			],
@@ -189,9 +186,9 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 
 </div>
 
-<?php 
+<?php
 
-    $this->registerJs(' 
+    $this->registerJs('
 
     $(document).ready(function(){
 
@@ -202,6 +199,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 	            url : \'/web/schedule/multiple-delete\',
 	            data : {row_id: SchedId},
 	            success : function(res) {
+<<<<<<< HEAD
 	            	console.log(res);
 	              //$.pjax.reload({container:\'#schedule-pjax\'});
 	              toastr["success"]("Entradas Eliminadas.");
@@ -209,6 +207,13 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 	            error: function(e) {
 	            	console.error(e.responseText);
 	            	toastr["error"]("Error Interno del Servidor.");
+=======
+								if(res) {
+									alert("No se puede eliminar");
+								} else {
+									$.pjax.reload({container:\'#schedule-pjax\'});
+								}
+>>>>>>> d663fff2deb0c808b9f34f23c33230b1113f5ff5
 	            }
 	        });
 	    });
