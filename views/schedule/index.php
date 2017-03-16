@@ -201,8 +201,14 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 	            type: \'POST\',
 	            url : \'/web/schedule/multiple-delete\',
 	            data : {row_id: SchedId},
-	            success : function() {
-	              $.pjax.reload({container:\'#schedule-pjax\'});
+	            success : function(res) {
+	            	console.log(res);
+	              //$.pjax.reload({container:\'#schedule-pjax\'});
+	              toastr["success"]("Entradas Eliminadas.");
+	            },
+	            error: function(e) {
+	            	console.error(e.responseText);
+	            	toastr["error"]("Error Interno del Servidor.");
 	            }
 	        });
 	    });

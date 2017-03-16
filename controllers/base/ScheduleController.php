@@ -50,8 +50,8 @@ class ScheduleController extends Controller
 		\Yii::$app->session['__crudReturnUrl'] = null;
 
 		return $this->render('index', [
-				'dataProvider' => $dataProvider,
-				'searchModel' => $searchModel,
+			'dataProvider' => $dataProvider,
+			'searchModel' => $searchModel,
 			]);
 	}
 
@@ -68,7 +68,7 @@ class ScheduleController extends Controller
 		Tabs::rememberActiveState();
 
 		return $this->render('view', [
-				'model' => $this->findModel($id),
+			'model' => $this->findModel($id),
 			]);
 	}
 
@@ -110,7 +110,7 @@ class ScheduleController extends Controller
 			return $this->redirect(Url::previous());
 		} else {
 			return $this->render('update', [
-					'model' => $model,
+				'model' => $model,
 				]);
 		}
 	}
@@ -166,46 +166,52 @@ class ScheduleController extends Controller
 	}
 
 	public function actionMultipleDelete()
-  {
-      $pk = \Yii::$app->request->post('row_id');
+	{
+		$pk = \Yii::$app->request->post('row_id');
 
-      if (!$pk) {
-				return;
+		if (!$pk) {
+			return;
+		}
+
+		foreach ($pk as $key => $value) 
+		{		
+			try {
+				$sql = "DELETE FROM schedules WHERE id = $value";
+				$query = \Yii::$app->db->createCommand($sql)->execute();
+				echo "1-Borrado";
+			} catch (\Exception $e) {
+				echo "2-ERROR";
 			}
 
-      foreach ($pk as $key => $value) 
-      {
-          $sql = "DELETE FROM schedules WHERE id = $value";
-          $query = \Yii::$app->db->createCommand($sql)->execute();
-      }
-  	return;
-  }
+		}
+		return;
+	}
 
-  public function actionPostularse()
-  {
-      $pk = \Yii::$app->request->post('row_id');
-      $user_id = \Yii::$app->user->identity->id;
+	public function actionPostularse()
+	{
+		$pk = \Yii::$app->request->post('row_id');
+		$user_id = \Yii::$app->user->identity->id;
 
-			if (!$pk) {
-				return;
+		if (!$pk) {
+			return;
+		}
+
+		foreach ($pk as $key => $value) 
+		{		
+			$postulado = Postulate::find()
+			->where(['user_id' => $user_id])
+			->where(['schedule_id' => (int)$value])
+			->one();
+
+			if($postulado == null) {
+				$has = new Postulate();
+				$has->user_id = $user_id;
+				$has->schedule_id = (int)$value;
+				$has->save();
 			}
+		}
 
-      foreach ($pk as $key => $value) 
-      {		
-      		$postulado = Postulate::find()
-					    ->where(['user_id' => $user_id])
-					    ->where(['schedule_id' => (int)$value])
-					    ->one();
+		return;
 
-					if($postulado == null) {
-	          $has = new Postulate();
-						$has->user_id = $user_id;
-						$has->schedule_id = (int)$value;
-						$has->save();
-					}
-      }
-
-      return;
-
-  }
+	}
 }
