@@ -186,7 +186,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 							data : {row_id: postulatesId},
 							success : function(res) {
 								if(res) {
-									alert("No se puede eliminar");
+									toastr["error"]("No se puede eliminar.");
 								} else {
 		              toastr["success"]("Postulados eliminados.");
 									$.pjax.reload({container:\'#postulate-pjax\'});

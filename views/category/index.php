@@ -140,8 +140,9 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 							data : {row_id: idCategories},
 							success : function(res) {
 								if(res) {
-									alert("No se puede eliminar, un curso depende de esta categoria");
+									toastr["error"]("No se puede eliminar, un curso depende de esta categoria");
 								} else {
+									toastr["success"]("Categorias eliminadas.");
 									$.pjax.reload({container:\'#category-pjax\'});
 								}
 							}

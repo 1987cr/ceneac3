@@ -161,8 +161,9 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 							data : {row_id: idCourses},
 							success : function(res) {
 								if(res) {
-									alert("No se puede eliminar, el cronograma depende de este curso");
+									toastr["error"]("No se puede eliminar, el cronograma depende de este curso");
 								} else {
+									toastr["success"]("Cursos eliminados.");
 									$.pjax.reload({container:\'#course-pjax\'});
 								}
 							}

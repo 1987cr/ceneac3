@@ -170,8 +170,9 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 	            data : {row_id: instructorsId},
 	            success : function(res) {
 								if(res) {
-									alert("No se puede eliminar");
+									toastr["error"]("No se puede eliminar.");
 								} else {
+									toastr["success"]("Instructores eliminados.");
 									$.pjax.reload({container:\'#instructor-pjax\'});
 								}
 	            }
