@@ -199,7 +199,6 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 	            url : \'/web/schedule/multiple-delete\',
 	            data : {row_id: SchedId},
 	            success : function(res) {
-<<<<<<< HEAD
 	            	console.log(res);
 	              //$.pjax.reload({container:\'#schedule-pjax\'});
 	              toastr["success"]("Entradas Eliminadas.");
@@ -207,13 +206,6 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 	            error: function(e) {
 	            	console.error(e.responseText);
 	            	toastr["error"]("Error Interno del Servidor.");
-=======
-								if(res) {
-									alert("No se puede eliminar");
-								} else {
-									$.pjax.reload({container:\'#schedule-pjax\'});
-								}
->>>>>>> d663fff2deb0c808b9f34f23c33230b1113f5ff5
 	            }
 	        });
 	    });

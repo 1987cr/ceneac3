@@ -167,15 +167,14 @@ class ScheduleController extends Controller
 
 	public function actionMultipleDelete()
 	{
-<<<<<<< HEAD
 		$pk = \Yii::$app->request->post('row_id');
 
 		if (!$pk) {
 			return;
 		}
 
-		foreach ($pk as $key => $value) 
-		{		
+		foreach ($pk as $key => $value)
+		{
 			try {
 				$sql = "DELETE FROM schedules WHERE id = $value";
 				$query = \Yii::$app->db->createCommand($sql)->execute();
@@ -192,47 +191,13 @@ class ScheduleController extends Controller
 	{
 		$pk = \Yii::$app->request->post('row_id');
 		$user_id = \Yii::$app->user->identity->id;
-=======
-			$pk = \Yii::$app->request->post('row_id');
-
-			if (!$pk) {
-				return;
-			}
-			try {
-				foreach ($pk as $key => $value)
-				{
-						$this->findModel($value)->delete();
-				}
-			} catch (\Exception $e) {
-				return (isset($e->errorInfo[2]))?$e->errorInfo[2]:$e->getMessage();
-			}
-
-		return;
-	}
-
-  public function actionPostularse()
-  {
-      $pk = \Yii::$app->request->post('row_id');
-      $user_id = \Yii::$app->user->identity->id;
-
-			if (!$pk) {
-				return;
-			}
-
-      foreach ($pk as $key => $value)
-      {
-      		$postulado = Postulate::find()
-					    ->where(['user_id' => $user_id])
-					    ->where(['schedule_id' => (int)$value])
-					    ->one();
->>>>>>> d663fff2deb0c808b9f34f23c33230b1113f5ff5
 
 		if (!$pk) {
 			return;
 		}
 
-		foreach ($pk as $key => $value) 
-		{		
+		foreach ($pk as $key => $value)
+		{
 			$postulado = Postulate::find()
 			->where(['user_id' => $user_id])
 			->where(['schedule_id' => (int)$value])
