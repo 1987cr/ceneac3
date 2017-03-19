@@ -45,7 +45,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     </h1>
     <div class="clearfix crud-navigation">
         <div class="pull-left">
-            <input type="button" class="btn btn-info" value="Crear Nuevo Backup" id="MyButton" >
+            <input type="button" class="btn btn-info" value="Crear Nuevo Backup" id="CreateBackup" >
         </div>
 
         <div class="pull-right">
@@ -85,7 +85,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 			'firstPageLabel' => 'First',
 			'lastPageLabel' => 'Last',
 		],
-		'options' => ['id' => 'backup-pjax'],
+		'options' => ['id' => 'pjax'],
 		'filterModel' => $searchModel,
 		'tableOptions' => ['class' => 'table table-striped table-bordered table-hover'],
 		'headerRowOptions' => ['class'=>'x'],
@@ -119,24 +119,5 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     </div>
 
 </div>
-
-<?php 
-	$this->registerJs(' 
-
-    $(document).ready(function(){
-
-	    $(\'#MyButton\').click(function(){
-	        $.ajax({
-	            type: \'POST\',
-	            url : \'/web/backup/backup\',
-	            success : function() {
-	              //$.pjax.reload({container:\'#backup-pjax\'});
-	            }
-	        });
-	    });
-
-    });', \yii\web\View::POS_READY);
-
-?>
 
 <?php \yii\widgets\Pjax::end() ?>

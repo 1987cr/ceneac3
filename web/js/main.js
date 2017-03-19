@@ -42,17 +42,31 @@ $(document).on('ready', function() {
 		startDate: '0d',
 	});
 
-	// $( "input[name='ScheduleSearch[start_date]']" ).datepicker({
-	// 	language: 'es',
-	// 	format: 'dd-mm-yyyy',
-	// 	startDate: new Date('2015')
-	// });
+	$( "input[name='ScheduleSearch[start_date]']" ).datepicker({
+		language: 'es',
+		format: 'dd-mm-yyyy',
+		startDate: new Date('2015')
+	});
 
-	// $( "input[name='ScheduleSearch[end_date]']" ).datepicker({
-	// 	language: 'es',
-	// 	format: 'dd-mm-yyyy',
-	// 	startDate: new Date('2015')
-	// });
+	$( "input[name='ScheduleSearch[end_date]']" ).datepicker({
+		language: 'es',
+		format: 'dd-mm-yyyy',
+		startDate: new Date('2015')
+	});
+
+	$(document).on('pjax:success', function(){
+		$( "input[name='ScheduleSearch[start_date]']" ).datepicker({
+			language: 'es',
+			format: 'dd-mm-yyyy',
+			startDate: new Date('2015')
+		});
+
+		$( "input[name='ScheduleSearch[end_date]']" ).datepicker({
+			language: 'es',
+			format: 'dd-mm-yyyy',
+			startDate: new Date('2015')
+		});
+	})
 
 	$("#preregistered-preregister_date").datepicker({
 		language: 'es',
@@ -136,6 +150,15 @@ $(document).on('ready', function() {
 		console.error(e.responseText);
 		toastr["error"]("Error Interno del Servidor.");
 	}
+
+	/* ................. Backups ................ */ 
+
+	// Multiple Delete
+	$('body').on('click','#CreateBackup', function(){
+		ajaxPost('backup','backup', function() {
+			toastr["success"]("Backup creado satisfactoriamente.");
+		});
+	});
 
 	/* ................. Course ................ */ 
 
