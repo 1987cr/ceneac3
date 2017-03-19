@@ -151,11 +151,25 @@ $(document).on('ready', function() {
 		ajaxPost('category','multiple-delete',successMultipleDelete);
 	});
 
+	/* ............. Interest List ............ */ 
+
+	// Multiple Delete
+	$('body').on('click','#InterestedMultipleDelete', function(){
+		ajaxPost('interest-list','multiple-delete',successMultipleDelete);
+	});
+
 	/* ............... Instructors .............. */ 
 
 	// Multiple Delete
 	$('body').on('click','#InstructorMultipleDelete', function(){
 		ajaxPost('instructor','multiple-delete',successMultipleDelete);
+	});
+
+	/* ................ Payment ............... */ 
+
+	// Multiple Delete
+	$('body').on('click','#PaymentMultipleDelete', function(){
+		ajaxPost('payment','multiple-delete',successMultipleDelete);
 	});
 
 	/* ............... Postulados .............. */ 
@@ -170,6 +184,20 @@ $(document).on('ready', function() {
 		ajaxPost('postulate','aprobar-postulados', function(res) {
 			toastr["success"]("Postulados Aprobados.");
 		});
+	});
+
+	/* ............. Pre-Registered ............ */ 
+
+	// Multiple Delete
+	$('body').on('click','#PreregisteredMultipleDelete', function(){
+		ajaxPost('preregistered','multiple-delete',successMultipleDelete);
+	});
+
+	/* ............... Registered .............. */ 
+
+	// Multiple Delete
+	$('body').on('click','#RegisteredMultipleDelete', function(){
+		ajaxPost('registered','multiple-delete',successMultipleDelete);
 	});
 
 	/* ................ Schedule ............... */ 

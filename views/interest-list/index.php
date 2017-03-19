@@ -43,7 +43,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     <div class="clearfix crud-navigation">
         <div class="pull-left">
             <?php echo Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'New', ['create'], ['class' => 'btn btn-success']) ?>
-						<input type="button" class="btn btn-danger" value="Borrar" id="delete-btn" >
+						<input type="button" class="btn btn-danger" value="Borrar" id="InterestedMultipleDelete" >
         </div>
 
         <div class="pull-right">
@@ -91,7 +91,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 			'firstPageLabel' => 'First',
 			'lastPageLabel' => 'Last',
 		],
-		'options' => ['id' => 'interest-list-pjax'],
+		'options' => ['id' => 'pjax'],
 		'filterModel' => $searchModel,
 		'tableOptions' => ['class' => 'table table-striped table-bordered table-hover'],
 		'headerRowOptions' => ['class'=>'x'],
@@ -151,31 +151,5 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     </div>
 
 </div>
-<?php
-
-    $this->registerJs('
-
-    $(document).ready(function(){
-
-	    $(\'#delete-btn\').click(function(){
-					var idIteresteds = $(\'#interest-list-pjax\').yiiGridView(\'getSelectedRows\');
-					$.ajax({
-							type: \'POST\',
-							url : \'/web/interest-list/multiple-delete\',
-							data : {row_id: idIteresteds},
-							success : function(res) {
-								if(res) {
-									alert("No se puede eliminar");
-								} else {
-									$.pjax.reload({container:\'#interest-list-pjax\'});
-								}
-							}
-					});
-	    });
-
-
-    });', \yii\web\View::POS_READY);
-
-?>
 
 <?php \yii\widgets\Pjax::end() ?>

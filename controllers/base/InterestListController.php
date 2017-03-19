@@ -164,23 +164,24 @@ class InterestListController extends Controller
 		}
 	}
 
-	public function actionMultipleDelete()
-	{
-			$pk = \Yii::$app->request->post('row_id');
+	public function actionMultipleDelete() {
+		$pk = \Yii::$app->request->post('row_id');
 
-			if (!$pk) {
-				return;
-			}
+		if (!$pk) {
+			return;
+		}
+		$res = '';
+		
+		foreach ($pk as $key => $value) {
 			try {
-				foreach ($pk as $key => $value)
-				{
-						$this->findModel($value)->delete();
-				}
+				$this->findModel($value)->delete();
+				$res.= 'deleted,';
 			} catch (\Exception $e) {
-				return (isset($e->errorInfo[2]))?$e->errorInfo[2]:$e->getMessage();
+				$res.= 'error,';
 			}
-
-		return;
+		}
+		
+		return rtrim($res, ",");
 	}
 	
 }

@@ -49,8 +49,8 @@ class PaymentController extends Controller
 		\Yii::$app->session['__crudReturnUrl'] = null;
 
 		return $this->render('index', [
-				'dataProvider' => $dataProvider,
-				'searchModel' => $searchModel,
+			'dataProvider' => $dataProvider,
+			'searchModel' => $searchModel,
 			]);
 	}
 
@@ -67,7 +67,7 @@ class PaymentController extends Controller
 		Tabs::rememberActiveState();
 
 		return $this->render('view', [
-				'model' => $this->findModel($id),
+			'model' => $this->findModel($id),
 			]);
 	}
 
@@ -109,7 +109,7 @@ class PaymentController extends Controller
 			return $this->redirect(Url::previous());
 		} else {
 			return $this->render('update', [
-					'model' => $model,
+				'model' => $model,
 				]);
 		}
 	}
@@ -164,23 +164,24 @@ class PaymentController extends Controller
 		}
 	}
 
-	public function actionMultipleDelete()
-	{
-			$pk = \Yii::$app->request->post('row_id');
+	public function actionMultipleDelete() {
+		$pk = \Yii::$app->request->post('row_id');
 
-			if (!$pk) {
-				return;
-			}
+		if (!$pk) {
+			return;
+		}
+		$res = '';
+		
+		foreach ($pk as $key => $value) {
 			try {
-				foreach ($pk as $key => $value)
-				{
-						$this->findModel($value)->delete();
-				}
+				$this->findModel($value)->delete();
+				$res.= 'deleted,';
 			} catch (\Exception $e) {
-				return (isset($e->errorInfo[2]))?$e->errorInfo[2]:$e->getMessage();
+				$res.= 'error,';
 			}
-
-		return;
+		}
+		
+		return rtrim($res, ",");
 	}
 	
 }

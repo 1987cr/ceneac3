@@ -67,12 +67,12 @@ abstract class Schedule extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['course_id', 'start_date', 'end_date', 'duration', 'start_hour', 'end_hour', 'classroom', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'comments'], 'required'],
-            [['course_id', 'duration', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'], 'integer'],
-            [['start_date', 'end_date'], 'safe'],
-            [['comments'], 'string'],
-            [['start_hour', 'end_hour', 'classroom'], 'string', 'max' => 255],
-            [['course_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Course::className(), 'targetAttribute' => ['course_id' => 'id']]
+        [['course_id', 'start_date', 'end_date', 'duration', 'start_hour', 'end_hour', 'classroom', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'], 'required'],
+        [['course_id', 'duration', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'], 'integer'],
+        [['start_date', 'end_date'], 'safe'],
+        [['comments'], 'string'],
+        [['start_hour', 'end_hour', 'classroom'], 'string', 'max' => 255],
+        [['course_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Course::className(), 'targetAttribute' => ['course_id' => 'id']]
         ];
     }
 
@@ -82,23 +82,23 @@ abstract class Schedule extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'course_id' => 'Nombre',
-            'start_date' => 'Fecha de inicio',
-            'end_date' => 'Fecha de finalización',
-            'duration' => 'Duración',
-            'start_hour' => 'Hora de inicio',
-            'end_hour' => 'Hora de finalización',
-            'classroom' => 'Salón',
-            'monday' => 'Lunes',
-            'tuesday' => 'Martes',
-            'wednesday' => 'Miércoles',
-            'thursday' => 'Jueves',
-            'friday' => 'Viernes',
-            'saturday' => 'Sabado',
-            'comments' => 'Comentarios',
-            'created_at' => 'Creado el',
-            'updated_at' => 'Actualizado el'
+        'id' => 'ID',
+        'course_id' => 'Nombre',
+        'start_date' => 'Fecha de inicio',
+        'end_date' => 'Fecha de finalización',
+        'duration' => 'Duración',
+        'start_hour' => 'Hora de inicio',
+        'end_hour' => 'Hora de finalización',
+        'classroom' => 'Salón',
+        'monday' => 'Lunes',
+        'tuesday' => 'Martes',
+        'wednesday' => 'Miércoles',
+        'thursday' => 'Jueves',
+        'friday' => 'Viernes',
+        'saturday' => 'Sabado',
+        'comments' => 'Comentarios',
+        'created_at' => 'Creado el',
+        'updated_at' => 'Actualizado el'
         ];
     }
 
