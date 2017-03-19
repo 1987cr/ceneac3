@@ -72,13 +72,13 @@ abstract class Preregistered extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
-            'schedule_id' => 'Schedule ID',
-            'preregister_date' => 'Preregister Date',
-            'status' => 'Status',
-            'comments' => 'Comments',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'user_id' => 'Usuario',
+            'schedule_id' => 'Cronograma',
+            'preregister_date' => 'Fecha de Preinscripción',
+            'status' => 'Estado',
+            'comments' => 'Comentarios',
+            'created_at' => 'Creado el',
+            'updated_at' => 'Actualizado el',
         ];
     }
 

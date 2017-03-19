@@ -20,10 +20,10 @@ use dmstr\bootstrap\Tabs;
  */
 $copyParams = $model->attributes;
 
-$this->title = 'Registered';
-$this->params['breadcrumbs'][] = ['label' => 'Registereds', 'url' => ['index']];
+$this->title = 'Inscrito';
+$this->params['breadcrumbs'][] = ['label' => 'Inscritos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => (string)$model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'View';
+$this->params['breadcrumbs'][] = 'Detalle';
 ?>
 <div class="giiant-crud registered-view">
 
@@ -37,9 +37,9 @@ $this->params['breadcrumbs'][] = 'View';
     <?php endif; ?>
 
     <h1>
-        <?php echo 'Registered' ?>
+        <?php echo $model->getUser()->one()->name ?>
         <small>
-            <?php echo $model->id ?>
+            <?php echo "id: ".$model->id ?>
         </small>
     </h1>
 
@@ -96,7 +96,7 @@ $this->params['breadcrumbs'][] = 'View';
 				'attribute' => 'schedule_id',
 				'value' => ($model->getSchedule()->one() ?
 					Html::a('<i class="glyphicon glyphicon-list"></i>', ['schedule/index']).' '.
-					Html::a('<i class="glyphicon glyphicon-circle-arrow-right"></i> '.$model->getSchedule()->one()->id, ['schedule/view', 'id' => $model->getSchedule()->one()->id, ]).' '.
+					Html::a('<i class="glyphicon glyphicon-circle-arrow-right"></i> '.$model->getScheduleName()->name, ['schedule/view', 'id' => $model->getSchedule()->one()->id, ])." ".explode(' ', $model->getSchedule()->one()->start_date)[0].' '.
 					Html::a('<i class="glyphicon glyphicon-paperclip"></i>', ['create', 'Registered'=>['schedule_id' => $model->schedule_id]])
 					:
 					'<span class="label label-warning">?</span>'),
