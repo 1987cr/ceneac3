@@ -83,22 +83,22 @@ abstract class Schedule extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'course_id' => 'Name',
-            'start_date' => 'Start Date',
-            'end_date' => 'End Date',
-            'duration' => 'Duration',
-            'start_hour' => 'Start Hour',
-            'end_hour' => 'End Hour',
-            'classroom' => 'Classroom',
-            'monday' => 'Monday',
-            'tuesday' => 'Tuesday',
-            'wednesday' => 'Wednesday',
-            'thursday' => 'Thursday',
-            'friday' => 'Friday',
-            'saturday' => 'Saturday',
-            'comments' => 'Comments',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At'
+            'course_id' => 'Nombre',
+            'start_date' => 'Fecha de inicio',
+            'end_date' => 'Fecha de finalización',
+            'duration' => 'Duración',
+            'start_hour' => 'Hora de inicio',
+            'end_hour' => 'Hora de finalización',
+            'classroom' => 'Salón',
+            'monday' => 'Lunes',
+            'tuesday' => 'Martes',
+            'wednesday' => 'Miércoles',
+            'thursday' => 'Jueves',
+            'friday' => 'Viernes',
+            'saturday' => 'Sabado',
+            'comments' => 'Comentarios',
+            'created_at' => 'Creado el',
+            'updated_at' => 'Actualizado el'
         ];
     }
 
