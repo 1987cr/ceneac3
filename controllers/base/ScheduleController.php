@@ -173,18 +173,19 @@ class ScheduleController extends Controller
 			return;
 		}
 
+		$res = '';
 		foreach ($pk as $key => $value)
 		{
 			try {
 				$sql = "DELETE FROM schedules WHERE id = $value";
 				$query = \Yii::$app->db->createCommand($sql)->execute();
-				echo "1-Borrado";
+				$res.= 'deleted,';
 			} catch (\Exception $e) {
-				echo "2-ERROR";
+				$res.= 'error,';
 			}
 
 		}
-		return;
+		return rtrim($res, ",");
 	}
 
 	public function actionPostularse()

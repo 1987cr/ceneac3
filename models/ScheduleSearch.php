@@ -65,11 +65,21 @@ class ScheduleSearch extends Schedule
 			return $dataProvider;
 		}
 
+		$fecha_ini = $this->start_date;
+		if($this->start_date != '') {
+			$fecha_ini_f = \DateTime::createFromFormat('d-m-Y', $this->start_date);
+			$fecha_ini = $fecha_ini_f->format('Y-m-d');
+		}
+		
+		$fecha_fin = $this->end_date;
+		if($this->end_date != '') {
+			$fecha_fin_f = \DateTime::createFromFormat('d-m-Y', $this->end_date); 
+			$fecha_fin = $fecha_fin_f->format('Y-m-d');
+		}
+
 		$query->andFilterWhere([
 				'id' => $this->id,
 				'course_id' => $this->course_id,
-				'start_date' => $this->start_date,
-				'end_date' => $this->end_date,
 				'duration' => $this->duration,
 				'monday' => $this->monday,
 				'tuesday' => $this->tuesday,
@@ -84,7 +94,10 @@ class ScheduleSearch extends Schedule
 		$query->andFilterWhere(['like', 'start_hour', $this->start_hour])
 		->andFilterWhere(['like', 'end_hour', $this->end_hour])
 		->andFilterWhere(['like', 'classroom', $this->classroom])
-		->andFilterWhere(['like', 'comments', $this->comments]);
+		->andFilterWhere(['like', 'comments', $this->comments])
+		->andFilterWhere(['>=', 'start_date', $fecha_ini])
+		->andFilterWhere(['<=', 'end_date', $fecha_fin]);
+
 		return $dataProvider;
 	}
 

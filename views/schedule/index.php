@@ -43,8 +43,8 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     <div class="clearfix crud-navigation">
         <div class="pull-left">
             <?php echo Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'New', ['create'], ['class' => 'btn btn-success']) ?>
-            <input type="button" class="btn btn-danger" value="Borrar" id="MyButton" >
-            <input type="button" class="btn btn-info" value="Postularse" id="MyButton2" >
+            <input type="button" class="btn btn-danger" value="Borrar" id="ScheduleMultipleDelete" >
+            <input type="button" class="btn btn-info" value="Postularse" id="ScheduleMyButton2" >
         </div>
 
         <div class="pull-right">
@@ -104,7 +104,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 			'firstPageLabel' => 'First',
 			'lastPageLabel' => 'Last',
 		],
-		'options' => ['id' => 'schedule-pjax'],
+		'options' => ['id' => 'pjax'],
 		'filterModel' => $searchModel,
 		'tableOptions' => ['class' => 'table table-striped table-bordered table-hover'],
 		'headerRowOptions' => ['class'=>'x'],
@@ -169,10 +169,8 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 			      return $day.'-'.$month.'-'.$year;
 			    },
 			],
-			'duration',
 			'start_hour',
 			'end_hour',
-			'classroom'
 			/*'monday',*/
 			/*'tuesday',*/
 			/*'wednesday',*/
@@ -185,46 +183,5 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     </div>
 
 </div>
-
-<?php
-
-    $this->registerJs('
-
-    $(document).ready(function(){
-
-	    $(\'#MyButton\').click(function(){
-					var SchedId = $(\'#schedule-pjax\').yiiGridView(\'getSelectedRows\');
-	        $.ajax({
-	            type: \'POST\',
-	            url : \'/web/schedule/multiple-delete\',
-	            data : {row_id: SchedId},
-	            success : function(res) {
-	            	console.log(res);
-	              //$.pjax.reload({container:\'#schedule-pjax\'});
-	              toastr["success"]("Entradas Eliminadas.");
-	            },
-	            error: function(e) {
-	            	console.error(e.responseText);
-	            	toastr["error"]("Error Interno del Servidor.");
-	            }
-	        });
-	    });
-
-	    $(\'#MyButton2\').click(function(){
-					var SchedId = $(\'#schedule-pjax\').yiiGridView(\'getSelectedRows\');
-	        $.ajax({
-	            type: \'POST\',
-	            url : \'/web/schedule/postularse\',
-	            data : {row_id: SchedId},
-	            success : function() {
-	              alert("POSTULADO!")
-	            }
-	        });
-	    });
-
-
-    });', \yii\web\View::POS_READY);
-
-?>
 
 <?php \yii\widgets\Pjax::end() ?>

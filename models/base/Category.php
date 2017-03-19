@@ -36,14 +36,14 @@ abstract class Category extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
-        return [
-            [
-                'class' => TimestampBehavior::className(),
-            ],
-        ];
-    }
+    // public function behaviors()
+    // {
+    //     return [
+    //         [
+    //             'class' => TimestampBehavior::className(),
+    //         ],
+    //     ];
+    // }
 
     /**
      * @inheritdoc

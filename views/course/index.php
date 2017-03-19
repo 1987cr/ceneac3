@@ -35,7 +35,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 ?>
 
 
-    <?php \yii\widgets\Pjax::begin(['id'=>'pjax-main', 'enableReplaceState'=> false, 'linkSelector'=>'#pjax-main ul.pagination a, th a', 'clientOptions' => ['pjax:success'=>'function(){alert("yo")}']]) ?>
+    <?php \yii\widgets\Pjax::begin(['id'=>'pjax-main', 'enableReplaceState'=> true, 'linkSelector'=>'#pjax-main ul.pagination a, th a', 'clientOptions' => ['pjax:success'=>'function(){alert("yo")}']]) ?>
 
     <h1>
         <?php echo 'Cursos' ?>
@@ -43,7 +43,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     <div class="clearfix crud-navigation">
         <div class="pull-left">
             <?php echo Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'New', ['create'], ['class' => 'btn btn-success']) ?>
-						<input type="button" class="btn btn-danger" value="Borrar" id="delete-btn" >
+						<input type="button" class="btn btn-danger" value="Borrar" id="CourseMultipleDelete" >
         </div>
 
         <div class="pull-right">
@@ -95,7 +95,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 			'firstPageLabel' => 'First',
 			'lastPageLabel' => 'Last',
 		],
-		'options' => ['id' => 'course-pjax'],
+		'options' => ['id' => 'pjax'],
 		'filterModel' => $searchModel,
 		'tableOptions' => ['class' => 'table table-striped table-bordered table-hover'],
 		'headerRowOptions' => ['class'=>'x'],
@@ -146,33 +146,5 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     </div>
 
 </div>
-<?php
-
-    $this->registerJs('
-
-    $(document).ready(function(){
-
-	    $(\'#delete-btn\').click(function(){
-					var idCourses = $(\'#course-pjax\').yiiGridView(\'getSelectedRows\');
-					console.log(idCourses);
-					$.ajax({
-							type: \'POST\',
-							url : \'/web/course/multiple-delete\',
-							data : {row_id: idCourses},
-							success : function(res) {
-								if(res) {
-									toastr["error"]("No se puede eliminar, el cronograma depende de este curso");
-								} else {
-									toastr["success"]("Cursos eliminados.");
-									$.pjax.reload({container:\'#course-pjax\'});
-								}
-							}
-					});
-	    });
-
-
-    });', \yii\web\View::POS_READY);
-
-?>
 
 <?php \yii\widgets\Pjax::end() ?>
