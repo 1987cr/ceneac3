@@ -43,7 +43,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     <div class="clearfix crud-navigation">
         <div class="pull-left">
             <?php echo Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'New', ['create'], ['class' => 'btn btn-success']) ?>
-						<input type="button" class="btn btn-danger" value="Borrar" id="delete-btn" >
+						<input type="button" class="btn btn-danger" value="Borrar" id="InstructorMultipleDelete" >
         </div>
 
         <div class="pull-right">
@@ -91,7 +91,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 			'firstPageLabel' => 'First',
 			'lastPageLabel' => 'Last',
 		],
-		'options' => ['id' => 'instructor-pjax'],
+		'options' => ['id' => 'pjax'],
 		'filterModel' => $searchModel,
 		'tableOptions' => ['class' => 'table table-striped table-bordered table-hover'],
 		'headerRowOptions' => ['class'=>'x'],
@@ -156,30 +156,4 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 
 </div>
 
-<?php
-
-    $this->registerJs('
-
-    $(document).ready(function(){
-
-	    $(\'#delete-btn\').click(function(){
-					var instructorsId = $(\'#instructor-pjax\').yiiGridView(\'getSelectedRows\');
-	        $.ajax({
-	            type: \'POST\',
-	            url : \'/web/instructor/multiple-delete\',
-	            data : {row_id: instructorsId},
-	            success : function(res) {
-								if(res) {
-									toastr["error"]("No se puede eliminar.");
-								} else {
-									toastr["success"]("Instructores eliminados.");
-									$.pjax.reload({container:\'#instructor-pjax\'});
-								}
-	            }
-	        });
-	    });
-
-    });', \yii\web\View::POS_READY);
-
-?>
 <?php \yii\widgets\Pjax::end() ?>

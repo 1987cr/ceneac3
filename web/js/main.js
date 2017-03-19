@@ -1,7 +1,7 @@
 // Debug Mode
 var debug = true;
 
-$(document).on('ready pjax:success', function() {
+$(document).on('ready', function() {
 
 	/* ------------------------------------- */ 
 	/* .............. Select2 .............. */ 
@@ -104,13 +104,17 @@ $(document).on('ready pjax:success', function() {
 
 		var selectedRowsId = $('#pjax').yiiGridView('getSelectedRows');
 
-		$.ajax({
-			type: 'POST',
-			url : '/web/' + model + '/' + action,
-			data : {row_id: selectedRowsId},
-			success : successCb,
-			error: errorCb
-		});
+		if(!!selectedRowsId.length) {
+			$.ajax({
+				type: 'POST',
+				url : '/web/' + model + '/' + action,
+				data : {row_id: selectedRowsId},
+				success : successCb,
+				error: errorCb
+			});
+		} else {
+			toastr["warning"]("No se seleccionaron elementos.");
+		}
 	}
 
 	function successMultipleDelete(res) {
@@ -126,7 +130,6 @@ $(document).on('ready pjax:success', function() {
 
 		if(successNo > 0) toastr["success"](successNo + successMsg);
 		if(errorsNo > 0) toastr["error"](errorsNo + errorMsg);
-		if(successNo === 0 && errorsNo === 0) toastr["warning"]("No se seleccionaron elementos.");
 	}
 
 	function genericError(e) {
@@ -134,29 +137,50 @@ $(document).on('ready pjax:success', function() {
 		toastr["error"]("Error Interno del Servidor.");
 	}
 
-	/* ................ Course ............... */ 
+	/* ................. Course ................ */ 
 
 	// Multiple Delete
-	$('#CourseMultipleDelete').click(function(){
+	$('body').on('click','#CourseMultipleDelete', function(){
 		ajaxPost('course','multiple-delete',successMultipleDelete);
 	});
 
 	/* ................ Category ............... */ 
 
 	// Multiple Delete
-	$('#CategoryMultipleDelete').click(function(){
+	$('body').on('click','#CategoryMultipleDelete', function(){
 		ajaxPost('category','multiple-delete',successMultipleDelete);
+	});
+
+	/* ............... Instructors .............. */ 
+
+	// Multiple Delete
+	$('body').on('click','#InstructorMultipleDelete', function(){
+		ajaxPost('instructor','multiple-delete',successMultipleDelete);
+	});
+
+	/* ............... Postulados .............. */ 
+
+	// Multiple Delete
+	$('body').on('click','#PostulateMultipleDelete', function(){
+		ajaxPost('postulate','multiple-delete',successMultipleDelete);
+	});
+
+	// Postularse
+	$('body').on('click','#PostulateAprobar', function(){
+		ajaxPost('postulate','aprobar-postulados', function(res) {
+			toastr["success"]("Postulados Aprobados.");
+		});
 	});
 
 	/* ................ Schedule ............... */ 
 	
 	// Multiple Delete
-	$('#ScheduleMultipleDelete').click(function(){
+	$('body').on('click','#ScheduleMultipleDelete', function(){
 		ajaxPost('schedule','multiple-delete',successMultipleDelete);
 	});
 
 	// Postularse
-	$('#ScheduleMyButton2').click(function(){
+	$('body').on('click','#ScheduleMyButton2', function(){
 		ajaxPost('schedule','postularse', function(res) {
 			toastr["success"]("Postulado exitosamente.");
 		});

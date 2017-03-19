@@ -46,8 +46,8 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     <div class="clearfix crud-navigation">
         <div class="pull-left">
             <?php echo Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'New', ['create'], ['class' => 'btn btn-success']) ?>
-            <input type="button" class="btn btn-info" value="Aprobar" id="MyButton" >
-						<input type="button" class="btn btn-danger" value="Borrar" id="delete-btn" >
+            <input type="button" class="btn btn-info" value="Aprobar" id="PostulateAprobar" >
+						<input type="button" class="btn btn-danger" value="Borrar" id="PostulateMultipleDelete" >
         </div>
 
         <div class="pull-right">
@@ -95,7 +95,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 			'firstPageLabel' => 'First',
 			'lastPageLabel' => 'Last',
 		],
-		'options' => ['id' => 'postulate-pjax'],
+		'options' => ['id' => 'pjax'],
 		'filterModel' => $searchModel,
 		'tableOptions' => ['class' => 'table table-striped table-bordered table-hover'],
 		'headerRowOptions' => ['class'=>'x'],
@@ -159,44 +159,6 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 
 </div>
 
-<?php
 
-    $this->registerJs('
-
-    $(document).ready(function(){
-
-	    $(\'#MyButton\').click(function(){
-					var Spost_id = $(\'#postulate-pjax\').yiiGridView(\'getSelectedRows\');
-	        $.ajax({
-	            type: \'POST\',
-	            url : \'/web/postulate/aprobar-postulados\',
-	            data : {row_id: Spost_id},
-	            success : function() {
-	            	$.pjax.reload({container:\'#postulate-pjax\'});
-	              alert("APROBADO");
-	            }
-	        });
-	    });
-
-			$(\'#delete-btn\').click(function(){
-					var postulatesId = $(\'#postulate-pjax\').yiiGridView(\'getSelectedRows\');
-					$.ajax({
-							type: \'POST\',
-							url : \'/web/postulate/multiple-delete\',
-							data : {row_id: postulatesId},
-							success : function(res) {
-								if(res) {
-									toastr["error"]("No se puede eliminar.");
-								} else {
-		              toastr["success"]("Postulados eliminados.");
-									$.pjax.reload({container:\'#postulate-pjax\'});
-								}
-							}
-					});
-			});
-
-    });', \yii\web\View::POS_READY);
-
-?>
 
 <?php \yii\widgets\Pjax::end() ?>

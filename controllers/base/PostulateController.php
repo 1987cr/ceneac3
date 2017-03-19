@@ -50,8 +50,8 @@ class PostulateController extends Controller
 		\Yii::$app->session['__crudReturnUrl'] = null;
 
 		return $this->render('index', [
-				'dataProvider' => $dataProvider,
-				'searchModel' => $searchModel,
+			'dataProvider' => $dataProvider,
+			'searchModel' => $searchModel,
 			]);
 	}
 
@@ -68,7 +68,7 @@ class PostulateController extends Controller
 		Tabs::rememberActiveState();
 
 		return $this->render('view', [
-				'model' => $this->findModel($id),
+			'model' => $this->findModel($id),
 			]);
 	}
 
@@ -110,7 +110,7 @@ class PostulateController extends Controller
 			return $this->redirect(Url::previous());
 		} else {
 			return $this->render('update', [
-					'model' => $model,
+				'model' => $model,
 				]);
 		}
 	}
@@ -165,53 +165,54 @@ class PostulateController extends Controller
 		}
 	}
 
-		public function actionAprobarPostulados()
-	  {
-	      $pk = \Yii::$app->request->post('row_id');
+	public function actionAprobarPostulados()
+	{
+		$pk = \Yii::$app->request->post('row_id');
 
-	      if (!$pk) {
-					return;
-				}
-
-	      foreach ($pk as $key => $value)
-	      {
-	      		$postulado = Postulate::findOne((int)$value);
-	      		$user_id = $postulado->user_id;
-	      		$schedule_id = $postulado->schedule_id;
-	      		$postulado->delete();
-
-	          $instructor = Instructor::find()
-					    ->where(['user_id' => $user_id])
-					    ->where(['schedule_id' => $schedule_id])
-					    ->one();
-
-						if($instructor == null) {
-		          $has = new Instructor();
-							$has->user_id = $user_id;
-							$has->schedule_id = $schedule_id;
-							$has->save();
-						}
-	      }
-
-	      return;
-	  }
-
-		public function actionMultipleDelete()
-		{
-				$pk = \Yii::$app->request->post('row_id');
-
-				if (!$pk) {
-					return;
-				}
-				try {
-					foreach ($pk as $key => $value)
-					{
-							$this->findModel($value)->delete();
-					}
-				} catch (\Exception $e) {
-					return (isset($e->errorInfo[2]))?$e->errorInfo[2]:$e->getMessage();
-				}
-
+		if (!$pk) {
 			return;
 		}
+
+		foreach ($pk as $key => $value)
+		{
+			$postulado = Postulate::findOne((int)$value);
+			$user_id = $postulado->user_id;
+			$schedule_id = $postulado->schedule_id;
+			$postulado->delete();
+
+			$instructor = Instructor::find()
+			->where(['user_id' => $user_id])
+			->where(['schedule_id' => $schedule_id])
+			->one();
+
+			if($instructor == null) {
+				$has = new Instructor();
+				$has->user_id = $user_id;
+				$has->schedule_id = $schedule_id;
+				$has->save();
+			}
+		}
+
+		return;
+	}
+
+	public function actionMultipleDelete() {
+		$pk = \Yii::$app->request->post('row_id');
+
+		if (!$pk) {
+			return;
+		}
+		$res = '';
+		
+		foreach ($pk as $key => $value) {
+			try {
+				$this->findModel($value)->delete();
+				$res.= 'deleted,';
+			} catch (\Exception $e) {
+				$res.= 'error,';
+			}
+		}
+		
+		return rtrim($res, ",");
+	}
 }
