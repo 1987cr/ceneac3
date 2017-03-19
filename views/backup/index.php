@@ -130,7 +130,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 	            type: \'POST\',
 	            url : \'/web/backup/backup\',
 	            success : function() {
-	              $.pjax.reload({container:\'#backup-pjax\'});
+	              //$.pjax.reload({container:\'#backup-pjax\'});
 	            }
 	        });
 	    });
