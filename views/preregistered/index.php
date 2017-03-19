@@ -38,10 +38,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     <?php \yii\widgets\Pjax::begin(['id'=>'pjax-main', 'enableReplaceState'=> false, 'linkSelector'=>'#pjax-main ul.pagination a, th a', 'clientOptions' => ['pjax:success'=>'function(){alert("yo")}']]) ?>
 
     <h1>
-        <?php echo 'Preregistereds' ?>
-        <small>
-            List
-        </small>
+        <?php echo 'Preinscritos' ?>
     </h1>
     <div class="clearfix crud-navigation">
         <div class="pull-left">
@@ -146,7 +143,10 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 				'attribute' => 'schedule_id',
 				'value' => function ($model) {
 					if ($rel = $model->getSchedule()->one()) {
-						return Html::a($rel->id, ['schedule/view', 'id' => $rel->id, ], ['data-pjax' => 0]);
+						list($fecha,$fakeHora) = explode(' ', $rel->start_date);
+						list($year,$month,$day) = explode('-', $fecha);
+						$course = $model->getScheduleName();
+						return '<div>' .Html::a($course->name, ['schedule/view', 'id' => $rel->id, ], ['data-pjax' => 0]).' '.$day.'-'.$month.'-'.$year.' '.$rel->start_hour.'</div>';
 					} else {
 						return '';
 					}

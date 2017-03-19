@@ -122,7 +122,9 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 				'attribute' => 'preregister_id',
 				'value' => function ($model) {
 					if ($rel = $model->getPreregister()->one()) {
-						return Html::a($rel->id, ['preregistered/view', 'id' => $rel->id, ], ['data-pjax' => 0]);
+						// return var_dump($model->getUserName());
+						$username = $model->getUserName()->username;
+						return Html::a($username, ['preregistered/view', 'id' => $rel->id, ], ['data-pjax' => 0]);
 					} else {
 						return '';
 					}

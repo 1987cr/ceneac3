@@ -20,10 +20,10 @@ use dmstr\bootstrap\Tabs;
  */
 $copyParams = $model->attributes;
 
-$this->title = 'Schedule';
-$this->params['breadcrumbs'][] = ['label' => 'Schedules', 'url' => ['index']];
+$this->title = 'Cronograma';
+$this->params['breadcrumbs'][] = ['label' => 'Cronogramas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => (string)$model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'View';
+$this->params['breadcrumbs'][] = 'Detalle';
 ?>
 <div class="giiant-crud schedule-view">
 
@@ -37,9 +37,9 @@ $this->params['breadcrumbs'][] = 'View';
     <?php endif; ?>
 
     <h1>
-        <?php echo 'Schedule' ?>
+        <?php echo $model->getCourse()->one()->name ?>
         <small>
-            <?php echo $model->id ?>
+            <?php echo explode(' ', $model->start_date)[0] ?>
         </small>
     </h1>
 
@@ -90,8 +90,16 @@ $this->params['breadcrumbs'][] = 'View';
 					:
 					'<span class="label label-warning">?</span>'),
 			],
-			'start_date',
-			'end_date',
+      [
+				'format' => 'html',
+				'attribute' => 'start_date',
+        'value' => (explode(' ', $model->start_date)[0])
+      ],
+      [
+				'format' => 'html',
+				'attribute' => 'end_date',
+        'value' => (explode(' ', $model->end_date)[0])
+      ],
 			'duration',
 			'start_hour',
 			'end_hour',

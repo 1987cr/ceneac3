@@ -137,4 +137,15 @@ abstract class Payment extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getUserName()
+    {
+        $preregister = $this->hasOne(\app\models\Preregistered::className(), ['id' => 'preregister_id'])->one();
+
+        $user = \app\models\User::find()
+                        ->where(['id' => $preregister->user_id])
+                        ->one();
+
+        return $user;
+    }
+
 }

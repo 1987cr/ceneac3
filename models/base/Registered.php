@@ -71,14 +71,14 @@ abstract class Registered extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
-            'schedule_id' => 'Schedule ID',
-            'asistence' => 'Asistence',
-            'asistence_number' => 'Asistence Number',
-            'personal_bill' => 'Personal Bill',
-            'comments' => 'Comments',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'user_id' => 'Usuario',
+            'schedule_id' => 'Cronograma',
+            'asistence' => 'Asistencia',
+            'asistence_number' => 'Número Asistencia',
+            'personal_bill' => 'Factura Personalizada',
+            'comments' => 'Comentarios',
+            'created_at' => 'Creado el',
+            'updated_at' => 'Actualizado el',
         ];
     }
 

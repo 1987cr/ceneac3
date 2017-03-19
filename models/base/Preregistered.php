@@ -72,13 +72,13 @@ abstract class Preregistered extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
-            'schedule_id' => 'Schedule ID',
-            'preregister_date' => 'Preregister Date',
-            'status' => 'Status',
-            'comments' => 'Comments',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'user_id' => 'Usuario',
+            'schedule_id' => 'Cronograma',
+            'preregister_date' => 'Fecha de Preinscripción',
+            'status' => 'Estado',
+            'comments' => 'Comentarios',
+            'created_at' => 'Creado el',
+            'updated_at' => 'Actualizado el',
         ];
     }
 
@@ -104,6 +104,17 @@ abstract class Preregistered extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(\app\models\User::className(), ['id' => 'user_id']);
+    }
+
+    public function getScheduleName()
+    {
+        $schedule = $this->hasOne(\app\models\Schedule::className(), ['id' => 'schedule_id'])->one();
+
+        $course = \app\models\Course::find()
+                        ->where(['id' => $schedule->course_id])
+                        ->one();
+
+        return $course;
     }
 
 
