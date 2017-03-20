@@ -30,8 +30,8 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 ?>
 <div class="giiant-crud backup-index">
 
-    <?php
-//             echo $this->render('_search', ['model' =>$searchModel]);
+<?php
+  //echo $this->render('_search', ['model' =>$searchModel]);
 ?>
 
 

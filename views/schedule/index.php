@@ -5,10 +5,10 @@
  * @package default
  */
 
-
+use kartik\export\ExportMenu;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 
 /**
  *
@@ -97,7 +97,18 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     <hr />
 
     <div class="table-responsive">
-        <?php echo GridView::widget([
+        <?php 
+        echo ExportMenu::widget([
+		        'dataProvider' => $dataProvider,
+		        'columns' => [
+		        	['class' => 'yii\grid\SerialColumn'],
+		        	'start_hour'
+		        ],
+		        'fontAwesome' => true,
+		    ]);
+
+
+        echo GridView::widget([
 		'dataProvider' => $dataProvider,
 		'pager' => [
 			'class' => yii\widgets\LinkPager::className(),

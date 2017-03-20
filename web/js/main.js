@@ -205,6 +205,7 @@ $(document).on('ready', function() {
 	// Postularse
 	$('body').on('click','#PostulateAprobar', function(){
 		ajaxPost('postulate','aprobar-postulados', function(res) {
+			!debug && $.pjax.reload({container:'#pjax'});
 			toastr["success"]("Postulados Aprobados.");
 		});
 	});
@@ -233,6 +234,7 @@ $(document).on('ready', function() {
 	// Postularse
 	$('body').on('click','#ScheduleMyButton2', function(){
 		ajaxPost('schedule','postularse', function(res) {
+			!debug && $.pjax.reload({container:'#pjax'});
 			toastr["success"]("Postulado exitosamente.");
 		});
 	});
