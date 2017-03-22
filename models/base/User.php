@@ -83,18 +83,18 @@ abstract class User extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'username' => 'Username',
-            'password' => 'Password',
+            'username' => 'Usuario',
+            'password' => 'Contraseña',
             'auth_key' => 'Auth Key',
             'access_token' => 'Access Token',
-            'name' => 'Name',
-            'lastname' => 'Lastname',
+            'name' => 'Nombre',
+            'lastname' => 'Apellido',
             'email' => 'Email',
-            'ci' => 'Ci',
-            'phone_mobile' => 'Phone Mobile',
-            'phone_home' => 'Phone Home',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'ci' => 'Cédula',
+            'phone_mobile' => 'Celular',
+            'phone_home' => 'Teléfono fijo',
+            'created_at' => 'Creado el',
+            'updated_at' => 'Actualizado el',
         ];
     }
 
