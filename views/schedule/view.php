@@ -49,25 +49,33 @@ $this->params['breadcrumbs'][] = 'Detalle';
         <!-- menu buttons -->
         <div class='pull-left'>
             <?php echo Html::a(
-	'<span class="glyphicon glyphicon-pencil"></span> ' . 'Edit',
+	'<span class="glyphicon glyphicon-pencil"></span> ' . 'Editar',
 	[ 'update', 'id' => $model->id],
 	['class' => 'btn btn-info']) ?>
 
             <?php echo Html::a(
-	'<span class="glyphicon glyphicon-copy"></span> ' . 'Copy',
+	'<span class="glyphicon glyphicon-copy"></span> ' . 'Copiar',
 	['create', 'id' => $model->id, 'Schedule'=>$copyParams],
 	['class' => 'btn btn-success']) ?>
 
             <?php echo Html::a(
-	'<span class="glyphicon glyphicon-plus"></span> ' . 'New',
+	'<span class="glyphicon glyphicon-plus"></span> ' . 'Nuevo',
 	['create'],
 	['class' => 'btn btn-success']) ?>
+      <div id="courseId" style="visibility: hidden;">
+        <?php echo $model->course_id ?>
+      </div>
         </div>
 
         <div class="pull-right">
             <?php echo Html::a('<span class="glyphicon glyphicon-list"></span> '
 	. 'Full list', ['index'], ['class'=>'btn btn-default']) ?>
         </div>
+        <a href="#" class="btn btn-info" id="invitationMailer">
+          <i class="glyphicon glyphicon-envelope"></i>
+          invitar
+        </a>
+
 
     </div>
 
@@ -460,4 +468,20 @@ $this->params['breadcrumbs'][] = 'Detalle';
 	]
 );
 ?>
+<?php
+$this->registerJs('
+    $(document).ready(function(){
+	    $(\'#invitationMailer\').click(function(){
+        var courseId = $("#courseId").text().trim();
+        $.ajax({
+             type: \'POST\',
+             url : \'/web/schedule/invitation-mailer\',
+              data : {courseId: courseId},
+             success : function(res) {
+               console.log(res);
+               toastr["success"]("Correos Enviados.");
+             }
+         });
+	    });
+    });', \yii\web\View::POS_READY);  ?>
 </div>

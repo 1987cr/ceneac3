@@ -45,6 +45,10 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
             <?php echo Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'New', ['create'], ['class' => 'btn btn-success']) ?>
             <input type="button" class="btn btn-danger" value="Borrar" id="ScheduleMultipleDelete" >
             <input type="button" class="btn btn-info" value="Postularse" id="ScheduleMyButton2" >
+						<a href="#" class="btn btn-info" id="invitationMailer">
+							<i class="glyphicon glyphicon-envelope"></i>
+							invitar
+						</a>
         </div>
 
         <div class="pull-right">
@@ -97,7 +101,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     <hr />
 
     <div class="table-responsive">
-        <?php 
+        <?php
         echo ExportMenu::widget([
 		        'dataProvider' => $dataProvider,
 		        'columns' => [

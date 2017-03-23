@@ -215,4 +215,23 @@ class ScheduleController extends Controller
 		return;
 
 	}
+
+
+	public function actionInvitationMailer()
+	{
+		$courseId = \Yii::$app->request->post('courseId');
+		try {
+			\Yii::$app->mailer->compose()
+	    ->setFrom('registro@tapandwin.today')
+	    ->setTo('vincenzobianco1993@gmail.com')
+	    ->setSubject('Ceneac')
+	    ->setTextBody('Plain text content')
+	    ->setHtmlBody('<b>Your are going to make it in May !!</b>')
+	    ->send();
+			return $courseId;
+		} catch (\Exception $e) {
+			return 'an error';
+		}
+		return 'hey';
+	}
 }

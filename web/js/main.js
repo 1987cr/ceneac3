@@ -3,8 +3,8 @@ var debug = true;
 
 $(document).on('ready', function() {
 
-	/* ------------------------------------- */ 
-	/* .............. Select2 .............. */ 
+	/* ------------------------------------- */
+	/* .............. Select2 .............. */
 	/* ------------------------------------- */
 
 	$("#role-permisos").select2();
@@ -26,8 +26,8 @@ $(document).on('ready', function() {
 	//$("#").select2();
 
 
-	/* ------------------------------------- */ 
-	/* ............ Date Picker ............ */ 
+	/* ------------------------------------- */
+	/* ............ Date Picker ............ */
 	/* ------------------------------------- */
 
 	$("#schedule-start_date").datepicker({
@@ -80,8 +80,8 @@ $(document).on('ready', function() {
 		startDate: '0d'
 	});
 
-	/* ------------------------------------- */ 
-	/* ............ Time Picker ............ */ 
+	/* ------------------------------------- */
+	/* ............ Time Picker ............ */
 	/* ------------------------------------- */
 
 	$("#schedule-start_hour").timepicker({
@@ -108,8 +108,8 @@ $(document).on('ready', function() {
 		scrollbar: true
 	});
 
-	/* ------------------------------------- */ 
-	/* ................ Ajax ............... */ 
+	/* ------------------------------------- */
+	/* ................ Ajax ............... */
 	/* ------------------------------------- */
 
 	function ajaxPost(model, action, successCb, errorCb) {
@@ -151,7 +151,7 @@ $(document).on('ready', function() {
 		toastr["error"]("Error Interno del Servidor.");
 	}
 
-	/* ................. Backups ................ */ 
+	/* ................. Backups ................ */
 
 	// Multiple Delete
 	$('body').on('click','#CreateBackup', function(){
@@ -160,42 +160,42 @@ $(document).on('ready', function() {
 		});
 	});
 
-	/* ................. Course ................ */ 
+	/* ................. Course ................ */
 
 	// Multiple Delete
 	$('body').on('click','#CourseMultipleDelete', function(){
 		ajaxPost('course','multiple-delete',successMultipleDelete);
 	});
 
-	/* ................ Category ............... */ 
+	/* ................ Category ............... */
 
 	// Multiple Delete
 	$('body').on('click','#CategoryMultipleDelete', function(){
 		ajaxPost('category','multiple-delete',successMultipleDelete);
 	});
 
-	/* ............. Interest List ............ */ 
+	/* ............. Interest List ............ */
 
 	// Multiple Delete
 	$('body').on('click','#InterestedMultipleDelete', function(){
 		ajaxPost('interest-list','multiple-delete',successMultipleDelete);
 	});
 
-	/* ............... Instructors .............. */ 
+	/* ............... Instructors .............. */
 
 	// Multiple Delete
 	$('body').on('click','#InstructorMultipleDelete', function(){
 		ajaxPost('instructor','multiple-delete',successMultipleDelete);
 	});
 
-	/* ................ Payment ............... */ 
+	/* ................ Payment ............... */
 
 	// Multiple Delete
 	$('body').on('click','#PaymentMultipleDelete', function(){
 		ajaxPost('payment','multiple-delete',successMultipleDelete);
 	});
 
-	/* ............... Postulados .............. */ 
+	/* ............... Postulados .............. */
 
 	// Multiple Delete
 	$('body').on('click','#PostulateMultipleDelete', function(){
@@ -210,22 +210,22 @@ $(document).on('ready', function() {
 		});
 	});
 
-	/* ............. Pre-Registered ............ */ 
+	/* ............. Pre-Registered ............ */
 
 	// Multiple Delete
 	$('body').on('click','#PreregisteredMultipleDelete', function(){
 		ajaxPost('preregistered','multiple-delete',successMultipleDelete);
 	});
 
-	/* ............... Registered .............. */ 
+	/* ............... Registered .............. */
 
 	// Multiple Delete
 	$('body').on('click','#RegisteredMultipleDelete', function(){
 		ajaxPost('registered','multiple-delete',successMultipleDelete);
 	});
 
-	/* ................ Schedule ............... */ 
-	
+	/* ................ Schedule ............... */
+
 	// Multiple Delete
 	$('body').on('click','#ScheduleMultipleDelete', function(){
 		ajaxPost('schedule','multiple-delete',successMultipleDelete);
@@ -240,4 +240,3 @@ $(document).on('ready', function() {
 	});
 
 });
-
