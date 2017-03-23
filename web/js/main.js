@@ -1,7 +1,7 @@
 // Debug Mode
 var debug = true;
 
-$(document).on('ready', function() {
+$(document).ready(function() {
 
 	/* ------------------------------------- */
 	/* .............. Select2 .............. */
