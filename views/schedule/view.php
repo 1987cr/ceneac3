@@ -473,13 +473,22 @@ $this->registerJs('
     $(document).ready(function(){
 	    $(\'#invitationMailer\').click(function(){
         var courseId = $("#courseId").text().trim();
+        $(this).attr("disabled", true);
+        $(this).css("pointer-events", "none");
         $.ajax({
              type: \'POST\',
              url : \'/web/schedule/invitation-mailer\',
               data : {courseId: courseId},
              success : function(res) {
-               console.log(res);
-               toastr["success"]("Correos Enviados.");
+               $(\'#invitationMailer\').attr("disabled", false);
+               $(\'#invitationMailer\').css("pointer-events", "auto");
+               toastr["success"]("Invitaciones enviadas.");
+             },
+             error: function(err) {
+               console.log(err);
+               $(\'#invitationMailer\').attr("disabled", false);
+               $(\'#invitationMailer\').css("pointer-events", "auto");
+               toastr["error"]("Ha ocurrido un error");
              }
          });
 	    });

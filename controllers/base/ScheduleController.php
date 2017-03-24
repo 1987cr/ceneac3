@@ -14,6 +14,7 @@ namespace app\controllers\base;
 use app\models\Schedule;
 use app\models\ScheduleSearch;
 use app\models\Postulate;
+use app\models\InterestList;
 use yii\web\Controller;
 use yii\web\HttpException;
 use yii\helpers\Url;
@@ -221,17 +222,28 @@ class ScheduleController extends Controller
 	{
 		$courseId = \Yii::$app->request->post('courseId');
 		try {
-			\Yii::$app->mailer->compose()
-	    ->setFrom('registro@tapandwin.today')
-	    ->setTo('vincenzobianco1993@gmail.com')
-	    ->setSubject('Ceneac')
-	    ->setTextBody('Plain text content')
-	    ->setHtmlBody('<b>Your are going to make it in May !!</b>')
-	    ->send();
-			return $courseId;
+			$interest = InterestList::find()
+			->where(['course_id' => $courseId])
+			->with('user', 'course')
+			->all();
+			if (empty($interest) || !isset($interest)) {
+				return 'not found interests';
+			}
+			$messages = array();
+			foreach ($interest as $item) {
+			    $messages[] = \Yii::$app->mailer->compose('@app/views/mail/invitation',[
+						'user' => $item->user,
+						'course' => $item->course,
+					])
+					->setFrom('registro@tapandwin.today')
+					->setTo($item->user->email)
+					->setSubject('Ceneac');
+			}
+			\Yii::$app->mailer->sendMultiple($messages);
+
+			return var_dump($interest);
 		} catch (\Exception $e) {
 			return 'an error';
 		}
-		return 'hey';
 	}
 }
