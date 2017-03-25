@@ -221,6 +221,9 @@ class ScheduleController extends Controller
 	public function actionInvitationMailer()
 	{
 		$courseId = \Yii::$app->request->post('courseId');
+		$startHour = \Yii::$app->request->post('startHour');
+		$startDate = \Yii::$app->request->post('startDate');
+
 		try {
 			$interest = InterestList::find()
 			->where(['course_id' => $courseId])
@@ -234,6 +237,8 @@ class ScheduleController extends Controller
 			    $messages[] = \Yii::$app->mailer->compose('@app/views/mail/invitation',[
 						'user' => $item->user,
 						'course' => $item->course,
+						'startHour' => $startHour,
+						'startDate' => $startDate,
 					])
 					->setFrom('registro@tapandwin.today')
 					->setTo($item->user->email)

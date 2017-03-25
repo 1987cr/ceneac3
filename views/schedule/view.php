@@ -65,6 +65,12 @@ $this->params['breadcrumbs'][] = 'Detalle';
       <div id="courseId" style="visibility: hidden;">
         <?php echo $model->course_id ?>
       </div>
+      <div id="start_date" style="visibility: hidden;">
+        <?php echo explode(' ', $model->start_date)[0] ?>
+      </div>
+      <div id="start_hour" style="visibility: hidden;">
+        <?php echo $model->start_hour ?>
+      </div>
         </div>
 
         <div class="pull-right">
@@ -473,12 +479,14 @@ $this->registerJs('
     $(document).ready(function(){
 	    $(\'#invitationMailer\').click(function(){
         var courseId = $("#courseId").text().trim();
+        var startDate = $("#start_date").text().trim();
+        var startHour = $("#start_hour").text().trim();
         $(this).attr("disabled", true);
         $(this).css("pointer-events", "none");
         $.ajax({
              type: \'POST\',
              url : \'/web/schedule/invitation-mailer\',
-              data : {courseId: courseId},
+              data : {courseId: courseId, startHour: startHour, startDate: startDate},
              success : function(res) {
                $(\'#invitationMailer\').attr("disabled", false);
                $(\'#invitationMailer\').css("pointer-events", "auto");
