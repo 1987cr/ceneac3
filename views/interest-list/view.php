@@ -158,15 +158,22 @@ $this->registerJs('
 	    $(\'#send-btn\').click(function(){
         var body = tinymce.get("mail-body").getContent();
         var userEmail = $("#userEmail").text().trim();
+        $(this).attr("disabled", true);
+        $(this).css("pointer-events", "none");
         $.ajax({
              type: \'POST\',
              url : \'/web/interest-list/send-mail\',
               data : {body: body, email: userEmail},
              success : function(res) {
+               $(\'#send-btn\').attr("disabled", false);
+               $(\'#send-btn\').css("pointer-events", "auto");
+               tinymce.get("mail-body").setContent("");
                toastr["success"]("Correo Enviado.");
              },
              error: function(err) {
                console.log(err);
+               $(\'#send-btn\').attr("disabled", false);
+               $(\'#send-btn\').css("pointer-events", "auto");
                toastr["error"]("Ha ocurrido un error");
              }
          });

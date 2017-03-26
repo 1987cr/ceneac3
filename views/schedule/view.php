@@ -36,12 +36,10 @@ $this->params['breadcrumbs'][] = 'Detalle';
         </span>
     <?php endif; ?>
 
-    <h1>
-        <?php echo $model->getCourse()->one()->name ?>
-        <small>
-            <?php echo explode(' ', $model->start_date)[0] ?>
-        </small>
-    </h1>
+    <h2>
+        <?php echo $model->getCourse()->one()->name.' | ' ?>
+        <?php echo explode(' ', $model->start_date)[0].'  '.$model->start_hour ?>
+    </h2>
 
 
     <div class="clearfix crud-navigation">
@@ -62,6 +60,10 @@ $this->params['breadcrumbs'][] = 'Detalle';
 	'<span class="glyphicon glyphicon-plus"></span> ' . 'Nuevo',
 	['create'],
 	['class' => 'btn btn-success']) ?>
+  <a href="#" class="btn btn-info" id="invitationMailer">
+    <i class="glyphicon glyphicon-envelope"></i>
+    invitar
+  </a>
       <div id="courseId" style="visibility: hidden;">
         <?php echo $model->course_id ?>
       </div>
@@ -77,10 +79,7 @@ $this->params['breadcrumbs'][] = 'Detalle';
             <?php echo Html::a('<span class="glyphicon glyphicon-list"></span> '
 	. 'Full list', ['index'], ['class'=>'btn btn-default']) ?>
         </div>
-        <a href="#" class="btn btn-info" id="invitationMailer">
-          <i class="glyphicon glyphicon-envelope"></i>
-          invitar
-        </a>
+
 
 
     </div>
@@ -131,10 +130,10 @@ $this->params['breadcrumbs'][] = 'Detalle';
 
     <hr/>
 
-    <?php echo Html::a('<span class="glyphicon glyphicon-trash"></span> ' . 'Delete', ['delete', 'id' => $model->id],
+    <?php echo Html::a('<span class="glyphicon glyphicon-trash"></span> ' . 'Borrar', ['delete', 'id' => $model->id],
 	[
 		'class' => 'btn btn-danger',
-		'data-confirm' => '' . 'Are you sure to delete this item?' . '',
+		'data-confirm' => '' . 'Esta seguro que desea eliminar el Cronograma?' . '',
 		'data-method' => 'post',
 	]); ?>
     <?php $this->endBlock(); ?>
