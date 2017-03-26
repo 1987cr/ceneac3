@@ -171,7 +171,7 @@ class InterestListController extends Controller
 			return;
 		}
 		$res = '';
-		
+
 		foreach ($pk as $key => $value) {
 			try {
 				$this->findModel($value)->delete();
@@ -180,8 +180,28 @@ class InterestListController extends Controller
 				$res.= 'error,';
 			}
 		}
-		
+
 		return rtrim($res, ",");
 	}
-	
+
+	public function actionSendMail() {
+		$body = \Yii::$app->request->post('body');
+		$email = \Yii::$app->request->post('email');
+
+		try {
+			\Yii::$app->mailer->compose()
+			->setFrom('registro@tapandwin.today')
+			->setTo($email)
+			->setSubject('Ceneac')
+			->setHtmlBody($body)
+			->send();
+			return var_dump($email);
+		} catch (\Exception $e) {
+			return 'an error';
+		}
+
+
+
+	}
+
 }

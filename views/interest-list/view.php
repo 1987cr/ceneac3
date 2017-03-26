@@ -5,13 +5,16 @@
  * @package default
  */
 
-
+use yii\base\Model;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\GridView;
 use yii\widgets\DetailView;
 use yii\widgets\Pjax;
 use dmstr\bootstrap\Tabs;
+use dosamigos\tinymce\TinyMce;
+use yii\bootstrap\ActiveForm;
+
 
 /**
  *
@@ -20,7 +23,7 @@ use dmstr\bootstrap\Tabs;
  */
 $copyParams = $model->attributes;
 
-$this->title = 'Interest List';
+$this->title = 'Interesado en '.$model->getCourse()->one()->name;
 $this->params['breadcrumbs'][] = ['label' => 'Interest Lists', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => (string)$model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'View';
@@ -36,30 +39,26 @@ $this->params['breadcrumbs'][] = 'View';
         </span>
     <?php endif; ?>
 
-    <h1>
-        <?php echo 'Interest List' ?>
-        <small>
-            <?php echo $model->id ?>
-        </small>
-    </h1>
-
+    <h2>
+        <?php echo $model->getUser()->one()->name.' | '.$model->getUser()->one()->email ?>
+    </h2>
 
     <div class="clearfix crud-navigation">
 
         <!-- menu buttons -->
         <div class='pull-left'>
             <?php echo Html::a(
-	'<span class="glyphicon glyphicon-pencil"></span> ' . 'Edit',
+	'<span class="glyphicon glyphicon-pencil"></span> ' . 'Editar',
 	[ 'update', 'id' => $model->id],
 	['class' => 'btn btn-info']) ?>
 
             <?php echo Html::a(
-	'<span class="glyphicon glyphicon-copy"></span> ' . 'Copy',
+	'<span class="glyphicon glyphicon-copy"></span> ' . 'Copiar',
 	['create', 'id' => $model->id, 'InterestList'=>$copyParams],
 	['class' => 'btn btn-success']) ?>
 
             <?php echo Html::a(
-	'<span class="glyphicon glyphicon-plus"></span> ' . 'New',
+	'<span class="glyphicon glyphicon-plus"></span> ' . 'Nuevo',
 	['create'],
 	['class' => 'btn btn-success']) ?>
         </div>
@@ -107,14 +106,15 @@ $this->params['breadcrumbs'][] = 'View';
 
     <hr/>
 
-    <?php echo Html::a('<span class="glyphicon glyphicon-trash"></span> ' . 'Delete', ['delete', 'id' => $model->id],
+    <?php echo Html::a('<span class="glyphicon glyphicon-trash"></span> ' . 'Borrar', ['delete', 'id' => $model->id],
 	[
 		'class' => 'btn btn-danger',
-		'data-confirm' => '' . 'Are you sure to delete this item?' . '',
+		'data-confirm' => '' . 'Esta seguro que desea eliminar el interesado?' . '',
 		'data-method' => 'post',
 	]); ?>
     <?php $this->endBlock(); ?>
 
+    <hr />
 
 
     <?php echo Tabs::widget(
@@ -131,4 +131,45 @@ $this->params['breadcrumbs'][] = 'View';
 	]
 );
 ?>
+<!-- mail form -->
+<br>
+<div class="custom-mail">
+  <h3>Contactar</h3>
+  <form method="post">
+    <textarea id="mail-body" ></textarea>
+  </form>
+  <br>
+  <div class="form-group">
+      <?= Html::submitButton('Enviar', ['class' => 'btn btn-primary', 'id' => 'send-btn']) ?>
+  </div>
+          <!-- user email -->
+  <div id="userEmail" style="visibility: hidden;">
+    <?php echo $model->getUser()->one()->email ?>
+  </div>
+</div>
+<!-- End mail form -->
+<?php
+$this->registerJs('
+    $(document).ready(function(){
+      tinymce.init({
+        selector: "#mail-body",
+         height: 240
+      });
+	    $(\'#send-btn\').click(function(){
+        var body = tinymce.get("mail-body").getContent();
+        var userEmail = $("#userEmail").text().trim();
+        $.ajax({
+             type: \'POST\',
+             url : \'/web/interest-list/send-mail\',
+              data : {body: body, email: userEmail},
+             success : function(res) {
+               toastr["success"]("Correo Enviado.");
+             },
+             error: function(err) {
+               console.log(err);
+               toastr["error"]("Ha ocurrido un error");
+             }
+         });
+	    });
+    });', \yii\web\View::POS_READY);  ?>
 </div>

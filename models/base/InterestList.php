@@ -66,8 +66,8 @@ abstract class InterestList extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
-            'course_id' => 'Course ID',
+            'user_id' => 'Usuario',
+            'course_id' => 'Curso',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
