@@ -102,9 +102,48 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 		        'dataProvider' => $dataProvider,
 		        'columns' => [
 		        	['class' => 'yii\grid\SerialColumn'],
-		        	'start_hour'
+							[
+								'class' => yii\grid\DataColumn::className(),
+								'attribute' => 'course_id',
+								'value' => function ($model) {
+									if ($course = $model->getCourse()->one()) {
+										list($fecha,$fakeHora) = explode(' ', $model->start_date);
+										list($year,$month,$day) = explode('-', $fecha);
+
+										return $course->name;
+									} else {
+										return '';
+									}
+								},
+								'format' => 'raw',
+							],
+							[
+									'class' => yii\grid\DataColumn::className(),
+									'format' => 'raw',
+									'attribute' => 'start_date',
+									'value' => function ($model) {
+										list($fecha,$fakeHora) = explode(' ', $model->start_date);
+										list($year,$month,$day) = explode('-', $fecha);
+										return $day.'-'.$month.'-'.$year;
+									},
+							],
+							[
+									'class' => yii\grid\DataColumn::className(),
+									'format' => 'raw',
+									'attribute' => 'end_date',
+									'value' => function ($model) {
+										list($fecha,$fakeHora) = explode(' ', $model->end_date);
+										list($year,$month,$day) = explode('-', $fecha);
+										return $day.'-'.$month.'-'.$year;
+									},
+							],
+							'start_hour',
+							'end_hour',
 		        ],
 		        'fontAwesome' => true,
+						'target' => 'ExportMenu::TARGET_BLANK',
+						'showConfirmAlert' => false,
+						'filename' => 'CENEAC_Cronograma_'.getdate()['mday'].'-'.getdate()['mon'].'-'.getdate()['year'],
 		    ]);
 
 

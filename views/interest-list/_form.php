@@ -55,6 +55,8 @@ $form->field($model, 'course_id')->dropDownList(
 		'disabled' => (isset($relAttributes) && isset($relAttributes['course_id'])),
 	]
 ); ?>
+<!-- attribute start_date -->
+<?php echo $form->field($model, 'start_date')->textInput() ?>
         </p>
         <?php $this->endBlock(); ?>
 
