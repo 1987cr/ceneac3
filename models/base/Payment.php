@@ -87,13 +87,13 @@ abstract class Payment extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'preregister_id' => 'Preregister ID',
-            'amount' => 'Amount',
-            'payment_type' => 'Payment Type',
-            'movements' => 'Movements',
-            'payment_date' => 'Payment Date',
-            'remaining_amount' => 'Remaining Amount',
-            'comments' => 'Comments',
+            'preregister_id' => 'Preinscrito',
+            'amount' => 'Cantidad',
+            'payment_type' => 'Tipo de pago',
+            'movements' => 'Movimientos',
+            'payment_date' => 'Fecha de pago',
+            'remaining_amount' => 'Monto restante',
+            'comments' => 'Comentarios',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
