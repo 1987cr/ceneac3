@@ -27,7 +27,7 @@ class InterestListSearch extends InterestList
 	public function rules() {
 		return [
 			[['id', 'user_id', 'course_id'], 'integer'],
-			[['created_at', 'updated_at'], 'safe'],
+			[['start_date', 'created_at', 'updated_at'], 'safe'],
 		];
 	}
 
@@ -69,6 +69,7 @@ class InterestListSearch extends InterestList
 				'id' => $this->id,
 				'user_id' => $this->user_id,
 				'course_id' => $this->course_id,
+				'start_date' => $this->start_date,
 				'created_at' => $this->created_at,
 				'updated_at' => $this->updated_at,
 			]);

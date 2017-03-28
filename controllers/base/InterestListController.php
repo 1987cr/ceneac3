@@ -199,9 +199,6 @@ class InterestListController extends Controller
 		} catch (\Exception $e) {
 			return 'an error';
 		}
-
-
-
 	}
 
 }

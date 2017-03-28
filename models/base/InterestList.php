@@ -13,6 +13,7 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $id
  * @property integer $user_id
  * @property integer $course_id
+ * @property string $start_date
  * @property string $created_at
  * @property string $updated_at
  *
@@ -55,7 +56,8 @@ abstract class InterestList extends \yii\db\ActiveRecord
             [['user_id', 'course_id'], 'required'],
             [['user_id', 'course_id'], 'integer'],
             [['course_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Course::className(), 'targetAttribute' => ['course_id' => 'id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\User::className(), 'targetAttribute' => ['user_id' => 'id']]
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['start_date'], 'safe'],
         ];
     }
 
