@@ -9,6 +9,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\GridView;
+use kartik\export\ExportMenu;
 
 /**
  *
@@ -16,14 +17,14 @@ use yii\grid\GridView;
  * @var yii\data\ActiveDataProvider $dataProvider
  * @var app\models\PaymentSearch $searchModel
  */
-$this->title = 'Payments';
+$this->title = 'Pagos';
 $this->params['breadcrumbs'][] = $this->title;
 
 if (isset($actionColumnTemplates)) {
 	$actionColumnTemplate = implode(' ', $actionColumnTemplates);
 	$actionColumnTemplateString = $actionColumnTemplate;
 } else {
-	Yii::$app->view->params['pageButtons'] = Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'New', ['create'], ['class' => 'btn btn-success']);
+	Yii::$app->view->params['pageButtons'] = Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'Nuevo', ['create'], ['class' => 'btn btn-success']);
 	$actionColumnTemplateString = "{view} {update} {delete}";
 }
 $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTemplateString.'</div>';
@@ -42,7 +43,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     </h1>
     <div class="clearfix crud-navigation">
         <div class="pull-left">
-            <?php echo Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'New', ['create'], ['class' => 'btn btn-success']) ?>
+            <?php echo Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'Nuevo', ['create'], ['class' => 'btn btn-success']) ?>
 						<input type="button" class="btn btn-danger" value="Borrar" id="PaymentMultipleDelete" >
         </div>
 
@@ -80,7 +81,53 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     <hr />
 
     <div class="table-responsive">
-        <?php echo GridView::widget([
+        <?php
+				echo ExportMenu::widget([
+		        'dataProvider' => $dataProvider,
+		        'columns' => [
+		        	['class' => 'yii\grid\SerialColumn'],
+							[
+								'class' => yii\grid\DataColumn::className(),
+								'attribute' => 'preregister_id',
+								'value' => function ($model) {
+									if ($rel = $model->getPreregister()->one()) {
+										// return var_dump($model->getUserName());
+										$user = $model->getUserName();
+										return Html::a($user->name.' '.$user->lastname, ['preregistered/view', 'id' => $rel->id, ], ['data-pjax' => 0]).' - '.$user->ci;
+									} else {
+										return '';
+									}
+								},
+								'format' => 'raw',
+							],
+							'amount',
+							[
+								'attribute'=>'payment_type',
+								'value' => function ($model) {
+									return app\models\Payment::getPaymentTypeValueLabel($model->payment_type);
+								}				
+							],
+							'movements',
+							[
+									'class' => yii\grid\DataColumn::className(),
+									'format' => 'raw',
+									'attribute' => 'payment_date',
+									'value' => function ($model) {
+										list($fecha,$fakeHora) = explode(' ', $model->payment_date);
+										list($year,$month,$day) = explode('-', $fecha);
+										return $day.'-'.$month.'-'.$year;
+									},
+							],
+							'remaining_amount',
+							'comments:ntext',
+		        ],
+		        'fontAwesome' => true,
+						'target' => 'ExportMenu::TARGET_BLANK',
+						'showConfirmAlert' => false,
+						'filename' => 'CENEAC_Pagos_'.getdate()['mday'].'-'.getdate()['mon'].'-'.getdate()['year'],
+		    ]);
+
+		 echo GridView::widget([
 		'dataProvider' => $dataProvider,
 		'pager' => [
 			'class' => yii\widgets\LinkPager::className(),
@@ -123,8 +170,8 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 				'value' => function ($model) {
 					if ($rel = $model->getPreregister()->one()) {
 						// return var_dump($model->getUserName());
-						$username = $model->getUserName()->username;
-						return Html::a($username, ['preregistered/view', 'id' => $rel->id, ], ['data-pjax' => 0]);
+						$user = $model->getUserName();
+						return Html::a($user->name.' '.$user->lastname, ['preregistered/view', 'id' => $rel->id, ], ['data-pjax' => 0]).' - '.$user->ci;
 					} else {
 						return '';
 					}
@@ -141,7 +188,16 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 
 			],
 			'movements',
-			'payment_date',
+			[
+					'class' => yii\grid\DataColumn::className(),
+					'format' => 'raw',
+					'attribute' => 'payment_date',
+					'value' => function ($model) {
+						list($fecha,$fakeHora) = explode(' ', $model->payment_date);
+						list($year,$month,$day) = explode('-', $fecha);
+						return $day.'-'.$month.'-'.$year;
+					},
+			],
 			'remaining_amount',
 			'comments:ntext',
 		],
