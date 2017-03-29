@@ -90,32 +90,27 @@ $this->params['breadcrumbs'][] = 'View';
 </div>
 </div>
 <?php Pjax::begin(['id'=>'pjax-InterestLists', 'enableReplaceState'=> false, 'linkSelector'=>'#pjax-InterestLists ul.pagination a, th a', 'clientOptions' => ['pjax:success'=>'function(){alert("yo")}']]) ?>
+<!-- Export  -->
+  <?php
+  $dataProvider = new \yii\data\ActiveDataProvider([
+      'query' => $model->getInterestLists(),
+    ]);
+    $columns = [
+   ['class' => 'kartik\grid\SerialColumn'],
+   'id',
+   'course_id'
+  ];
+  echo ExportMenu::widget([
+      'dataProvider' => $dataProvider,
+      'columns' => $columns,
+      'fontAwesome' => true,
+      'target' => 'ExportMenu::TARGET_BLANK',
+      'showConfirmAlert' => false,
+      'filename' => 'CENEAC_Iteresados_'.getdate()['mday'].'-'.getdate()['mon'].'-'.getdate()['year'],
+  ]);
+  ?>
+<!-- end Export -->
 <?php
-echo ExportMenu::widget([
-    'dataProvider' => new \yii\data\ActiveDataProvider([
-				'query' => $model->getInterestLists(),
-			]),
-    'columns' => [
-      ['class' => 'yii\grid\SerialColumn'],
-      'id',
-      [
-        'class' => yii\grid\DataColumn::className(),
-        'attribute' => 'user_id',
-        'value' => function ($model) {
-          if ($rel = $model->getUser()->one()) {
-            return Html::a($rel->name.' '.$rel->lastname, ['user/view', 'id' => $rel->id, ], ['data-pjax' => 0]).' - '.$rel->ci;
-          } else {
-            return '';
-          }
-        },
-        'format' => 'raw',
-      ],
-    ],
-    'fontAwesome' => true,
-    'target' => 'ExportMenu::TARGET_BLANK',
-    'showConfirmAlert' => false,
-    'filename' => 'CENEAC_Iteresados_'.getdate()['mday'].'-'.getdate()['mon'].'-'.getdate()['year'],
-]);
  echo
 '<div class="table-responsive">'
 	. \yii\grid\GridView::widget([
