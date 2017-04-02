@@ -23,8 +23,6 @@ $(document).ready(function() {
 	$("#interestlist-course_id").select2();
 	$("#postulate-schedule_id").select2();
 	$("#postulate-user_id").select2();
-	//$("#").select2();
-
 
 	/* ------------------------------------- */
 	/* ............ Date Picker ............ */
