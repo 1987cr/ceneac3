@@ -155,9 +155,14 @@ $(document).ready(function() {
 
 	// Multiple Delete
 	$('body').on('click','#CreateBackup', function(){
-		ajaxPost('backup','backup', function() {
-			toastr["success"]("Backup creado satisfactoriamente.");
-		});
+		$.ajax({
+				type: 'POST',
+				url : '/web/backup/backup',
+				success : function() {
+					toastr["success"]("Backup creado satisfactoriamente.");
+				},
+				error: genericError
+			});
 	});
 
 	/* ................. Course ................ */
