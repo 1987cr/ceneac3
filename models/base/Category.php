@@ -65,8 +65,8 @@ abstract class Category extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'description' => 'Description',
+            'name' => 'Nombre',
+            'description' => 'Descripción',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];

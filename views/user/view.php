@@ -85,10 +85,10 @@ $this->params['breadcrumbs'][] = 'View';
 			'lastname',
 			'email:email',
 			'ci',
-			'auth_key',
-			'access_token',
+			// 'auth_key',
+			// 'access_token',
 			'phone_mobile',
-			'phone_home',
+			// 'phone_home',
 		],
 	]); ?>
 
