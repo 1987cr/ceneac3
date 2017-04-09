@@ -37,10 +37,7 @@ $this->params['breadcrumbs'][] = 'Detalle';
     <?php endif; ?>
 
     <h1>
-        <?php echo $model->getUser()->one()->name ?>
-        <small>
-            <?php echo "id: ".$model->id ?>
-        </small>
+        <?php echo $model->getUser()->one()->name.' '.$model->getUser()->one()->lastname.' | '.$model->getUser()->one()->ci ?>
     </h1>
 
 
@@ -49,17 +46,17 @@ $this->params['breadcrumbs'][] = 'Detalle';
         <!-- menu buttons -->
         <div class='pull-left'>
             <?php echo Html::a(
-	'<span class="glyphicon glyphicon-pencil"></span> ' . 'Edit',
+	'<span class="glyphicon glyphicon-pencil"></span> ' . 'Editar',
 	[ 'update', 'id' => $model->id],
 	['class' => 'btn btn-info']) ?>
 
             <?php echo Html::a(
-	'<span class="glyphicon glyphicon-copy"></span> ' . 'Copy',
+	'<span class="glyphicon glyphicon-copy"></span> ' . 'Copiar',
 	['create', 'id' => $model->id, 'Preregistered'=>$copyParams],
 	['class' => 'btn btn-success']) ?>
 
             <?php echo Html::a(
-	'<span class="glyphicon glyphicon-plus"></span> ' . 'New',
+	'<span class="glyphicon glyphicon-plus"></span> ' . 'Nuevo',
 	['create'],
 	['class' => 'btn btn-success']) ?>
         </div>

@@ -66,8 +66,8 @@ abstract class Instructor extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
-            'schedule_id' => 'Schedule ID',
+            'user_id' => 'Usuario',
+            'schedule_id' => 'Cronograma',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];

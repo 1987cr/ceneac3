@@ -20,7 +20,7 @@ use dmstr\bootstrap\Tabs;
  */
 $copyParams = $model->attributes;
 
-$this->title = 'Postulate';
+$this->title = 'Postulado';
 $this->params['breadcrumbs'][] = ['label' => 'Postulates', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => (string)$model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'View';
@@ -37,10 +37,7 @@ $this->params['breadcrumbs'][] = 'View';
     <?php endif; ?>
 
     <h1>
-        <?php echo 'Postulate' ?>
-        <small>
-            <?php echo $model->id ?>
-        </small>
+        <?php echo $model->getUser()->one()->name.' '.$model->getUser()->one()->lastname.' | '.$model->getUser()->one()->ci ?>
     </h1>
 
 
@@ -49,17 +46,17 @@ $this->params['breadcrumbs'][] = 'View';
         <!-- menu buttons -->
         <div class='pull-left'>
             <?php echo Html::a(
-	'<span class="glyphicon glyphicon-pencil"></span> ' . 'Edit',
+	'<span class="glyphicon glyphicon-pencil"></span> ' . 'Editar',
 	[ 'update', 'id' => $model->id],
 	['class' => 'btn btn-info']) ?>
 
             <?php echo Html::a(
-	'<span class="glyphicon glyphicon-copy"></span> ' . 'Copy',
+	'<span class="glyphicon glyphicon-copy"></span> ' . 'Copiar',
 	['create', 'id' => $model->id, 'Postulate'=>$copyParams],
 	['class' => 'btn btn-success']) ?>
 
             <?php echo Html::a(
-	'<span class="glyphicon glyphicon-plus"></span> ' . 'New',
+	'<span class="glyphicon glyphicon-plus"></span> ' . 'Nuevo',
 	['create'],
 	['class' => 'btn btn-success']) ?>
         </div>
@@ -85,7 +82,7 @@ $this->params['breadcrumbs'][] = 'View';
 				'attribute' => 'user_id',
 				'value' => ($model->getUser()->one() ?
 					Html::a('<i class="glyphicon glyphicon-list"></i>', ['user/index']).' '.
-					Html::a('<i class="glyphicon glyphicon-circle-arrow-right"></i> '.$model->getUser()->one()->name, ['user/view', 'id' => $model->getUser()->one()->id, ]).' '.
+					Html::a('<i class="glyphicon glyphicon-circle-arrow-right"></i> '.$model->getUser()->one()->name.' '.$model->getUser()->one()->lastname.' | '.$model->getUser()->one()->ci, ['user/view', 'id' => $model->getUser()->one()->id, ]).' '.
 					Html::a('<i class="glyphicon glyphicon-paperclip"></i>', ['create', 'Postulate'=>['user_id' => $model->user_id]])
 					:
 					'<span class="label label-warning">?</span>'),
@@ -96,7 +93,7 @@ $this->params['breadcrumbs'][] = 'View';
 				'attribute' => 'schedule_id',
 				'value' => ($model->getSchedule()->one() ?
 					Html::a('<i class="glyphicon glyphicon-list"></i>', ['schedule/index']).' '.
-					Html::a('<i class="glyphicon glyphicon-circle-arrow-right"></i> '.$model->getSchedule()->one()->id, ['schedule/view', 'id' => $model->getSchedule()->one()->id, ]).' '.
+					Html::a('<i class="glyphicon glyphicon-circle-arrow-right"></i> '.$model->getScheduleName()->name, ['schedule/view', 'id' => $model->getSchedule()->one()->id, ]).' '.
 					Html::a('<i class="glyphicon glyphicon-paperclip"></i>', ['create', 'Postulate'=>['schedule_id' => $model->schedule_id]])
 					:
 					'<span class="label label-warning">?</span>'),

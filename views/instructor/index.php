@@ -16,7 +16,7 @@ use yii\grid\GridView;
  * @var yii\data\ActiveDataProvider $dataProvider
  * @var app\models\InstructorSearch $searchModel
  */
-$this->title = 'Instructors';
+$this->title = 'Instructores';
 $this->params['breadcrumbs'][] = $this->title;
 
 if (isset($actionColumnTemplates)) {
@@ -38,11 +38,10 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     <?php \yii\widgets\Pjax::begin(['id'=>'pjax-main', 'enableReplaceState'=> false, 'linkSelector'=>'#pjax-main ul.pagination a, th a', 'clientOptions' => ['pjax:success'=>'function(){alert("yo")}']]) ?>
 
     <h1>
-        <?php echo 'Instructores' ?>
     </h1>
     <div class="clearfix crud-navigation">
         <div class="pull-left">
-            <?php echo Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'New', ['create'], ['class' => 'btn btn-success']) ?>
+            <?php echo Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'Nuevo', ['create'], ['class' => 'btn btn-success']) ?>
 						<input type="button" class="btn btn-danger" value="Borrar" id="InstructorMultipleDelete" >
         </div>
 
@@ -126,7 +125,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 				'attribute' => 'user_id',
 				'value' => function ($model) {
 					if ($rel = $model->getUser()->one()) {
-						return Html::a($rel->name, ['user/view', 'id' => $rel->id, ], ['data-pjax' => 0]);
+						return Html::a($rel->name.' '.$rel->lastname.' | '.$rel->ci, ['user/view', 'id' => $rel->id, ], ['data-pjax' => 0]);
 					} else {
 						return '';
 					}
