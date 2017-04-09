@@ -58,16 +58,16 @@ use yii\helpers\StringHelper;
 			<?php echo $form->field($model, 'ci')->textInput() ?>
 
 <!-- attribute auth_key -->
-			<?php echo $form->field($model, 'auth_key')->textInput(['maxlength' => true]) ?>
+
 
 <!-- attribute access_token -->
-			<?php echo $form->field($model, 'access_token')->textInput(['maxlength' => true]) ?>
+
 
 <!-- attribute phone_mobile -->
 			<?php echo $form->field($model, 'phone_mobile')->textInput(['maxlength' => true]) ?>
 
 <!-- attribute phone_home -->
-			<?php echo $form->field($model, 'phone_home')->textInput(['maxlength' => true]) ?>
+
         </p>
         <?php $this->endBlock(); ?>
 

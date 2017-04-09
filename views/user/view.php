@@ -20,8 +20,8 @@ use dmstr\bootstrap\Tabs;
  */
 $copyParams = $model->attributes;
 
-$this->title = 'User';
-$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
+$this->title = 'Usuario';
+$this->params['breadcrumbs'][] = ['label' => 'Usuarios', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => (string)$model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'View';
 ?>
@@ -37,10 +37,7 @@ $this->params['breadcrumbs'][] = 'View';
     <?php endif; ?>
 
     <h1>
-        <?php echo 'User' ?>
-        <small>
-            <?php echo $model->name ?>
-        </small>
+            <?php echo $model->name.' '.$model->lastname ?>
     </h1>
 
 
@@ -49,17 +46,17 @@ $this->params['breadcrumbs'][] = 'View';
         <!-- menu buttons -->
         <div class='pull-left'>
             <?php echo Html::a(
-	'<span class="glyphicon glyphicon-pencil"></span> ' . 'Edit',
+	'<span class="glyphicon glyphicon-pencil"></span> ' . 'Editar',
 	[ 'update', 'id' => $model->id],
 	['class' => 'btn btn-info']) ?>
 
             <?php echo Html::a(
-	'<span class="glyphicon glyphicon-copy"></span> ' . 'Copy',
+	'<span class="glyphicon glyphicon-copy"></span> ' . 'Copiar',
 	['create', 'id' => $model->id, 'User'=>$copyParams],
 	['class' => 'btn btn-success']) ?>
 
             <?php echo Html::a(
-	'<span class="glyphicon glyphicon-plus"></span> ' . 'New',
+	'<span class="glyphicon glyphicon-plus"></span> ' . 'Nuevo',
 	['create'],
 	['class' => 'btn btn-success']) ?>
         </div>
@@ -80,7 +77,7 @@ $this->params['breadcrumbs'][] = 'View';
 		'model' => $model,
 		'attributes' => [
 			'username',
-			'password',
+			// 'password',
 			'name',
 			'lastname',
 			'email:email',
