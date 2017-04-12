@@ -105,9 +105,10 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 								'attribute'=>'payment_type',
 								'value' => function ($model) {
 									return app\models\Payment::getPaymentTypeValueLabel($model->payment_type);
-								}				
+								}
 							],
-							'movements',
+							'client_bank',
+							'reference_number',
 							[
 									'class' => yii\grid\DataColumn::className(),
 									'format' => 'raw',
@@ -187,7 +188,6 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 
 
 			],
-			'movements',
 			[
 					'class' => yii\grid\DataColumn::className(),
 					'format' => 'raw',

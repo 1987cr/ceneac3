@@ -32,7 +32,6 @@ use yii\widgets\ActiveForm;
 
 		<?php echo $form->field($model, 'payment_type') ?>
 
-		<?php echo $form->field($model, 'movements') ?>
 
 		<?php // echo $form->field($model, 'payment_date') ?>
 

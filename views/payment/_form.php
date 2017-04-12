@@ -57,11 +57,9 @@ $form->field($model, 'preregister_id')->dropDownList(
 	app\models\Payment::optspaymenttype()
 ); ?>
 
-<!-- attribute movements -->
-			<?php echo $form->field($model, 'movements')->textInput([
-                                 'type' => 'number',
-                                 'min' => 1
-                            ]) ?>
+<!-- attribute client_bank -->
+			<?php echo $form->field($model, 'client_bank')->textInput() ?>
+      <?php echo $form->field($model, 'reference_number')->textInput() ?>
 
 <!-- attribute payment_date -->
 			<?php echo $form->field($model, 'payment_date')->textInput() ?>

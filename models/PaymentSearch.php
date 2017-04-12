@@ -26,9 +26,9 @@ class PaymentSearch extends Payment
 	 */
 	public function rules() {
 		return [
-			[['id', 'preregister_id', 'movements'], 'integer'],
+			[['id', 'preregister_id'], 'integer'],
 			[['amount', 'remaining_amount'], 'number'],
-			[['payment_type', 'payment_date', 'comments', 'created_at', 'updated_at'], 'safe'],
+			[['payment_type', 'payment_date', 'comments', 'created_at','client_bank','reference_number', 'updated_at'], 'safe'],
 		];
 	}
 
@@ -70,7 +70,8 @@ class PaymentSearch extends Payment
 				'id' => $this->id,
 				'preregister_id' => $this->preregister_id,
 				'amount' => $this->amount,
-				'movements' => $this->movements,
+				'client_bank' => $this->client_bank,
+				'reference_number' => $this->reference_number,
 				'payment_date' => $this->payment_date,
 				'remaining_amount' => $this->remaining_amount,
 				'created_at' => $this->created_at,

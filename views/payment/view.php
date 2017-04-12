@@ -49,17 +49,17 @@ $this->params['breadcrumbs'][] = 'View';
         <!-- menu buttons -->
         <div class='pull-left'>
             <?php echo Html::a(
-	'<span class="glyphicon glyphicon-pencil"></span> ' . 'Edit',
+	'<span class="glyphicon glyphicon-pencil"></span> ' . 'Editar',
 	[ 'update', 'id' => $model->id],
 	['class' => 'btn btn-info']) ?>
 
             <?php echo Html::a(
-	'<span class="glyphicon glyphicon-copy"></span> ' . 'Copy',
+	'<span class="glyphicon glyphicon-copy"></span> ' . 'Copiar',
 	['create', 'id' => $model->id, 'Payment'=>$copyParams],
 	['class' => 'btn btn-success']) ?>
 
             <?php echo Html::a(
-	'<span class="glyphicon glyphicon-plus"></span> ' . 'New',
+	'<span class="glyphicon glyphicon-plus"></span> ' . 'Nuevo',
 	['create'],
 	['class' => 'btn btn-success']) ?>
         </div>
@@ -95,7 +95,8 @@ $this->params['breadcrumbs'][] = 'View';
 				'attribute'=>'payment_type',
 				'value'=>app\models\Payment::getPaymentTypeValueLabel($model->payment_type),
 			],
-			'movements',
+			'client_bank',
+      'reference_number',
 			'payment_date',
 			'remaining_amount',
 			'comments:ntext',

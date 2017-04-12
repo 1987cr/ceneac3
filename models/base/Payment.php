@@ -14,10 +14,11 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $preregister_id
  * @property double $amount
  * @property string $payment_type
- * @property integer $movements
  * @property string $payment_date
  * @property double $remaining_amount
  * @property string $comments
+ * @property string $client_bank
+ * @property string $reference_number
  * @property string $created_at
  * @property string $updated_at
  *
@@ -32,10 +33,10 @@ abstract class Payment extends \yii\db\ActiveRecord
     /**
     * ENUM field values
     */
-    const PAYMENT_TYPE_D = 'D';
-    const PAYMENT_TYPE_C = 'C';
-    const PAYMENT_TYPE_E = 'E';
-    const PAYMENT_TYPE_H = 'H';
+    const PAYMENT_TYPE_DEPOSITO = 'DEPOSITO';
+    const PAYMENT_TYPE_CREDITO = 'CREDITO';
+    const PAYMENT_TYPE_EFECTIVO = 'EFECTIVO';
+    const PAYMENT_TYPE_TRANSFERENCIA = 'TRANSFERENCIA';
     var $enum_labels = false;
     /**
      * @inheritdoc
@@ -64,17 +65,17 @@ abstract class Payment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['preregister_id', 'amount', 'payment_type', 'movements', 'payment_date', 'remaining_amount', 'comments'], 'required'],
-            [['preregister_id', 'movements'], 'integer'],
+            [['preregister_id', 'amount', 'payment_type', 'payment_date', 'remaining_amount', 'comments'], 'required'],
+            [['preregister_id'], 'integer'],
             [['amount', 'remaining_amount'], 'number'],
-            [['payment_type', 'comments'], 'string'],
+            [['payment_type', 'comments', 'client_bank', 'reference_number'], 'string'],
             [['payment_date'], 'safe'],
             [['preregister_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Preregistered::className(), 'targetAttribute' => ['preregister_id' => 'id']],
             ['payment_type', 'in', 'range' => [
-                    self::PAYMENT_TYPE_D,
-                    self::PAYMENT_TYPE_C,
-                    self::PAYMENT_TYPE_E,
-                    self::PAYMENT_TYPE_H,
+                    self::PAYMENT_TYPE_DEPOSITO,
+                    self::PAYMENT_TYPE_CREDITO,
+                    self::PAYMENT_TYPE_EFECTIVO,
+                    self::PAYMENT_TYPE_TRANSFERENCIA,
                 ]
             ]
         ];
@@ -90,7 +91,8 @@ abstract class Payment extends \yii\db\ActiveRecord
             'preregister_id' => 'Preinscrito',
             'amount' => 'Cantidad',
             'payment_type' => 'Tipo de pago',
-            'movements' => 'Movimientos',
+            'client_bank' => 'Banco Cliente',
+            'reference_number' => 'Numero de referencia',
             'payment_date' => 'Fecha de pago',
             'remaining_amount' => 'Monto restante',
             'comments' => 'Comentarios',
@@ -130,10 +132,10 @@ abstract class Payment extends \yii\db\ActiveRecord
     public static function optsPaymentType()
     {
         return [
-            self::PAYMENT_TYPE_D => self::PAYMENT_TYPE_D,
-            self::PAYMENT_TYPE_C => self::PAYMENT_TYPE_C,
-            self::PAYMENT_TYPE_E => self::PAYMENT_TYPE_E,
-            self::PAYMENT_TYPE_H => self::PAYMENT_TYPE_H,
+            self::PAYMENT_TYPE_DEPOSITO => self::PAYMENT_TYPE_DEPOSITO,
+            self::PAYMENT_TYPE_CREDITO => self::PAYMENT_TYPE_CREDITO,
+            self::PAYMENT_TYPE_EFECTIVO => self::PAYMENT_TYPE_EFECTIVO,
+            self::PAYMENT_TYPE_TRANSFERENCIA => self::PAYMENT_TYPE_TRANSFERENCIA,
         ];
     }
 
