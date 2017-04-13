@@ -60,7 +60,8 @@ $form->field($model, 'schedule_id')->dropDownList(
 			<?php echo $form->field($model, 'preregister_date')->textInput() ?>
 
 <!-- attribute status -->
-			<?php echo $form->field($model, 'status')->textInput() ?>
+			<?php //echo $form->field($model, 'status')->textInput() ?>
+    <?php  echo $form->field($model, 'status')->dropDownList([1=>'Aprobado', 0=>'Por Pagar']) ?>
 
 <!-- attribute comments -->
 			<?php echo $form->field($model, 'comments')->textarea(['rows' => 6]) ?>
