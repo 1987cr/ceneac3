@@ -113,3 +113,19 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+.fa-container{
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+
+i.fa-check {
+  font-size: 20px;
+  color: #008d4c;
+}
+
+i.fa-times {
+  font-size: 20px;
+  color: #d73925;
+}

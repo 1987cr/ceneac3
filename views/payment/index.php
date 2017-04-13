@@ -39,7 +39,6 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     <?php \yii\widgets\Pjax::begin(['id'=>'pjax-main', 'enableReplaceState'=> false, 'linkSelector'=>'#pjax-main ul.pagination a, th a', 'clientOptions' => ['pjax:success'=>'function(){alert("yo")}']]) ?>
 
     <h1>
-        <?php echo 'Pagos' ?>
     </h1>
     <div class="clearfix crud-navigation">
         <div class="pull-left">
@@ -179,7 +178,14 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 				},
 				'format' => 'raw',
 			],
-			'amount',
+			[
+				'class' => yii\grid\DataColumn::className(),
+				'attribute' => 'amount',
+				'value' => function ($model) {
+					return $model->amount.' Bfs.';
+				},
+				'format' => 'raw',
+			],
 			[
 				'attribute'=>'payment_type',
 				'value' => function ($model) {
@@ -198,7 +204,14 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 						return $day.'-'.$month.'-'.$year;
 					},
 			],
-			'remaining_amount',
+			[
+				'class' => yii\grid\DataColumn::className(),
+				'attribute' => 'remaining_amount',
+				'value' => function ($model) {
+					return $model->remaining_amount.' Bfs.';
+				},
+				'format' => 'raw',
+			],
 			'comments:ntext',
 		],
 	]); ?>

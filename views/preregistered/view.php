@@ -103,7 +103,18 @@ $this->params['breadcrumbs'][] = 'Detalle';
         'attribute' => 'preregister_date',
         'value' => (explode(' ', $model->preregister_date)[0])
       ],
-			'status',
+      [
+          'class' => yii\grid\DataColumn::className(),
+          'format' => 'raw',
+          'attribute' => 'status',
+          'value' => function ($model) {
+            if($model->status == 1){
+              return  '<i class="fa fa-check">';
+            }else {
+              return  '<i class="fa fa-times">';
+            }
+          },
+      ],
 			'comments:ntext',
 		],
 	]); ?>
@@ -170,15 +181,25 @@ $this->params['breadcrumbs'][] = 'Detalle';
 				],
 				'controller' => 'payment'
 			],
-			'id',
-			'amount',
+      [
+        'class' => yii\grid\DataColumn::className(),
+        'attribute' => 'amount',
+        'value' => function ($model) {
+          return $model->amount.' Bfs.';
+        },
+        'format' => 'raw',
+      ],
 			'payment_type',
-			'movements',
 			'payment_date',
-			'remaining_amount',
+      [
+        'class' => yii\grid\DataColumn::className(),
+        'attribute' => 'remaining_amount',
+        'value' => function ($model) {
+          return $model->amount.' Bfs.';
+        },
+        'format' => 'raw',
+      ],
 			'comments:ntext',
-			'created_at',
-			'updated_at',
 		]
 	])
 	. '</div>'

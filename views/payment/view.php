@@ -20,10 +20,10 @@ use dmstr\bootstrap\Tabs;
  */
 $copyParams = $model->attributes;
 
-$this->title = 'Payment';
-$this->params['breadcrumbs'][] = ['label' => 'Payments', 'url' => ['index']];
+$this->title = 'Pago';
+$this->params['breadcrumbs'][] = ['label' => 'Pagos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => (string)$model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'View';
+$this->params['breadcrumbs'][] = 'Detalle';
 ?>
 <div class="giiant-crud payment-view">
 
@@ -37,10 +37,6 @@ $this->params['breadcrumbs'][] = 'View';
     <?php endif; ?>
 
     <h1>
-        <?php echo 'Payment' ?>
-        <small>
-            <?php echo $model->id ?>
-        </small>
     </h1>
 
 
@@ -90,7 +86,14 @@ $this->params['breadcrumbs'][] = 'View';
 					:
 					'<span class="label label-warning">?</span>'),
 			],
-			'amount',
+      [
+        'class' => yii\grid\DataColumn::className(),
+        'attribute' => 'amount',
+        'value' => function ($model) {
+          return $model->amount.' Bfs.';
+        },
+        'format' => 'raw',
+      ],
 			[
 				'attribute'=>'payment_type',
 				'value'=>app\models\Payment::getPaymentTypeValueLabel($model->payment_type),
@@ -106,10 +109,10 @@ $this->params['breadcrumbs'][] = 'View';
 
     <hr/>
 
-    <?php echo Html::a('<span class="glyphicon glyphicon-trash"></span> ' . 'Delete', ['delete', 'id' => $model->id],
+    <?php echo Html::a('<span class="glyphicon glyphicon-trash"></span> ' . 'Borrar', ['delete', 'id' => $model->id],
 	[
 		'class' => 'btn btn-danger',
-		'data-confirm' => '' . 'Are you sure to delete this item?' . '',
+		'data-confirm' => '' . 'Seguro que desea borrar este registro?' . '',
 		'data-method' => 'post',
 	]); ?>
     <?php $this->endBlock(); ?>

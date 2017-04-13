@@ -39,11 +39,10 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     <?php \yii\widgets\Pjax::begin(['id'=>'pjax-main', 'enableReplaceState'=> false, 'linkSelector'=>'#pjax-main ul.pagination a, th a', 'clientOptions' => ['pjax:success'=>'function(){alert("yo")}']]) ?>
 
     <h1>
-        <?php echo 'Preinscritos' ?>
     </h1>
     <div class="clearfix crud-navigation">
         <div class="pull-left">
-            <?php echo Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'New', ['create'], ['class' => 'btn btn-success']) ?>
+            <?php echo Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'Nuevo', ['create'], ['class' => 'btn btn-success']) ?>
 						<input type="button" class="btn btn-danger" value="Borrar" id="PreregisteredMultipleDelete" >
         </div>
 
@@ -216,7 +215,18 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 						return $day.'-'.$month.'-'.$year;
 					},
 			],
-			'status',
+			[
+					'class' => yii\grid\DataColumn::className(),
+					'format' => 'raw',
+					'attribute' => 'status',
+					'value' => function ($model) {
+						if($model->status == 1){
+							return  '<div class="fa-container"><i class="fa fa-check"></div>';
+						}else {
+							return  '<div class="fa-container"><i class="fa fa-times"></div>';
+						}
+					},
+			],
 			'comments:ntext',
 		],
 	]); ?>
