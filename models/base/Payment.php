@@ -34,6 +34,7 @@ abstract class Payment extends \yii\db\ActiveRecord
     * ENUM field values
     */
     const PAYMENT_TYPE_DEPOSITO = 'DEPOSITO';
+    const PAYMENT_TYPE_DEBITO = 'DEBITO';
     const PAYMENT_TYPE_CREDITO = 'CREDITO';
     const PAYMENT_TYPE_EFECTIVO = 'EFECTIVO';
     const PAYMENT_TYPE_TRANSFERENCIA = 'TRANSFERENCIA';
@@ -73,6 +74,7 @@ abstract class Payment extends \yii\db\ActiveRecord
             [['preregister_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Preregistered::className(), 'targetAttribute' => ['preregister_id' => 'id']],
             ['payment_type', 'in', 'range' => [
                     self::PAYMENT_TYPE_DEPOSITO,
+                    self::PAYMENT_TYPE_DEBITO,
                     self::PAYMENT_TYPE_CREDITO,
                     self::PAYMENT_TYPE_EFECTIVO,
                     self::PAYMENT_TYPE_TRANSFERENCIA,
@@ -132,6 +134,7 @@ abstract class Payment extends \yii\db\ActiveRecord
     public static function optsPaymentType()
     {
         return [
+            self::PAYMENT_TYPE_DEBITO => self::PAYMENT_TYPE_DEBITO,
             self::PAYMENT_TYPE_DEPOSITO => self::PAYMENT_TYPE_DEPOSITO,
             self::PAYMENT_TYPE_CREDITO => self::PAYMENT_TYPE_CREDITO,
             self::PAYMENT_TYPE_EFECTIVO => self::PAYMENT_TYPE_EFECTIVO,
