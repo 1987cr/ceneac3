@@ -83,13 +83,21 @@ class PreregisteredController extends Controller
 		$model = new Preregistered;
 
 		try {
-			if ($model->load($_POST)){
-				// status logic
-				if ($model->save()) {
-					return $this->redirect(['view', 'id' => $model->id]);
-				} elseif (!\Yii::$app->request->isPost) {
-					$model->load($_GET);
+			if ($model->load($_POST) && $model->save()) {
+				if($model->status == 1) { // if is aproved  go to registered
+					$user_id = $model->user_id;
+					$schedule_id = $model->schedule_id;
+					$oldRegister = Registered::find()
+					->where(['user_id' => $user_id, 'schedule_id' => $schedule_id])
+					->one();
+					if($oldRegister == null) {
+						$has = new Registered();
+						$has->user_id = $user_id;
+						$has->schedule_id = $schedule_id;
+						$has->save();
+					}
 				}
+				return $this->redirect(['view', 'id' => $model->id]);
 			} elseif (!\Yii::$app->request->isPost) {
 				$model->load($_GET);
 			}
