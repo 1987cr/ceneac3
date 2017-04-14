@@ -13,7 +13,7 @@ use yii\helpers\Html;
  * @var yii\web\View $this
  * @var app\models\Registered $model
  */
-$this->title = 'Create';
+$this->title = 'Crear';
 $this->params['breadcrumbs'][] = ['label' => 'Registereds', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

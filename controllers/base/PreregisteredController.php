@@ -18,6 +18,7 @@ use yii\web\HttpException;
 use yii\helpers\Url;
 use yii\filters\AccessControl;
 use dmstr\bootstrap\Tabs;
+use app\models\Registered;
 
 /**
  * PreregisteredController implements the CRUD actions for Preregistered model.
@@ -82,11 +83,17 @@ class PreregisteredController extends Controller
 		$model = new Preregistered;
 
 		try {
-			if ($model->load($_POST) && $model->save()) {
-				return $this->redirect(['view', 'id' => $model->id]);
+			if ($model->load($_POST)){
+				// status logic
+				if ($model->save()) {
+					return $this->redirect(['view', 'id' => $model->id]);
+				} elseif (!\Yii::$app->request->isPost) {
+					$model->load($_GET);
+				}
 			} elseif (!\Yii::$app->request->isPost) {
 				$model->load($_GET);
 			}
+
 		} catch (\Exception $e) {
 			$msg = (isset($e->errorInfo[2]))?$e->errorInfo[2]:$e->getMessage();
 			$model->addError('_exception', $msg);
@@ -171,7 +178,7 @@ class PreregisteredController extends Controller
 			return;
 		}
 		$res = '';
-		
+
 		foreach ($pk as $key => $value) {
 			try {
 				$this->findModel($value)->delete();
@@ -180,7 +187,7 @@ class PreregisteredController extends Controller
 				$res.= 'error,';
 			}
 		}
-		
+
 		return rtrim($res, ",");
 	}
 }

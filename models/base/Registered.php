@@ -56,7 +56,7 @@ abstract class Registered extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'schedule_id', 'asistence', 'asistence_number', 'personal_bill', 'comments'], 'required'],
+            [['user_id', 'schedule_id'], 'required'],
             [['user_id', 'schedule_id', 'asistence', 'asistence_number'], 'integer'],
             [['personal_bill', 'comments'], 'string'],
             [['schedule_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Schedule::className(), 'targetAttribute' => ['schedule_id' => 'id']],
