@@ -121,6 +121,19 @@ class PreregisteredController extends Controller
 		$model = $this->findModel($id);
 
 		if ($model->load($_POST) && $model->save()) {
+			if($model->status == 1) { // if is aproved  go to registered
+				$user_id = $model->user_id;
+				$schedule_id = $model->schedule_id;
+				$oldRegister = Registered::find()
+				->where(['user_id' => $user_id, 'schedule_id' => $schedule_id])
+				->one();
+				if($oldRegister == null) {
+					$has = new Registered();
+					$has->user_id = $user_id;
+					$has->schedule_id = $schedule_id;
+					$has->save();
+				}
+			}
 			return $this->redirect(Url::previous());
 		} else {
 			return $this->render('update', [
