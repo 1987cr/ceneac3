@@ -13,14 +13,14 @@ use yii\helpers\Html;
  * @var yii\web\View $this
  * @var app\models\Preregistered $model
  */
-$this->title = 'Create';
-$this->params['breadcrumbs'][] = ['label' => 'Preregistereds', 'url' => ['index']];
+$this->title = 'Crear';
+$this->params['breadcrumbs'][] = ['label' => 'Preinscritos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="giiant-crud preregistered-create">
 
     <h1>
-        <?php echo 'Preregistered' ?>
+        <?php echo 'Preinscritos' ?>
         <small>
                         <?php echo $model->id ?>
         </small>
@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="clearfix crud-navigation">
         <div class="pull-left">
             <?php echo             Html::a(
-	'Cancel',
+	'Cancelar',
 	\yii\helpers\Url::previous(),
 	['class' => 'btn btn-default']) ?>
         </div>

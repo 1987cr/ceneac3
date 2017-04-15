@@ -18,7 +18,7 @@ use kartik\export\ExportMenu;
  * @var yii\data\ActiveDataProvider $dataProvider
  * @var app\models\RegisteredSearch $searchModel
  */
-$this->title = 'Registereds';
+$this->title = 'Inscritos';
 $this->params['breadcrumbs'][] = $this->title;
 
 if (isset($actionColumnTemplates)) {
@@ -40,7 +40,6 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     <?php \yii\widgets\Pjax::begin(['id'=>'pjax-main', 'enableReplaceState'=> false, 'linkSelector'=>'#pjax-main ul.pagination a, th a', 'clientOptions' => ['pjax:success'=>'function(){alert("yo")}']]) ?>
 
     <h1>
-        <?php echo 'Inscritos' ?>
     </h1>
     <div class="clearfix crud-navigation">
         <div class="pull-left">

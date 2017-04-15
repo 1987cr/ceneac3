@@ -69,7 +69,8 @@ if (Yii::$app->controller->action->id === 'login') {
     <script src="/web/js/vendor/bootstrap-datepicker.es.min.js"></script>
     <script src="/web/js/vendor/jquery.timepicker.min.js"></script>
     <script src="/web/js/vendor/toastr.min.js"></script>
-    <script src='/web/js/vendor/tinymce.min.js'></script>
+    <!-- <script src='/web/js/vendor/tinymce.min.js'></script> -->
+    <script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
     </body>
     </html>
     <?php $this->endPage() ?>
