@@ -24,9 +24,9 @@ use yii\bootstrap\ActiveForm;
 $copyParams = $model->attributes;
 
 $this->title = 'Interesado en '.$model->getCourse()->one()->name;
-$this->params['breadcrumbs'][] = ['label' => 'Interest Lists', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Interesados', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => (string)$model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'View';
+$this->params['breadcrumbs'][] = 'Detalle';
 ?>
 <div class="giiant-crud interest-list-view">
 
@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = 'View';
     <?php endif; ?>
 
     <h2>
-        <?php echo $model->getUser()->one()->name.' | '.$model->getUser()->one()->email ?>
+        <?php echo $model->getUser()->one()->name.' '.$model->getUser()->one()->lastname.' | '.$model->getUser()->one()->email ?>
     </h2>
 
     <div class="clearfix crud-navigation">
@@ -84,7 +84,7 @@ $this->params['breadcrumbs'][] = 'View';
 				'attribute' => 'user_id',
 				'value' => ($model->getUser()->one() ?
 					Html::a('<i class="glyphicon glyphicon-list"></i>', ['user/index']).' '.
-					Html::a('<i class="glyphicon glyphicon-circle-arrow-right"></i> '.$model->getUser()->one()->name, ['user/view', 'id' => $model->getUser()->one()->id, ]).' '.
+					Html::a('<i class="glyphicon glyphicon-circle-arrow-right"></i> '.$model->getUser()->one()->name.' '.$model->getUser()->one()->lastname, ['user/view', 'id' => $model->getUser()->one()->id, ]).' '.
 					Html::a('<i class="glyphicon glyphicon-paperclip"></i>', ['create', 'InterestList'=>['user_id' => $model->user_id]])
 					:
 					'<span class="label label-warning">?</span>'),

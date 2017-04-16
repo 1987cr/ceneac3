@@ -13,14 +13,14 @@ use yii\helpers\Html;
  * @var yii\web\View $this
  * @var app\models\InterestList $model
  */
-$this->title = 'Create';
-$this->params['breadcrumbs'][] = ['label' => 'Interest Lists', 'url' => ['index']];
+$this->title = 'Crear';
+$this->params['breadcrumbs'][] = ['label' => 'Interesado', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="giiant-crud interest-list-create">
 
     <h1>
-        <?php echo 'Interest List' ?>
+        <?php echo 'Interesado' ?>
         <small>
                         <?php echo $model->id ?>
         </small>
@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="clearfix crud-navigation">
         <div class="pull-left">
             <?php echo             Html::a(
-	'Cancel',
+	'Cancelar',
 	\yii\helpers\Url::previous(),
 	['class' => 'btn btn-default']) ?>
         </div>

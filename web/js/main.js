@@ -78,6 +78,12 @@ $(document).ready(function() {
 		startDate: '0d'
 	});
 
+	$("#interestlist-start_date").datepicker({
+		language: 'es',
+		format: 'dd-mm-yyyy',
+		startDate: '0d'
+	});
+
 	/* ------------------------------------- */
 	/* ............ Time Picker ............ */
 	/* ------------------------------------- */
