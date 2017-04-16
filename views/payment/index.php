@@ -92,7 +92,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 									if ($rel = $model->getPreregister()->one()) {
 										// return var_dump($model->getUserName());
 										$user = $model->getUserName();
-										return Html::a($user->name.' '.$user->lastname, ['preregistered/view', 'id' => $rel->id, ], ['data-pjax' => 0]).' - '.$user->ci;
+										return Html::a($user->name.' '.$user->lastname, ['preregistered/view', 'id' => $rel->id, ], ['data-pjax' => 0]).' | '.$user->ci;
 									} else {
 										return '';
 									}
@@ -171,7 +171,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 					if ($rel = $model->getPreregister()->one()) {
 						// return var_dump($model->getUserName());
 						$user = $model->getUserName();
-						return Html::a($user->name.' '.$user->lastname, ['preregistered/view', 'id' => $rel->id, ], ['data-pjax' => 0]).' - '.$user->ci;
+						return Html::a($user->name.' '.$user->lastname, ['preregistered/view', 'id' => $rel->id, ], ['data-pjax' => 0]).' | '.$user->ci;
 					} else {
 						return '';
 					}

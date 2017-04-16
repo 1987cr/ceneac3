@@ -37,6 +37,7 @@ $this->params['breadcrumbs'][] = 'Detalle';
     <?php endif; ?>
 
     <h1>
+      <?php echo $model->getUserName()->name.' '.$model->getUserName()->lastname.' | '.$model->getUserName()->ci; ?>
     </h1>
 
 
@@ -81,7 +82,7 @@ $this->params['breadcrumbs'][] = 'Detalle';
 				'attribute' => 'preregister_id',
 				'value' => ($model->getPreregister()->one() ?
 					Html::a('<i class="glyphicon glyphicon-list"></i>', ['preregistered/index']).' '.
-					Html::a('<i class="glyphicon glyphicon-circle-arrow-right"></i> '.$model->getPreregister()->one()->id, ['preregistered/view', 'id' => $model->getPreregister()->one()->id, ]).' '.
+					Html::a('<i class="glyphicon glyphicon-circle-arrow-right"></i> '.$model->getUserName()->name.' '.$model->getUserName()->lastname.' |'.$model->getUserName()->ci, ['preregistered/view', 'id' => $model->getPreregister()->one()->id, ]).' '.
 					Html::a('<i class="glyphicon glyphicon-paperclip"></i>', ['create', 'Payment'=>['preregister_id' => $model->preregister_id]])
 					:
 					'<span class="label label-warning">?</span>'),

@@ -13,23 +13,20 @@ use yii\helpers\Html;
  * @var yii\web\View $this
  * @var app\models\Payment $model
  */
-$this->title = 'Create';
-$this->params['breadcrumbs'][] = ['label' => 'Payments', 'url' => ['index']];
+$this->title = 'Crear';
+$this->params['breadcrumbs'][] = ['label' => 'Pagos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="giiant-crud payment-create">
 
     <h1>
-        <?php echo 'Payment' ?>
-        <small>
-                        <?php echo $model->id ?>
-        </small>
+        <?php echo 'Pago' ?>
     </h1>
 
     <div class="clearfix crud-navigation">
         <div class="pull-left">
             <?php echo             Html::a(
-	'Cancel',
+	'Cancelar',
 	\yii\helpers\Url::previous(),
 	['class' => 'btn btn-default']) ?>
         </div>
