@@ -66,7 +66,7 @@ abstract class Payment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['preregister_id', 'amount', 'payment_type', 'payment_date', 'remaining_amount', 'comments'], 'required'],
+            [['preregister_id', 'amount', 'payment_type', 'payment_date', 'remaining_amount'], 'required'],
             [['preregister_id'], 'integer'],
             [['amount', 'remaining_amount'], 'number'],
             [['payment_type', 'comments', 'client_bank', 'reference_number'], 'string'],

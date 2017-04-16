@@ -64,7 +64,7 @@ Tabs::widget(
 
         <?php echo Html::submitButton(
 	'<span class="glyphicon glyphicon-check"></span> ' .
-	($model->isNewRecord ? 'Create' : 'Save'),
+	($model->isNewRecord ? 'Crear' : 'Guardar'),
 	[
 		'id' => 'save-' . $model->formName(),
 		'class' => 'btn btn-success'

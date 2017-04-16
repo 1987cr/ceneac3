@@ -13,22 +13,19 @@ use yii\helpers\Html;
  * @var yii\web\View $this
  * @var app\models\Course $model
  */
-$this->title = 'Course' . " " . $model->name . ', ' . 'Edit';
-$this->params['breadcrumbs'][] = ['label' => 'Course', 'url' => ['index']];
+$this->title = 'Editar Curso';
+$this->params['breadcrumbs'][] = ['label' => 'Curso', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => (string)$model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Edit';
+$this->params['breadcrumbs'][] = 'Editar';
 ?>
 <div class="giiant-crud course-update">
 
     <h1>
-        <?php echo 'Course' ?>
-        <small>
-                        <?php echo $model->name ?>
-        </small>
+      <?php echo $model->name ?>
     </h1>
 
     <div class="crud-navigation">
-        <?php echo Html::a('<span class="glyphicon glyphicon-file"></span> ' . 'View', ['view', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
+        <?php echo Html::a('<span class="glyphicon glyphicon-file"></span> ' . 'Detalle', ['view', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
     </div>
 
     <hr />

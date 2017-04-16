@@ -104,10 +104,10 @@ $this->params['breadcrumbs'][] = 'View';
 
     <hr/>
 
-    <?php echo Html::a('<span class="glyphicon glyphicon-trash"></span> ' . 'Delete', ['delete', 'id' => $model->id],
+    <?php echo Html::a('<span class="glyphicon glyphicon-trash"></span> ' . 'Borrar', ['delete', 'id' => $model->id],
 	[
 		'class' => 'btn btn-danger',
-		'data-confirm' => '' . 'Are you sure to delete this item?' . '',
+		'data-confirm' => '' . 'Seguro que desea eliminar el registro?' . '',
 		'data-method' => 'post',
 	]); ?>
     <?php $this->endBlock(); ?>

@@ -63,7 +63,7 @@ $form->field($model, 'course_id')->dropDownList(
 
 <!-- attribute classroom -->
 			<?php echo $form->field($model, 'classroom')->textInput(['maxlength' => true]) ?>
-			
+
 			<div class="row">
 				<label class="control-label col-sm-3" for="schedule-classroom">Días</label>
 			</div>
@@ -110,7 +110,7 @@ Tabs::widget(
 
         <?php echo Html::submitButton(
 	'<span class="glyphicon glyphicon-check"></span> ' .
-	($model->isNewRecord ? 'Create' : 'Save'),
+	($model->isNewRecord ? 'Crear' : 'Guardar'),
 	[
 		'id' => 'save-' . $model->formName(),
 		'class' => 'btn btn-success'
