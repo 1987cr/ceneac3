@@ -66,6 +66,24 @@ $(document).ready(function() {
 		});
 	})
 
+	$( "input[name='PaymentSearch[payment_date]']" ).datepicker({
+		language: 'es',
+		format: 'dd-mm-yyyy',
+		startDate: new Date('2015')
+	});
+
+	$( "input[name='PreregisteredSearch[preregister_date]']" ).datepicker({
+		language: 'es',
+		format: 'dd-mm-yyyy',
+		startDate: new Date('2015')
+	});
+
+	$( "input[name='InterestListSearch[start_date]']" ).datepicker({
+		language: 'es',
+		format: 'dd-mm-yyyy',
+		startDate: new Date('2015')
+	});
+
 	$("#preregistered-preregister_date").datepicker({
 		language: 'es',
 		format: 'dd-mm-yyyy',
