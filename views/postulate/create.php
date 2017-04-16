@@ -13,23 +13,20 @@ use yii\helpers\Html;
  * @var yii\web\View $this
  * @var app\models\Postulate $model
  */
-$this->title = 'Create';
-$this->params['breadcrumbs'][] = ['label' => 'Postulates', 'url' => ['index']];
+$this->title = 'Crear';
+$this->params['breadcrumbs'][] = ['label' => 'Postulados', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="giiant-crud postulate-create">
 
     <h1>
-        <?php echo 'Postulate' ?>
-        <small>
-                        <?php echo $model->id ?>
-        </small>
+        <?php echo 'Postulado' ?>
     </h1>
 
     <div class="clearfix crud-navigation">
         <div class="pull-left">
             <?php echo             Html::a(
-	'Cancel',
+	'Cancelar',
 	\yii\helpers\Url::previous(),
 	['class' => 'btn btn-default']) ?>
         </div>

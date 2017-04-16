@@ -13,7 +13,7 @@ use yii\helpers\Html;
  * @var yii\web\View $this
  * @var app\models\Instructor $model
  */
-$this->title = 'Create';
+$this->title = 'Crear';
 $this->params['breadcrumbs'][] = ['label' => 'Instructors', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="clearfix crud-navigation">
         <div class="pull-left">
             <?php echo             Html::a(
-	'Cancel',
+	'Cancelar',
 	\yii\helpers\Url::previous(),
 	['class' => 'btn btn-default']) ?>
         </div>
