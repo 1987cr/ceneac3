@@ -19,6 +19,7 @@ use app\models\Schedule;
 class ScheduleSearch extends Schedule
 {
 
+public $courseFullName;
 	/**
 	 *
 	 * @inheritdoc
@@ -27,7 +28,7 @@ class ScheduleSearch extends Schedule
 	public function rules() {
 		return [
 			[['id', 'course_id', 'duration', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'], 'integer'],
-			[['start_date', 'end_date', 'start_hour', 'end_hour', 'classroom', 'comments', 'created_at', 'updated_at',' name'], 'safe'],
+			[['start_date', 'end_date', 'start_hour', 'end_hour', 'classroom', 'comments', 'created_at', 'updated_at',' name', 'courseFullName'], 'safe'],
 		];
 	}
 
@@ -42,7 +43,31 @@ class ScheduleSearch extends Schedule
 		return Model::scenarios();
 	}
 
+	protected function addCondition($query, $attribute, $partialMatch = false)
+	{
+	    if (($pos = strrpos($attribute, '.')) !== false) {
+	        $modelAttribute = substr($attribute, $pos + 1);
+	    } else {
+	        $modelAttribute = $attribute;
+	    }
 
+	    $value = $this->$modelAttribute;
+	    if (trim($value) === '') {
+	        return;
+	    }
+
+	    /*
+	     * The following line is additionally added for right aliasing
+	     * of columns so filtering happen correctly in the self join
+	     */
+	    // $attribute = "tbl_perso.$attribute";
+			// 
+	    // if ($partialMatch) {
+	    //     $query->andWhere(['like', $attribute, $value]);
+	    // } else {
+	    //     $query->andWhere([$attribute => $value]);
+	    // }
+		}
 	/**
 	 * Creates data provider instance with search query applied
 	 *
@@ -70,10 +95,10 @@ class ScheduleSearch extends Schedule
 			$fecha_ini_f = \DateTime::createFromFormat('d-m-Y', $this->start_date);
 			$fecha_ini = $fecha_ini_f->format('Y-m-d');
 		}
-		
+
 		$fecha_fin = $this->end_date;
 		if($this->end_date != '') {
-			$fecha_fin_f = \DateTime::createFromFormat('d-m-Y', $this->end_date); 
+			$fecha_fin_f = \DateTime::createFromFormat('d-m-Y', $this->end_date);
 			$fecha_fin = $fecha_fin_f->format('Y-m-d');
 		}
 
@@ -90,6 +115,7 @@ class ScheduleSearch extends Schedule
 				'created_at' => $this->created_at,
 				'updated_at' => $this->updated_at
 			]);
+			$this->addCondition($query, 'courseFullName');
 
 		$query->andFilterWhere(['like', 'start_hour', $this->start_hour])
 		->andFilterWhere(['like', 'end_hour', $this->end_hour])

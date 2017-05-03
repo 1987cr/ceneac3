@@ -98,7 +98,8 @@ abstract class Schedule extends \yii\db\ActiveRecord
         'saturday' => 'Sabado',
         'comments' => 'Comentarios',
         'created_at' => 'Creado el',
-        'updated_at' => 'Actualizado el'
+        'updated_at' => 'Actualizado el',
+        'courseFullName' => Yii::t('app', 'course name'),
         ];
     }
 
@@ -142,6 +143,12 @@ abstract class Schedule extends \yii\db\ActiveRecord
         return $this->hasOne(\app\models\Course::className(), ['id' => 'course_id']);
     }
 
+    public function getCourseFullName() {
+      list($fecha,$fakeHora) = explode(' ', $this->start_date);
+      list($year,$month,$day) = explode('-', $fecha);
+      return $this->course->name.' '.$day.'-'.$month.'-'.$year.' '.$this->start_hour;
+      // return $this->course->name;
+    }
 
 
 

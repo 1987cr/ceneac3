@@ -70,7 +70,6 @@ $this->params['breadcrumbs'][] = 'View';
     </div>
 
     <hr />
-
 <?php $this->beginBlock('InterestLists'); ?>
 <div style='position: relative'>
 <div style='position:absolute; right: 0px; top: 0px;'>

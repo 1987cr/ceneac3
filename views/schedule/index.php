@@ -54,7 +54,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 	[
 		'id' => 'giiant-relations',
 		'encodeLabel' => false,
-		'label' => '<span class="glyphicon glyphicon-paperclip"></span> ' . 'Relations',
+		'label' => '<span class="glyphicon glyphicon-paperclip"></span> ' . 'Relaciones',
 		'dropdown' => [
 			'options' => [
 				'class' => 'dropdown-menu-right'
@@ -220,6 +220,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 			],
 			'start_hour',
 			'end_hour',
+			'courseFullName',
 			/*'monday',*/
 			/*'tuesday',*/
 			/*'wednesday',*/
