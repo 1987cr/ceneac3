@@ -220,7 +220,7 @@ echo GridView::widget([
 			],
 			'start_hour',
 			'end_hour',
-			'courseFullName',
+			/*'courseFullName',*/
 			/*'monday',*/
 			/*'tuesday',*/
 			/*'wednesday',*/

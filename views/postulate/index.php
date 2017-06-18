@@ -126,7 +126,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 				'attribute' => 'user_id',
 				'value' => function ($model) {
 					if ($rel = $model->getUser()->one()) {
-						return Html::a($rel->name.' '.$rel->lastname.' | '.$rel->ci, ['user/view', 'id' => $rel->id, ], ['data-pjax' => 0]);
+						return Html::a($rel->name.' '.$rel->lastname, ['user/view', 'id' => $rel->id, ], ['data-pjax' => 0]);
 					} else {
 						return '';
 					}
