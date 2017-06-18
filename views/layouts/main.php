@@ -39,6 +39,7 @@ if (Yii::$app->controller->action->id === 'login') {
         <link rel="stylesheet" href="/web/css/vendor/bootstrap-datepicker.min.css">
         <link rel="stylesheet" href="/web/css/vendor/jquery.timepicker.min.css">
         <link rel="stylesheet" href="/web/css/vendor/toastr.min.css">
+        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
         <?php $this->head() ?>
     </head>
     <body class="hold-transition <?= \dmstr\helpers\AdminLteHelper::skinClass() ?> sidebar-mini">
@@ -69,8 +70,12 @@ if (Yii::$app->controller->action->id === 'login') {
     <script src="/web/js/vendor/bootstrap-datepicker.es.min.js"></script>
     <script src="/web/js/vendor/jquery.timepicker.min.js"></script>
     <script src="/web/js/vendor/toastr.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
     <!-- <script src='/web/js/vendor/tinymce.min.js'></script> -->
     <script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
+
+    <script src="/web/js/main.js"></script>
     </body>
     </html>
     <?php $this->endPage() ?>

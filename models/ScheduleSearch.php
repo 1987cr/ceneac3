@@ -91,15 +91,23 @@ public $courseFullName;
 		}
 
 		$fecha_ini = $this->start_date;
-		if($this->start_date != '') {
-			$fecha_ini_f = \DateTime::createFromFormat('d-m-Y', $this->start_date);
-			$fecha_ini = $fecha_ini_f->format('Y-m-d');
+		$fi1 = ''; // Fecha de Inicio - Inicio
+		$fi2 = ''; // Fecha de Inicio - Fin
+
+		if($fecha_ini != '') {
+			list($fi1_s, $fi2_s) = explode(' a ', $fecha_ini);
+			$fi1 = \DateTime::createFromFormat('d-m-Y', $fi1_s)->format('Y-m-d');
+			$fi2 = \DateTime::createFromFormat('d-m-Y', $fi2_s)->format('Y-m-d');
 		}
 
 		$fecha_fin = $this->end_date;
-		if($this->end_date != '') {
-			$fecha_fin_f = \DateTime::createFromFormat('d-m-Y', $this->end_date);
-			$fecha_fin = $fecha_fin_f->format('Y-m-d');
+		$ff1 = ''; // Fecha de Finalización - Inicio
+		$ff2 = ''; // Fecha de Finalización - Fin
+
+		if($fecha_fin  != '') {
+			list($ff1_s, $ff2_s) = explode(' a ', $fecha_fin);
+			$ff1 = \DateTime::createFromFormat('d-m-Y', $ff1_s)->format('Y-m-d');
+			$ff2 = \DateTime::createFromFormat('d-m-Y', $ff2_s)->format('Y-m-d');
 		}
 
 		$query->andFilterWhere([
@@ -121,8 +129,10 @@ public $courseFullName;
 		->andFilterWhere(['like', 'end_hour', $this->end_hour])
 		->andFilterWhere(['like', 'classroom', $this->classroom])
 		->andFilterWhere(['like', 'comments', $this->comments])
-		->andFilterWhere(['>=', 'start_date', $fecha_ini])
-		->andFilterWhere(['<=', 'end_date', $fecha_fin]);
+		->andFilterWhere(['>=', 'start_date', $fi1])
+		->andFilterWhere(['<=', 'start_date', $fi2])
+		->andFilterWhere(['>=', 'end_date', $ff1])
+		->andFilterWhere(['<=', 'end_date', $ff2]);
 
 		return $dataProvider;
 	}
