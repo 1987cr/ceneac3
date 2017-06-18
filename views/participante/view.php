@@ -1,6 +1,6 @@
 <?php
 /**
- * /home/criera/Projects/ceneac_yii/runtime/giiant/d4b4964a63cc95065fa0ae19074007ee
+ * /home/criera/Projects/CENEAC/ceneac_yii/runtime/giiant/d4b4964a63cc95065fa0ae19074007ee
  *
  * @package default
  */
@@ -20,8 +20,8 @@ use dmstr\bootstrap\Tabs;
  */
 $copyParams = $model->attributes;
 
-$this->title = 'Usuario';
-$this->params['breadcrumbs'][] = ['label' => 'Usuarios', 'url' => ['index']];
+$this->title = 'Participante';
+$this->params['breadcrumbs'][] = ['label' => 'Participantes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => (string)$model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'View';
 ?>
@@ -37,7 +37,10 @@ $this->params['breadcrumbs'][] = 'View';
     <?php endif; ?>
 
     <h1>
-            <?php echo $model->name.' '.$model->lastname ?>
+        <?php echo 'User' ?>
+        <small>
+            <?php echo $model->name ?>
+        </small>
     </h1>
 
 
@@ -46,17 +49,17 @@ $this->params['breadcrumbs'][] = 'View';
         <!-- menu buttons -->
         <div class='pull-left'>
             <?php echo Html::a(
-	'<span class="glyphicon glyphicon-pencil"></span> ' . 'Editar',
+	'<span class="glyphicon glyphicon-pencil"></span> ' . 'Edit',
 	[ 'update', 'id' => $model->id],
 	['class' => 'btn btn-info']) ?>
 
             <?php echo Html::a(
-	'<span class="glyphicon glyphicon-copy"></span> ' . 'Copiar',
+	'<span class="glyphicon glyphicon-copy"></span> ' . 'Copy',
 	['create', 'id' => $model->id, 'User'=>$copyParams],
 	['class' => 'btn btn-success']) ?>
 
             <?php echo Html::a(
-	'<span class="glyphicon glyphicon-plus"></span> ' . 'Nuevo',
+	'<span class="glyphicon glyphicon-plus"></span> ' . 'New',
 	['create'],
 	['class' => 'btn btn-success']) ?>
         </div>
@@ -77,15 +80,15 @@ $this->params['breadcrumbs'][] = 'View';
 		'model' => $model,
 		'attributes' => [
 			'username',
-			// 'password',
+			'password',
 			'name',
 			'lastname',
 			'email:email',
 			'ci',
-			// 'auth_key',
-			// 'access_token',
+			'auth_key',
+			'access_token',
 			'phone_mobile',
-			// 'phone_home',
+			'phone_home',
 		],
 	]); ?>
 
@@ -238,6 +241,7 @@ $this->params['breadcrumbs'][] = 'View';
 				},
 				'format' => 'raw',
 			],
+			'start_date',
 			'created_at',
 			'updated_at',
 		]
@@ -462,7 +466,7 @@ $this->params['breadcrumbs'][] = 'View';
 			],
 			'asistence',
 			'asistence_number',
-			'personal_bill:ntext',
+			'personal_bill',
 			'comments:ntext',
 			'created_at',
 			'updated_at',
@@ -472,7 +476,6 @@ $this->params['breadcrumbs'][] = 'View';
 ?>
 <?php Pjax::end() ?>
 <?php $this->endBlock() ?>
-
 
 
     <?php echo Tabs::widget(

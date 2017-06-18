@@ -26,13 +26,10 @@ use yii\behaviors\TimestampBehavior;
  *
  * @property \app\models\Instructors[] $instructors
  * @property \app\models\InterestLists[] $interestLists
- * @property \app\models\PermissionUsers[] $permissionUsers
- * @property \app\models\Permissions[] $permissions
  * @property \app\models\Postulates[] $postulates
  * @property \app\models\Preregisters[] $preregisters
  * @property \app\models\Registers[] $registers
- * @property \app\models\RoleUsers[] $roleUsers
- * @property \app\models\Roles[] $roles
+
  * @property string $aliasModel
  */
 abstract class User extends \yii\db\ActiveRecord
@@ -117,22 +114,6 @@ abstract class User extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPermissionUsers()
-    {
-        return $this->hasMany(\app\models\PermissionUser::className(), ['user_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPermissions()
-    {
-        return $this->hasMany(\app\models\Permission::className(), ['id' => 'permission_id'])->viaTable('permission_users', ['user_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getPostulates()
     {
         return $this->hasMany(\app\models\Postulate::className(), ['user_id' => 'id']);
@@ -153,23 +134,6 @@ abstract class User extends \yii\db\ActiveRecord
     {
         return $this->hasMany(\app\models\Registered::className(), ['user_id' => 'id']);
     }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRoleUsers()
-    {
-        return $this->hasMany(\app\models\RoleUser::className(), ['user_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRoles()
-    {
-        return $this->hasMany(\app\models\Role::className(), ['id' => 'role_id'])->viaTable('role_users', ['user_id' => 'id']);
-    }
-
 
 
 

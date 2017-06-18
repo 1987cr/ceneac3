@@ -1,6 +1,6 @@
 <?php
 /**
- * /home/criera/Projects/ceneac_yii/runtime/giiant/a0a12d1bd32eaeeb8b2cff56d511aa22
+ * /home/criera/Projects/CENEAC/ceneac_yii/runtime/giiant/a0a12d1bd32eaeeb8b2cff56d511aa22
  *
  * @package default
  */
@@ -16,7 +16,7 @@ use yii\grid\GridView;
  * @var yii\data\ActiveDataProvider $dataProvider
  * @var app\models\UserSearch $searchModel
  */
-$this->title = 'Usuarios';
+$this->title = 'Participantes';
 $this->params['breadcrumbs'][] = $this->title;
 
 if (isset($actionColumnTemplates)) {
@@ -38,10 +38,14 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
     <?php \yii\widgets\Pjax::begin(['id'=>'pjax-main', 'enableReplaceState'=> false, 'linkSelector'=>'#pjax-main ul.pagination a, th a', 'clientOptions' => ['pjax:success'=>'function(){alert("yo")}']]) ?>
 
     <h1>
+        <?php echo 'Participantes' ?>
+        <small>
+            List
+        </small>
     </h1>
     <div class="clearfix crud-navigation">
         <div class="pull-left">
-            <?php echo Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'Nuevo', ['create'], ['class' => 'btn btn-success']) ?>
+            <?php echo Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'New', ['create'], ['class' => 'btn btn-success']) ?>
         </div>
 
         <div class="pull-right">
@@ -111,8 +115,8 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 				'buttons' => [
 					'view' => function ($url, $model, $key) {
 						$options = [
-							'title' => Yii::t('yii', 'View'),
-							'aria-label' => Yii::t('yii', 'View'),
+							'title' => 'View',
+							'aria-label' => 'View',
 							'data-pjax' => '0',
 						];
 						return Html::a('<span class="glyphicon glyphicon-file"></span>', $url, $options);
@@ -128,11 +132,13 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 				},
 				'contentOptions' => ['nowrap'=>'nowrap']
 			],
-			'ci',
 			'username',
+			'email:email',
 			'name',
 			'lastname',
-			'email:email',
+			'ci',
+			'phone_mobile',
+			'phone_home',
 		],
 	]); ?>
     </div>

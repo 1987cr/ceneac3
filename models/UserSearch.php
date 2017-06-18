@@ -50,7 +50,7 @@ class UserSearch extends User
 	 * @param array   $params
 	 * @return ActiveDataProvider
 	 */
-	public function search($params) {
+	public function search($params, $role='') {
 		$query = User::find();
 
 		$dataProvider = new ActiveDataProvider([
@@ -82,8 +82,56 @@ class UserSearch extends User
 		->andFilterWhere(['like', 'phone_mobile', $this->phone_mobile])
 		->andFilterWhere(['like', 'phone_home', $this->phone_home]);
 
+		if($role == 'participante') {
+			$query->join('LEFT JOIN', 'auth_assignment', 'auth_assignment.user_id = id')
+			->andFilterWhere(['auth_assignment.item_name' => 'participante']);
+		} else {
+			$query->join('LEFT JOIN', 'auth_assignment', 'auth_assignment.user_id = id')
+			->andFilterWhere(['<>', 'auth_assignment.item_name', 'participante']);
+		}
+
 		return $dataProvider;
 	}
 
+	public function searchParticipantes($params, $role='') {
+
+		var_dump($role);
+		
+		$query = User::find();
+
+		$dataProvider = new ActiveDataProvider([
+				'query' => $query,
+			]);
+
+		$this->load($params);
+
+		if (!$this->validate()) {
+			// uncomment the following line if you do not want to any records when validation fails
+			// $query->where('0=1');
+			return $dataProvider;
+		}
+
+		$query->andFilterWhere([
+				'id' => $this->id,
+				'ci' => $this->ci,
+				'created_at' => $this->created_at,
+				'updated_at' => $this->updated_at,
+			]);
+
+		$query->andFilterWhere(['like', 'username', $this->username])
+		->andFilterWhere(['like', 'password', $this->password])
+		->andFilterWhere(['like', 'auth_key', $this->auth_key])
+		->andFilterWhere(['like', 'access_token', $this->access_token])
+		->andFilterWhere(['like', 'name', $this->name])
+		->andFilterWhere(['like', 'lastname', $this->lastname])
+		->andFilterWhere(['like', 'email', $this->email])
+		->andFilterWhere(['like', 'phone_mobile', $this->phone_mobile])
+		->andFilterWhere(['like', 'phone_home', $this->phone_home]);
+
+		$query->join('LEFT JOIN', 'auth_assignment', 'auth_assignment.user_id = id')
+		->andFilterWhere(['auth_assignment.item_name' => 'participante']);
+
+		return $dataProvider;
+	}
 
 }
