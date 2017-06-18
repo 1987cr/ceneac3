@@ -8,7 +8,7 @@
 use kartik\export\ExportMenu;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use kartik\grid\GridView;
+use yii\grid\GridView;
 
 /**
  *
@@ -98,6 +98,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 
     <div class="table-responsive">
         <?php
+
         echo ExportMenu::widget([
 		        'dataProvider' => $dataProvider,
 		        'columns' => [
@@ -146,8 +147,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 						'filename' => 'CENEAC_Cronograma_'.getdate()['mday'].'-'.getdate()['mon'].'-'.getdate()['year'],
 		    ]);
 
-
-        echo GridView::widget([
+echo GridView::widget([
 		'dataProvider' => $dataProvider,
 		'pager' => [
 			'class' => yii\widgets\LinkPager::className(),

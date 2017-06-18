@@ -17,8 +17,19 @@
                         'visible' => !Yii::$app->user->isGuest,
                         'items' => [
                             ['label' => 'Users', 'icon' => 'fa fa-user', 'url' => ['/user'],],
-                            ['label' => 'Roles', 'icon' => 'fa fa-user-plus', 'url' => ['/role'],],
-                            ['label' => 'Permissions', 'icon' => 'fa fa-key', 'url' => ['/permission'],],
+                        ],
+                    ],
+
+                    // Roles y Permisos
+                    [
+                        'label' => 'Roles y Permisos',
+                        'icon' => 'fa fa-key',
+                        'url' => '#',
+                        'visible' => !Yii::$app->user->isGuest,
+                        'items' => [
+                            ['label' => 'Assignment', 'icon' => 'fa fa-user-plus', 'url' => ['/admin/assignment'],],
+                            ['label' => 'Roles', 'icon' => 'fa fa-user-plus', 'url' => ['/admin/role'],],
+                            ['label' => 'Permissions', 'icon' => 'fa fa-key', 'url' => ['/admin/permission'],],
                         ],
                     ],
 
@@ -41,13 +52,13 @@
                         'url' => '#',
                         'visible' => !Yii::$app->user->isGuest,
                         'items' => [
-                            ['label' => 'Cursos', 'icon' => 'fa fa-list', 'url' => ['/course'],],
+                            (\Yii::$app->user->can('Cursos - Todos') ? ['label' => 'Cursos', 'icon' => 'fa fa-list', 'url' => ['/course'],] : []),
                             ['label' => 'Categorías', 'icon' => 'fa fa-tags', 'url' => ['/category'],],
                             ['label' => 'Cronograma', 'icon' => 'fa fa-calendar', 'url' => ['/schedule'],],
                         ],
                     ],
 
-                    // Cursos
+                    // Listas
                     [
                         'label' => 'Listas',
                         'icon' => 'fa fa-list',
@@ -60,9 +71,8 @@
                             ['label' => 'Interesados', 'icon' => 'fa fa-list-ul', 'url' => ['/interest-list'],],
                         ],
                     ],
-
                     [
-                        'label' => 'Same tools',
+                        'label' => 'Herramientas',
                         'icon' => 'fa fa-share',
                         'url' => '#',
                         'items' => [

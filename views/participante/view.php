@@ -1,6 +1,6 @@
 <?php
 /**
- * /home/criera/Projects/ceneac_yii/runtime/giiant/d4b4964a63cc95065fa0ae19074007ee
+ * /home/criera/Projects/CENEAC/ceneac_yii/runtime/giiant/d4b4964a63cc95065fa0ae19074007ee
  *
  * @package default
  */
@@ -20,8 +20,8 @@ use dmstr\bootstrap\Tabs;
  */
 $copyParams = $model->attributes;
 
-$this->title = 'User';
-$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
+$this->title = 'Participante';
+$this->params['breadcrumbs'][] = ['label' => 'Participantes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => (string)$model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'View';
 ?>
@@ -241,6 +241,7 @@ $this->params['breadcrumbs'][] = 'View';
 				},
 				'format' => 'raw',
 			],
+			'start_date',
 			'created_at',
 			'updated_at',
 		]
@@ -465,7 +466,7 @@ $this->params['breadcrumbs'][] = 'View';
 			],
 			'asistence',
 			'asistence_number',
-			'personal_bill:ntext',
+			'personal_bill',
 			'comments:ntext',
 			'created_at',
 			'updated_at',
@@ -475,7 +476,6 @@ $this->params['breadcrumbs'][] = 'View';
 ?>
 <?php Pjax::end() ?>
 <?php $this->endBlock() ?>
-
 
 
     <?php echo Tabs::widget(

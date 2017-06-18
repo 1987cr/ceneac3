@@ -1,6 +1,6 @@
 <?php
 /**
- * /home/criera/Projects/ceneac_yii/runtime/giiant/358b0e44f1c1670b558e36588c267e47
+ * /home/criera/Projects/CENEAC/ceneac_yii/runtime/giiant/358b0e44f1c1670b558e36588c267e47
  *
  * @package default
  */
@@ -11,9 +11,8 @@
 
 namespace app\controllers\base;
 
-use app\models\Role;
-use app\models\RoleSearch;
-use app\models\PermissionRole;
+use app\models\User;
+use app\models\UserSearch;
 use yii\web\Controller;
 use yii\web\HttpException;
 use yii\helpers\Url;
@@ -21,9 +20,9 @@ use yii\filters\AccessControl;
 use dmstr\bootstrap\Tabs;
 
 /**
- * RoleController implements the CRUD actions for Role model.
+ * ParticipanteController implements the CRUD actions for User model.
  */
-class RoleController extends Controller
+class ParticipanteController extends Controller
 {
 
 
@@ -36,13 +35,13 @@ class RoleController extends Controller
 
 
 	/**
-	 * Lists all Role models.
+	 * Lists all User models.
 	 *
 	 * @return mixed
 	 */
 	public function actionIndex() {
-		$searchModel  = new RoleSearch;
-		$dataProvider = $searchModel->search($_GET);
+		$searchModel  = new UserSearch;
+		$dataProvider = $searchModel->search($_GET,'participante');
 
 		Tabs::clearLocalStorage();
 
@@ -57,7 +56,7 @@ class RoleController extends Controller
 
 
 	/**
-	 * Displays a single Role model.
+	 * Displays a single User model.
 	 *
 	 * @param integer $id
 	 * @return mixed
@@ -74,28 +73,16 @@ class RoleController extends Controller
 
 
 	/**
-	 * Creates a new Role model.
+	 * Creates a new User model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 *
 	 * @return mixed
 	 */
 	public function actionCreate() {
-		$model = new Role;
+		$model = new User;
 
 		try {
 			if ($model->load($_POST) && $model->save()) {
-
-				$permisos = ($_POST['Role']['permisos'] ? $_POST['Role']['permisos'] : []);
-
-				if(count($permisos) > 0) {
-					foreach ($permisos as $key => $value) {
-						$has = new PermissionRole();
-						$has->role_id = $model->id;
-						$has->permission_id = (int)$value;
-						$has->save();
-					}
-				}
-
 				return $this->redirect(['view', 'id' => $model->id]);
 			} elseif (!\Yii::$app->request->isPost) {
 				$model->load($_GET);
@@ -109,7 +96,7 @@ class RoleController extends Controller
 
 
 	/**
-	 * Updates an existing Role model.
+	 * Updates an existing User model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 *
 	 * @param integer $id
@@ -121,8 +108,6 @@ class RoleController extends Controller
 		if ($model->load($_POST) && $model->save()) {
 			return $this->redirect(Url::previous());
 		} else {
-
-			$model->permisos = $model->getPermissions()->all();
 			return $this->render('update', [
 					'model' => $model,
 				]);
@@ -131,7 +116,7 @@ class RoleController extends Controller
 
 
 	/**
-	 * Deletes an existing Role model.
+	 * Deletes an existing User model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
 	 *
 	 * @param integer $id
@@ -164,15 +149,15 @@ class RoleController extends Controller
 
 
 	/**
-	 * Finds the Role model based on its primary key value.
+	 * Finds the User model based on its primary key value.
 	 * If the model is not found, a 404 HTTP exception will be thrown.
 	 *
 	 * @throws HttpException if the model cannot be found
 	 * @param integer $id
-	 * @return Role the loaded model
+	 * @return User the loaded model
 	 */
 	protected function findModel($id) {
-		if (($model = Role::findOne($id)) !== null) {
+		if (($model = User::findOne($id)) !== null) {
 			return $model;
 		} else {
 			throw new HttpException(404, 'The requested page does not exist.');
