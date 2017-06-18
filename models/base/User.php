@@ -135,6 +135,18 @@ abstract class User extends \yii\db\ActiveRecord
         return $this->hasMany(\app\models\Registered::className(), ['user_id' => 'id']);
     }
 
+    public function getRoleName()
+    {
+        $roles = Yii::$app->authManager->getRolesByUser($this->id);
+        if (!$roles) {
+            return null;
+        }
 
+        reset($roles);
+        /* @var $role \yii\rbac\Role */
+        $role = current($roles);
+
+        return $role->name;
+    }
 
 }

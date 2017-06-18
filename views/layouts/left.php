@@ -16,7 +16,8 @@
                         'url' => '#',
                         'visible' => !Yii::$app->user->isGuest,
                         'items' => [
-                            ['label' => 'Users', 'icon' => 'fa fa-user', 'url' => ['/user'],],
+                            ['label' => 'Usuarios CENEAC', 'icon' => 'fa fa-user', 'url' => ['/user'],],
+                            ['label' => 'Participantes', 'icon' => 'fa fa-user', 'url' => ['/participante'],],
                         ],
                     ],
 

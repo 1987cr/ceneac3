@@ -133,6 +133,14 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 			'name',
 			'lastname',
 			'email:email',
+			[
+				'class' => yii\grid\DataColumn::className(),
+				'format' => 'raw',
+				'attribute' => 'Rol',
+				'value' => function ($model) {
+					return $model->getRoleName();
+				},
+			],
 		],
 	]); ?>
     </div>
