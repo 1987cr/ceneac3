@@ -27,7 +27,7 @@ public $courseFullName;
 	 */
 	public function rules() {
 		return [
-			[['id', 'course_id', 'duration', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'], 'integer'],
+			[['course_id','id', 'duration', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'], 'integer'],
 			[['start_date', 'end_date', 'start_hour', 'end_hour', 'classroom', 'comments', 'created_at', 'updated_at',' name', 'courseFullName'], 'safe'],
 		];
 	}
@@ -79,8 +79,8 @@ public $courseFullName;
 		$query = Schedule::find();
 
 		$dataProvider = new ActiveDataProvider([
-				'query' => $query,
-			]);
+			'query' => $query,
+		]);
 
 		$this->load($params);
 
@@ -123,7 +123,6 @@ public $courseFullName;
 				'created_at' => $this->created_at,
 				'updated_at' => $this->updated_at
 			]);
-			$this->addCondition($query, 'courseFullName');
 
 		$query->andFilterWhere(['like', 'start_hour', $this->start_hour])
 		->andFilterWhere(['like', 'end_hour', $this->end_hour])

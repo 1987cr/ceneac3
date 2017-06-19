@@ -9,6 +9,7 @@ use kartik\export\ExportMenu;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
 
 /**
  *
@@ -197,6 +198,7 @@ echo GridView::widget([
 					}
 				},
 				'format' => 'raw',
+				'filter'=> Html::activeDropDownList($searchModel, 'course_id', ArrayHelper::map(\app\models\Course::find()->asArray()->all(), 'id', 'name'),['class'=>'form-control','prompt' => 'Seleccionar Curso']),
 			],
 			[
 					'class' => yii\grid\DataColumn::className(),
